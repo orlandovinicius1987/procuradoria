@@ -36,7 +36,7 @@ return [
     ],
 
     'slack' => [
-        'webhook_url' => '***REMOVED***'
+        'webhook_url' => '***REMOVED***',
     ],
 
 ];
