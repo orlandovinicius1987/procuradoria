@@ -69,6 +69,7 @@ if (jQuery("#" + appName).length > 0) {
                 observacao_arquivamento: null,
                 tags: [],
                 tipo_processo_id: null,
+                ano_distribuicao: null,
             }
         },
 
@@ -84,7 +85,8 @@ if (jQuery("#" + appName).length > 0) {
                         processos_arquivados_incluidos: this.processos_arquivados_incluidos,
                         processos_arquivados_apenas: this.processos_arquivados_apenas,
                         advancedFilter: this.advancedFilter,
-                        filter: this.form
+                        filter: this.form,
+                        ano_distribuicao: this.form.ano_distribuicao,
                     }
                 })
                 .then(function(response) {
