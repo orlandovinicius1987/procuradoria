@@ -89,9 +89,12 @@ class Processos extends Base
      */
     public function filter($request)
     {
+
+
         $query = $this->makeProcessoQuery(
             $request->get('processos_arquivados_incluidos'),
-            $request->get('processos_arquivados_apenas')
+            $request->get('processos_arquivados_apenas'),
+            $request->get('ano_distribuicao')
         );
 
         if (!empty(($search = $request->get('search')))) {
@@ -329,7 +332,8 @@ class Processos extends Base
      */
     public function makeProcessoQuery(
         $processos_arquivados_incluidos = false,
-        $processos_arquivados_apenas = false
+        $processos_arquivados_apenas = false,
+        $ano_distribuicao = null
     ) {
         $query = new Processo();
 
@@ -339,6 +343,10 @@ class Processos extends Base
                 ->whereNotNull('data_arquivamento');
         } elseif (toBoolean($processos_arquivados_incluidos)) {
             $query = (new Processo())->withoutGlobalScope(ProcessoScope::class);
+        }
+        if(!is_null($ano_distribuicao)){
+            $query = (new Processo())
+                ->whereYear('data_distribuicao', '=',(int)$ano_distribuicao);
         }
 
         $query = $query

@@ -76,6 +76,7 @@ if (jQuery('#' + appName).length > 0) {
                 observacao_arquivamento: null,
                 tags: [],
                 tipo_processo_id: null,
+                ano_distribuicao: null,
             },
         },
 
@@ -93,6 +94,7 @@ if (jQuery('#' + appName).length > 0) {
                                 .processos_arquivados_apenas,
                             advancedFilter: this.advancedFilter,
                             filter: this.form,
+                            ano_distribuicao: this.form.ano_distribuicao,
                         },
                     })
                     .then(response => {
