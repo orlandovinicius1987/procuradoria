@@ -77,6 +77,7 @@ if (jQuery('#' + appName).length > 0) {
                 tags: [],
                 tipo_processo_id: null,
                 ano_distribuicao: null,
+
             },
         },
 

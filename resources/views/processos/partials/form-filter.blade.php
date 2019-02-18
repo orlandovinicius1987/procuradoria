@@ -148,6 +148,13 @@
             </div>
         </div>
 
+        <div class="col-xs-12 col-md-6">
+            <div class="form-group">
+                <label for="armazenado_em">Armazenamento</label>
+                <select2 v-model="form.armazenado_em" :options="[{text:'Não Armazenado',value:'Não Armazenado'},{text:'One Driver',value:'One Driver'}]"></select2>
+            </div>
+        </div>
+
         <div class="col-md-12">
             <div class="form-group">
                 <label for="objeto">Objeto</label>

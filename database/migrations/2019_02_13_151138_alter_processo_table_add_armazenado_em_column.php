@@ -14,10 +14,7 @@ class AlterProcessoTableAddArmazenadoEmColumn extends Migration
     public function up()
     {
         Schema::table('processos', function (Blueprint $table) {
-            $table
-                ->string('armazenado_em')
-                ->default('Não armazenado');
-
+            $table->string('armazenado_em')->default('Não armazenado');
         });
     }
 

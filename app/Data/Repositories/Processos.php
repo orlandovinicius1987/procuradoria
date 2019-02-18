@@ -54,7 +54,7 @@ class Processos extends Base
         'observacao' => 'string',
         'link' => 'string',
         'site_alerj_link' => 'string',
-        'armazenado_em'     => 'string',
+        'armazenado_em' => 'string',
     ];
 
     /**
