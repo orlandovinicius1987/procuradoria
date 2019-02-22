@@ -236,7 +236,6 @@ if (jQuery('#' + appName).length > 0) {
 
             this.refreshTable('armazenados_em')
 
-          //  this.tables['armazenados_em'] = [{"id":"Não armazenado","nome":"Não armazenado","text":"Não armazenado","value":"Não Armazenado"},{"id":"One Drive","nome":"One Drive","text":"One Drive","value":'One Drive'}]
         },
     })
 }
