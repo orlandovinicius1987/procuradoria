@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\Repositories\TiposProcessos as TiposProcessosRepository;
+use App\Data\Repositories\ArmazenadosEm as ArmazenadosEmRepository;
 
-class TiposProcessos extends Controller
+class ArmazenadosEm extends Controller
 {
     /**
      * @return mixed
      */
     public function index()
     {
-        return app(TiposProcessosRepository::class)->all();
+        return app(ArmazenadosEmRepository::class)->all();
     }
 }

@@ -1,5 +1,5 @@
 <?php
 
-Route::get('/tipos_processos', 'TiposProcessos@index')->name(
-    'tipos_processos.index'
+Route::get('/armazenados_em', 'ArmazenadosEm@index')->name(
+    'armazenados_em.index'
 );
