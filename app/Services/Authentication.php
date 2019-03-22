@@ -87,7 +87,7 @@ class Authentication
 
             if (is_null($user)) {
                 //Sistema de login fora do ar e usuário novo
-                Log::error('O usuário '.extract_credentials($request)['username'].' tentou fazer login, mas não foi possível pois o SGUS está fora do ar e não há histrórico do usuário no banco de dados');
+                Log::error('O usuário '.extract_credentials($request)['username'].' tentou fazer login, mas não foi possível pois o SGUS está fora do ar e não há histórico do usuário no banco de dados');
                 abort(403);
             } else {
                 //Usuário já cadastrado
