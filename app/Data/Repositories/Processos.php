@@ -110,8 +110,6 @@ class Processos extends Base
             ) use ($query) {
                 if (!empty($search)) {
                     $this->addQueryByType($search, $column, $query);
-                    dump($search);
-                    dump($column);
                 }
             });
         }
