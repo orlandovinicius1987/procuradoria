@@ -91,7 +91,7 @@ if (jQuery('#' + appName).length > 0) {
 
         methods: {
             refresh() {
-                console.info('refreshing...')
+
                 this.refreshing = true
 
                 axios
@@ -110,7 +110,6 @@ if (jQuery('#' + appName).length > 0) {
                     })
                     .then(response => {
                         this.tables.processos = response.data
-                        console.info('response.data:::::',response.data)
                         this.refreshing = false
                     })
                     .catch(error => {
@@ -195,7 +194,7 @@ if (jQuery('#' + appName).length > 0) {
                     .get('/' + table)
                     .then(response => {
                         this.tables[table] = response.data
-                        console.info('response.data:::::',response.data)
+
                     })
                     .catch(error => {
                         console.log(error)
