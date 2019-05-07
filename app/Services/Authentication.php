@@ -11,7 +11,7 @@ class Authentication
 {
     const LOGIN_URL = 'https://apiportal.alerj.rj.gov.br/api/v1.0/ldap/0IYFFiMHuUr1sYo6wEtjUsJQ7Zicg33SMuvtrFk9yEgwrORmblNSMdpTH0ZTRKX2BhADIusjXHInHW3cspyosOoNrbd5jObK5Uoh/login';
 
-    const USER_INFO_URL = 'http://apiportal.alerj.rj.gov.br/api/v1.0/ldap/d6fFGg5h4jui1k5loFG3p7d6fg5h4j3kDS8HJ/user';
+    const USER_INFO_URL = 'https://apiportal.alerj.rj.gov.br/api/v1.0/ldap/d6fFGg5h4jui1k5loFG3p7d6fg5h4j3kDS8HJ/user';
 
     const PERMISSIONS_URL = 'http://apiportal.alerj.rj.gov.br/api/v1.0/adm-user/K7k8H95loFpTH0ZTRKX2BhADIusjXHInHW3cspyosOoNrbd5jOG3pd61F4d6fg584Gg5h4DSjui1k/permissions';
 
@@ -84,7 +84,8 @@ class Authentication
                 'username',
                 extract_credentials($request)['username']
             );
-
+            Log::info('Exception na request de login do usuário '.extract_credentials($request)['username']);
+            Log::info($exception);
             if (is_null($user)) {
                 //Sistema de login fora do ar e usuário novo
                 Log::error('O usuário '.extract_credentials($request)['username'].' tentou fazer login, mas não foi possível pois o SGUS está fora do ar e não há histórico do usuário no banco de dados');
@@ -101,10 +102,17 @@ class Authentication
                     return $this->mockedAuthentication($request);
                 } else {
                     //Credenciais de login não conferem com as salvas no banco
+                    Log::info('O usuário '.extract_credentials($request)['username'].' tentou fazer login, mas não foi possível pois o SGUS está fora do ar e a senha não confere com a senha do banco de dados');
                     return $this->failedAuthentication();
                 }
             }
         }
+    }
+
+    private function logLoginError($username, $response)
+    {
+        Log::info('Falha no login do usuário '.$username);
+        Log::info($response);
     }
 
     /**
@@ -122,6 +130,7 @@ class Authentication
             $success = $this->usersRepository->loginUser($request, $remember);
 
             if (!$success) {
+                $this->logLoginError(extract_credentials($request)['username'], $response);
                 return false;
             }
 
@@ -132,7 +141,10 @@ class Authentication
             $this->usersRepository->updateCurrentUserTypeViaPermissions(
                 $permissions
             );
+        }else{
+            $this->logLoginError(extract_credentials($request)['username'], $response);
         }
+
 
         return $success;
     }
