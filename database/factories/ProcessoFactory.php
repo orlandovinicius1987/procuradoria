@@ -20,7 +20,7 @@ $factory->define(App\Data\Models\Processo::class, function (Faker $faker) {
         'tribunal_id' => function () {
             return factory(\App\Data\Models\Tribunal::class)->create()->id;
         },
-        'vara' => $faker->name, //'origem_complemento' => $faker->name,
+        'vara' => only_letters_and_space($faker->name), //'origem_complemento' => only_letters_and_space($faker->name),
         'data_distribuicao' => $faker->date('Y-m-d h:m:i'),
         'acao_id' => function () {
             return factory(\App\Data\Models\Acao::class)->create()->id;
@@ -28,16 +28,16 @@ $factory->define(App\Data\Models\Processo::class, function (Faker $faker) {
         'relator_id' => function () {
             return factory(\App\Data\Models\Juiz::class)->create()->id;
         },
-        'apensos_obs' => $faker->name,
+        'apensos_obs' => only_letters_and_space($faker->name),
         'juiz_id' => function () {
             return factory(\App\Data\Models\Juiz::class)->create()->id;
         },
-        'autor' => $faker->name,
-        'reu' => $faker->name,
-        'objeto' => $faker->name,
-        'merito' => $faker->name,
-        'liminar' => $faker->name,
-        'recurso' => $faker->name,
+        'autor' => only_letters_and_space($faker->name),
+        'reu' => only_letters_and_space($faker->name),
+        'objeto' => only_letters_and_space($faker->name),
+        'merito' => only_letters_and_space($faker->name),
+        'liminar' => only_letters_and_space($faker->name),
+        'recurso' => only_letters_and_space($faker->name),
         'procurador_id' => function () {
             return factory(\App\Data\Models\User::class)->create()->id;
         },

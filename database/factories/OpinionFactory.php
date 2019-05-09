@@ -24,11 +24,11 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(OpinionScopeModel::class, function (Faker $faker) {
-    return ['name' => $faker->name];
+    return ['name' => only_letters_and_space($faker->name)];
 });
 
 $factory->define(OpinionSubjectModel::class, function (Faker $faker) {
-    return ['name' => $faker->name];
+    return ['name' => only_letters_and_space($faker->name)];
 });
 
 $factory->define(OpinionsSubjectModel::class, function (Faker $faker) {
@@ -47,7 +47,7 @@ $factory->define(OpinionsSubjectModel::class, function (Faker $faker) {
 });
 
 $factory->define(OpinionTypeModel::class, function (Faker $faker) {
-    return ['name' => $faker->name];
+    return ['name' => only_letters_and_space($faker->name)];
 });
 
 $factory->define(OpinionModel::class, function (Faker $faker) {
@@ -67,11 +67,11 @@ $factory->define(OpinionModel::class, function (Faker $faker) {
                 ->getByType('Procurador')
                 ->toArray()
         )['id'],
-        'suit_number' => $faker->name,
-        'suit_sheet' => $faker->name,
-        'identifier' => $faker->name,
+        'suit_number' => only_letters_and_space($faker->name),
+        'suit_sheet' => only_letters_and_space($faker->name),
+        'identifier' => only_letters_and_space($faker->name),
         'date' => $faker->date,
-        'party' => $faker->name,
+        'party' => only_letters_and_space($faker->name),
         'abstract' => $faker->text,
         'opinion' => $faker->text,
         'file_pdf' => $faker->text,

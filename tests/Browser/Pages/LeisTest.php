@@ -60,9 +60,9 @@ class LeisTest extends DuskTestCase
             '/' .
             (string) $faker->randomNumber(4);
 
-        static::$autor = $faker->name;
-        static::$assunto = $faker->name;
-        static::$link = $faker->name;
+        static::$autor = only_letters_and_space($faker->name);
+        static::$assunto = only_letters_and_space($faker->name);
+        static::$link = only_letters_and_space($faker->name);
 
         static::$artigo = $faker->randomNumber(2);
         static::$paragrafo = $faker->randomNumber(2);
@@ -70,24 +70,20 @@ class LeisTest extends DuskTestCase
         static::$alinea = $faker->randomNumber(2);
         static::$item = $faker->randomNumber(2);
 
-        static::$nivel_federativo = (object) $faker->randomElement(
-            app(NiveisFederativosRepository::class)
-                ->all()
-                ->toArray()
-        );
-        static::$tipo_lei = (object) $faker->randomElement(
-            app(TiposLeisRepository::class)
-                ->all()
-                ->toArray()
-        );
+        static::$nivel_federativo = (object) app(
+            NiveisFederativosRepository::class
+        )
+            ->randomElement()
+            ->toArray();
+        static::$tipo_lei = (object) app(TiposLeisRepository::class)
+            ->randomElement()
+            ->toArray();
 
         $this->insertProcesso();
         static::$insertProcessoId = app(ProcessosRepository::class)->maxId();
-        static::$processo = (object) $faker->randomElement(
-            app(ProcessosRepository::class)
-                ->all()
-                ->toArray()
-        );
+        static::$processo = (object) app(ProcessosRepository::class)
+            ->randomElement()
+            ->toArray();
     }
 
     public function testVisit()

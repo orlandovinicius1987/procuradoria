@@ -14,8 +14,8 @@ class AcoesTest extends DuskTestCase
     public function init()
     {
         $faker = app(Faker::class);
-        static::$nomeAcao = $faker->name;
-        static::$abreviacaoAcao = $faker->name;
+        static::$nomeAcao = only_letters_and_space($faker->name);
+        static::$abreviacaoAcao = only_letters_and_space($faker->name);
     }
 
     public function testInsert()
