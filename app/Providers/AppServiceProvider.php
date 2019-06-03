@@ -20,6 +20,18 @@ class AppServiceProvider extends ServiceProvider
         $this->usersRepository = app(Users::class);
     }
 
+    private function setUpMailMessagesPerMinute()
+    {
+        $throttleRate = config('mail.throttleToMessagesPerMin');
+        if ($throttleRate) {
+            $throttlerPlugin = new \Swift_Plugins_ThrottlerPlugin(
+                $throttleRate,
+                \Swift_Plugins_ThrottlerPlugin::MESSAGES_PER_MINUTE
+            );
+            \Mail::getSwiftMailer()->registerPlugin($throttlerPlugin);
+        }
+    }
+
     /**
      * Bootstrap any application services.
      *
@@ -30,6 +42,8 @@ class AppServiceProvider extends ServiceProvider
         $this->bootGates();
 
         $this->bootComposers();
+
+        $this->setUpMailMessagesPerMinute();
     }
 
     private function bootComposers()
