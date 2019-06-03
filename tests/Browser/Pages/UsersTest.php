@@ -69,6 +69,7 @@ class UsersTest extends DuskTestCase
         ) {
             $browser
                 ->visit('/users')
+                ->waitForText($randomUserU['name'])
                 ->clickLink($randomUserU['name'])
                 ->assertPathIs('/users/' . $randomUserU['id'])
                 ->assertSee($randomUserU['email']);

@@ -15,6 +15,9 @@ cache:
   directories:
     - $HOME/.composer/cache
 
+before_install:
+  - export TZ=America/Sao_Paulo
+
 before_script:
   - sudo apt-get -y update
   - sudo apt-get -y install google-chrome-stable
@@ -43,6 +46,10 @@ after_script:
       wget https://scrutinizer-ci.com/ocular.phar
       php ocular.phar code-coverage:upload --format=php-clover coverage.clover
     fi
+
+after_failure:
+  - php artisan email:failure
+  - cat storage/logs/laravel.log
 
 notifications:
   email: false

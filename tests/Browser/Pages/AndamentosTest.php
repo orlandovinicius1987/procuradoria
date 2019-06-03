@@ -124,14 +124,8 @@ class AndamentosTest extends DuskTestCase
         $tipoPrazoA = app(TiposPrazosRepository::class)
             ->randomElement()
             ->toArray();
-        $dataPrazoA = \DateTime::createFromFormat(
-            'm-d-Y',
-            '03-02-2333'
-        )->format('m-d-Y');
-        $dataEntregaA = \DateTime::createFromFormat(
-            'm-d-Y',
-            '04-05-2444'
-        )->format('m-d-Y');
+        $dataPrazoA = \DateTime::createFromFormat('m-d-Y', '03-02-2333');
+        $dataEntregaA = \DateTime::createFromFormat('m-d-Y', '04-05-2444');
         $observacaoA = only_letters_and_space($faker->name);
 
         $numProcesso = static::$processoAndamento['numero_judicial'];
@@ -152,24 +146,16 @@ class AndamentosTest extends DuskTestCase
                 ->select('#processo_id', $processoA['id'])
                 ->select('#tipo_andamento_id', $tipoAndamentoA['id'])
                 ->select('#tipo_prazo_id', $tipoPrazoA['id'])
-                ->keys('#data_prazo', $dataPrazoA)
-                ->keys('#data_entrega', $dataEntregaA)
+                ->keys('#data_prazo', $dataPrazoA->format('d/m/Y'))
+                ->keys('#data_entrega', $dataEntregaA->format('d/m/Y'))
                 ->type('#observacoes', $observacaoA)
                 ->press('Gravar')
                 ->assertSee('Gravado com sucesso')
                 ->assertSee($processoA['numero_judicial'])
                 ->assertSee($tipoAndamentoA['nome'])
                 ->assertSee($tipoPrazoA['nome'])
-                ->waitForText(
-                    Carbon::createFromFormat('m-d-Y', $dataPrazoA)->format(
-                        'd/m/Y'
-                    )
-                )
-                ->waitForText(
-                    Carbon::createFromFormat('m-d-Y', $dataEntregaA)->format(
-                        'd/m/Y'
-                    )
-                )
+                ->waitForText($dataPrazoA->format('d/m/Y'))
+                ->waitForText($dataEntregaA->format('d/m/Y'))
                 ->assertSee($observacaoA);
         });
     }

@@ -47,7 +47,7 @@ class ProcessosTest extends DuskTestCase
                 $faker->numberBetween(1, 12) .
                 '-' .
                 $faker->numberBetween(2000, 3000)
-        )->format('d-m-Y');
+        );
     }
 
     public function init()
@@ -154,7 +154,10 @@ class ProcessosTest extends DuskTestCase
                 ->type('#numero_alerj', $numeroAlerjP)
                 ->select('#tribunal_id', $tribunalP['id'])
                 ->type('#vara', $varaP)
-                ->keys('#data_distribuicao', $dataDistribuicaoP)
+                ->keys(
+                    '#data_distribuicao',
+                    $dataDistribuicaoP->format('d/m/Y')
+                )
                 ->screenshot('testeDataDist')
                 ->select('#acao_id', $acaoP['id'])
                 ->select('#juiz_id', $juizP['id'])
@@ -316,7 +319,10 @@ class ProcessosTest extends DuskTestCase
                 ->click('#editar')
                 ->type('#numero_judicial', $novoNumeroJudicialP)
                 ->select('#tribunal_id', $novoTribunalP['id'])
-                ->keys('#data_distribuicao', $novoDataDistribuicaoP)
+                ->keys(
+                    '#data_distribuicao',
+                    $novoDataDistribuicaoP->format('d/m/Y')
+                )
                 ->type('#autor', $novoAutorP)
                 ->select('#procurador_id', $novoProcuradorP['id'])
                 ->select('#estagiario_id', $novoEstagiarioP['id'])
