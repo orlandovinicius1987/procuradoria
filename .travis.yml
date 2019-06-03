@@ -8,6 +8,7 @@ php:
 
 services:
     - postgresql
+    - redis-server
 
 sudo: true
 
@@ -19,6 +20,7 @@ before_install:
   - export TZ=America/Sao_Paulo
 
 before_script:
+  - sudo redis-server /etc/redis/redis.conf --port 6379
   - sudo apt-get -y update
   - sudo apt-get -y install google-chrome-stable
   - cp .env.travis .env
@@ -38,9 +40,11 @@ before_script:
   - php artisan serve &
 
 script:
+  - nohup php artisan queue:work --daemon &
   - php artisan dusk
 
 after_script:
+  - cat nohup.out
   - |
     if [[ "$TRAVIS_PHP_VERSION" == '7.2' ]]; then
       wget https://scrutinizer-ci.com/ocular.phar

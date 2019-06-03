@@ -18,7 +18,12 @@ class UsersTest extends DuskTestCase
         $faker = app(Faker::class);
         static::$personalEmailUsers = $faker->email;
         static::$NameUsers = only_letters_and_space($faker->name);
-        static::$randomUserUsers = app(UsersRepository::class)->randomElement();
+
+        do {
+            static::$randomUserUsers = app(
+                UsersRepository::class
+            )->randomElement();
+        } while (static::$randomUserUsers->userType->nome == 'Administrador');
     }
 
     public function testValidation()
