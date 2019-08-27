@@ -58,6 +58,7 @@ class Processos extends Base
         'link' => 'string',
         'site_alerj_link' => 'string',
         'armazenado_em' => 'string',
+        'ementa' => 'string'
     ];
 
     /**
@@ -307,7 +308,7 @@ class Processos extends Base
                 'leis' => $leis,
                 'allLeis' => $allLeis,
                 'tags' => Tag::all(),
-                'tiposProcessos' => ModelTipoProcesso::orderBy('nome')->get(),
+                'tiposProcessos' => ModelTipoProcesso::orderBy('nome')->get()
             ];
         });
     }
@@ -408,7 +409,7 @@ class Processos extends Base
                         : $processo->estagiario->name;
 
                     $processo['show_url'] = route('processos.show', [
-                        'id' => $processo['id'],
+                        'id' => $processo['id']
                     ]);
 
                     return $processo;

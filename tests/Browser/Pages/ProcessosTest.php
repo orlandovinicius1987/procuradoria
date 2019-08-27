@@ -11,6 +11,7 @@ use App\Data\Repositories\Users as UsersRepository;
 use Faker\Generator as Faker;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
+use Carbon\Carbon;
 
 class ProcessosTest extends DuskTestCase
 {
@@ -29,6 +30,7 @@ class ProcessosTest extends DuskTestCase
     private static $assessorProcesso;
     private static $tipoMeioProcesso;
     private static $objetoProcesso;
+    private static $ementaProcesso;
     private static $meritoProcesso;
     private static $liminarProcesso;
     private static $apensosObsProcesso;
@@ -36,35 +38,40 @@ class ProcessosTest extends DuskTestCase
     private static $observacaoProcesso;
     private static $linkProcesso;
 
+    public function randomAcceptableDate()
+    {
+        $faker = app(Faker::class);
+        return Carbon::createFromFormat(
+            'd-m-Y',
+            $faker->numberBetween(1, 28) .
+                '-' .
+                $faker->numberBetween(1, 12) .
+                '-' .
+                $faker->numberBetween(2000, 3000)
+        );
+    }
+
     public function init()
     {
         $faker = app(Faker::class);
         static::$numeroJudicialProcesso = $faker->randomNumber();
         static::$numeroAlerjProcesso = $faker->randomNumber();
-        static::$tribunalProcesso = $faker->randomElement(
-            app(TribunaisRepository::class)
-                ->all()
-                ->toArray()
-        );
-        static::$varaProcesso = $faker->name;
-        static::$dataDistribuicaoProcesso = $faker->date('m-d-Y');
-        static::$acaoProcesso = $faker->randomElement(
-            app(AcoesRepository::class)
-                ->all()
-                ->toArray()
-        );
-        static::$juizProcesso = $faker->randomElement(
-            app(JuizesRepository::class)
-                ->all()
-                ->toArray()
-        );
-        static::$autorProcesso = $faker->name;
-        static::$relatorProcesso = $faker->randomElement(
-            app(JuizesRepository::class)
-                ->all()
-                ->toArray()
-        );
-        static::$reuProcesso = $faker->name;
+        static::$tribunalProcesso = app(TribunaisRepository::class)
+            ->randomElement()
+            ->toArray();
+        static::$varaProcesso = only_letters_and_space($faker->name);
+        static::$dataDistribuicaoProcesso = $this->randomAcceptableDate();
+        static::$acaoProcesso = app(AcoesRepository::class)
+            ->randomElement()
+            ->toArray();
+        static::$juizProcesso = app(JuizesRepository::class)
+            ->randomElement()
+            ->toArray();
+        static::$autorProcesso = only_letters_and_space($faker->name);
+        static::$relatorProcesso = app(JuizesRepository::class)
+            ->randomElement()
+            ->toArray();
+        static::$reuProcesso = only_letters_and_space($faker->name);
         static::$procuradorProcesso = $faker->randomElement(
             app(UsersRepository::class)
                 ->getByType('Procurador')
@@ -80,18 +87,17 @@ class ProcessosTest extends DuskTestCase
                 ->getByType('Assessor')
                 ->toArray()
         );
-        static::$tipoMeioProcesso = $faker->randomElement(
-            app(MeiosRepository::class)
-                ->all()
-                ->toArray()
-        );
-        static::$objetoProcesso = $faker->name;
-        static::$meritoProcesso = $faker->name;
-        static::$liminarProcesso = $faker->name;
-        static::$apensosObsProcesso = $faker->name;
-        static::$recursoObsProcesso = $faker->name;
-        static::$observacaoProcesso = $faker->name;
-        static::$linkProcesso = $faker->name;
+        static::$tipoMeioProcesso = app(MeiosRepository::class)
+            ->randomElement()
+            ->toArray();
+        static::$objetoProcesso = only_letters_and_space($faker->name);
+        static::$ementaProcesso = only_letters_and_space($faker->name);
+        static::$meritoProcesso = only_letters_and_space($faker->name);
+        static::$liminarProcesso = only_letters_and_space($faker->name);
+        static::$apensosObsProcesso = only_letters_and_space($faker->name);
+        static::$recursoObsProcesso = only_letters_and_space($faker->name);
+        static::$observacaoProcesso = only_letters_and_space($faker->name);
+        static::$linkProcesso = only_letters_and_space($faker->name);
     }
 
     public function testInsert()
@@ -113,6 +119,7 @@ class ProcessosTest extends DuskTestCase
         $assessorP = static::$assessorProcesso;
         $tipoMeioP = static::$tipoMeioProcesso;
         $objetoP = static::$objetoProcesso;
+        $ementaP = static::$ementaProcesso;
         $meritoP = static::$meritoProcesso;
         $liminarP = static::$liminarProcesso;
         $apensosObsP = static::$apensosObsProcesso;
@@ -136,6 +143,7 @@ class ProcessosTest extends DuskTestCase
             $assessorP,
             $tipoMeioP,
             $objetoP,
+            $ementaP,
             $meritoP,
             $liminarP,
             $apensosObsP,
@@ -150,7 +158,11 @@ class ProcessosTest extends DuskTestCase
                 ->type('#numero_alerj', $numeroAlerjP)
                 ->select('#tribunal_id', $tribunalP['id'])
                 ->type('#vara', $varaP)
-                ->keys('#data_distribuicao', $dataDistribuicaoP)
+                ->keys(
+                    '#data_distribuicao',
+                    $dataDistribuicaoP->format('d/m/Y')
+                )
+                ->screenshot('testeDataDist')
                 ->select('#acao_id', $acaoP['id'])
                 ->select('#juiz_id', $juizP['id'])
                 ->type('#autor', $autorP)
@@ -161,6 +173,7 @@ class ProcessosTest extends DuskTestCase
                 ->select('#assessor_id', $assessorP['id'])
                 ->select('#tipo_meio', $tipoMeioP['id'])
                 ->type('#objeto', $objetoP)
+                ->type('#ementa', $ementaP)
                 ->type('#merito', $meritoP)
                 ->type('#liminar', $liminarP)
                 ->type('#apensos_obs', $apensosObsP)
@@ -186,12 +199,10 @@ class ProcessosTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser
                 ->visit('/')
-                ->type(
-                    'pesquisa',
-                    '132312312vcxvdsf4142354346asfdb455756awsdgdn756867897887934645654'
-                )
-                ->pause('3000')
+                ->type('pesquisa', '132312312vcxvdsf413543445654')
+                ->click('@submit-search')
                 ->waitForText('0 Processos')
+                ->screenshot('wrongsearch')
                 ->assertSee('0 Processos');
         });
     }
@@ -213,6 +224,7 @@ class ProcessosTest extends DuskTestCase
         $assessorP = static::$assessorProcesso;
         $tipoMeioP = static::$tipoMeioProcesso;
         $objetoP = static::$objetoProcesso;
+        $ementaP = static::$ementaProcesso;
         $meritoP = static::$meritoProcesso;
         $liminarP = static::$liminarProcesso;
         $apensosObsP = static::$apensosObsProcesso;
@@ -236,6 +248,7 @@ class ProcessosTest extends DuskTestCase
             $assessorP,
             $tipoMeioP,
             $objetoP,
+            $ementaP,
             $meritoP,
             $liminarP,
             $apensosObsP,
@@ -246,6 +259,7 @@ class ProcessosTest extends DuskTestCase
             $browser
                 ->visit('/')
                 ->type('pesquisa', $numeroJudicialP)
+                ->click('@submit-search')
                 ->waitForText($numeroAlerjP)
                 ->assertSee($numeroAlerjP);
         });
@@ -269,21 +283,18 @@ class ProcessosTest extends DuskTestCase
     public function testAlter()
     {
         $faker = app(Faker::class);
-        $ProcessoP = $faker->randomElement(
-            app(ProcessosRepository::class)
-                ->all()
-                ->toArray()
-        );
+        $ProcessoP = app(ProcessosRepository::class)
+            ->randomElement()
+            ->toArray();
         $novoNumeroJudicialP = $faker->randomNumber();
 
-        $novoDataDistribuicaoP = $faker->date('m-d-Y');
-        $novoTribunalP = $faker->randomElement(
-            app(TribunaisRepository::class)
-                ->all()
-                ->toArray()
-        );
-        $novoAutorP = $faker->name;
-        $novoObjetoP = $faker->name;
+        $novoDataDistribuicaoP = $this->randomAcceptableDate();
+        $novoTribunalP = app(TribunaisRepository::class)
+            ->randomElement()
+            ->toArray();
+        $novoAutorP = only_letters_and_space($faker->name);
+        $novoObjetoP = only_letters_and_space($faker->name);
+        $novaEmentaP = only_letters_and_space($faker->name);
         $novoProcuradorP = $faker->randomElement(
             app(UsersRepository::class)
                 ->getByType('Procurador')
@@ -307,6 +318,7 @@ class ProcessosTest extends DuskTestCase
             $novoTribunalP,
             $novoAutorP,
             $novoObjetoP,
+            $novaEmentaP,
             $novoProcuradorP,
             $novoAssessorP,
             $novoEstagiarioP
@@ -316,11 +328,15 @@ class ProcessosTest extends DuskTestCase
                 ->click('#editar')
                 ->type('#numero_judicial', $novoNumeroJudicialP)
                 ->select('#tribunal_id', $novoTribunalP['id'])
-                ->keys('#data_distribuicao', $novoDataDistribuicaoP)
+                ->keys(
+                    '#data_distribuicao',
+                    $novoDataDistribuicaoP->format('d/m/Y')
+                )
                 ->type('#autor', $novoAutorP)
                 ->select('#procurador_id', $novoProcuradorP['id'])
                 ->select('#estagiario_id', $novoEstagiarioP['id'])
                 ->select('#assessor_id', $novoAssessorP['id'])
+                ->type('#ementa', $novaEmentaP)
                 ->type('#objeto', $novoObjetoP)
                 ->press('Gravar')
                 ->assertSee('Gravado com sucesso', 30)

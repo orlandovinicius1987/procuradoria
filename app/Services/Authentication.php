@@ -84,11 +84,18 @@ class Authentication
                 'username',
                 extract_credentials($request)['username']
             );
-            Log::info('Exception na request de login do usuário '.extract_credentials($request)['username']);
+            Log::info(
+                'Exception na request de login do usuário ' .
+                    extract_credentials($request)['username']
+            );
             Log::info($exception);
             if (is_null($user)) {
                 //Sistema de login fora do ar e usuário novo
-                Log::error('O usuário '.extract_credentials($request)['username'].' tentou fazer login, mas não foi possível pois o SGUS está fora do ar e não há histórico do usuário no banco de dados');
+                Log::error(
+                    'O usuário ' .
+                        extract_credentials($request)['username'] .
+                        ' tentou fazer login, mas não foi possível pois o SGUS está fora do ar e não há histórico do usuário no banco de dados'
+                );
                 abort(403);
             } else {
                 //Usuário já cadastrado
@@ -102,7 +109,11 @@ class Authentication
                     return $this->mockedAuthentication($request);
                 } else {
                     //Credenciais de login não conferem com as salvas no banco
-                    Log::info('O usuário '.extract_credentials($request)['username'].' tentou fazer login, mas não foi possível pois o SGUS está fora do ar e a senha não confere com a senha do banco de dados');
+                    Log::info(
+                        'O usuário ' .
+                            extract_credentials($request)['username'] .
+                            ' tentou fazer login, mas não foi possível pois o SGUS está fora do ar e a senha não confere com a senha do banco de dados'
+                    );
                     return $this->failedAuthentication();
                 }
             }
@@ -111,7 +122,7 @@ class Authentication
 
     private function logLoginError($username, $response)
     {
-        Log::info('Falha no login do usuário '.$username);
+        Log::info('Falha no login do usuário ' . $username);
         Log::info($response);
     }
 
@@ -130,7 +141,10 @@ class Authentication
             $success = $this->usersRepository->loginUser($request, $remember);
 
             if (!$success) {
-                $this->logLoginError(extract_credentials($request)['username'], $response);
+                $this->logLoginError(
+                    extract_credentials($request)['username'],
+                    $response
+                );
                 return false;
             }
 
@@ -141,10 +155,12 @@ class Authentication
             $this->usersRepository->updateCurrentUserTypeViaPermissions(
                 $permissions
             );
-        }else{
-            $this->logLoginError(extract_credentials($request)['username'], $response);
+        } else {
+            $this->logLoginError(
+                extract_credentials($request)['username'],
+                $response
+            );
         }
-
 
         return $success;
     }
@@ -165,10 +181,10 @@ class Authentication
                 'email' => [$credentials['username'] . '@alerj.rj.gov.br'],
                 'memberof' => [
                     'CN=ProjEsp,OU=SDGI,OU=Departamentos,OU=ALERJ,DC=alerj,DC=gov,DC=br',
-                    'CN=SDGI,OU=SDGI,OU=Departamentos,OU=ALERJ,DC=alerj,DC=gov,DC=br',
+                    'CN=SDGI,OU=SDGI,OU=Departamentos,OU=ALERJ,DC=alerj,DC=gov,DC=br'
                 ],
-                'description' => ['matricula: N/C'],
-            ],
+                'description' => ['matricula: N/C']
+            ]
         ];
     }
 
@@ -181,7 +197,7 @@ class Authentication
             'success' => false,
             'code' => 401,
             'message' => 'Attempt failed.',
-            'data' => [],
+            'data' => []
         ];
     }
 }

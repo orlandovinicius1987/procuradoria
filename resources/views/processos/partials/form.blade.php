@@ -266,6 +266,14 @@
 
         <div class="col-md-12">
             <div class="form-group">
+                <label for="ementa">Ementa</label>
+                <textarea name="ementa" class="form-control" @include('partials.readonly')
+                id="ementa" placeholder="Informe a Ementa">{{is_null(old('ementa'))? $processo->ementa : old('ementa')}}</textarea>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
                 <label for="objeto">Objeto</label>
                 <textarea name="objeto" class="form-control" @include('partials.readonly')
                 id="objeto" placeholder="Informe o Objeto">{{is_null(old('objeto'))? $processo->objeto : old('objeto')}}</textarea>

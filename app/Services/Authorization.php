@@ -41,7 +41,7 @@ class Authorization
             $response = collect(
                 $this->remoteRequest->post(static::PERMISSIONS_URL, [
                     'username' => $username,
-                    'system' => static::SYSTEM_NAME,
+                    'system' => static::SYSTEM_NAME
                 ])
             );
 
@@ -72,14 +72,43 @@ class Authorization
      */
     private function mockedPermissions($username)
     {
-        return collect(['Editar']);
+        return collect([
+            [
+                'nomeFuncao' => 'Editar',
+                'evento' => 'Editar'
+            ],
+            [
+                'nomeFuncao' => 'Procurador',
+                'evento' => 'Procurar'
+            ],
+            [
+                'nomeFuncao' => 'Assessor',
+                'evento' => 'Assessorar'
+            ],
+            [
+                'nomeFuncao' => 'Estagi rio',
+                'evento' => 'Estagiar'
+            ],
+            [
+                'nomeFuncao' => 'Administrador',
+                'evento' => 'Administrador'
+            ],
+            [
+                'nomeFuncao' => 'Editar',
+                'evento' => 'Editar'
+            ],
+            [
+                'nomeFuncao' => 'Procurador',
+                'evento' => 'Procurar'
+            ]
+        ]);
     }
 
     private function storedPermissions($user)
     {
         $permissionsArray[] = collect([
             'nomeFuncao' => $user->userType->nome,
-            'evento' => $user->userType->nome,
+            'evento' => $user->userType->nome
         ]);
 
         return collect($permissionsArray);

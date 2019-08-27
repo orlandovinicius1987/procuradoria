@@ -57,6 +57,11 @@ function only_numbers($string)
     return preg_replace('/\D/', '', $string);
 }
 
+function only_letters_and_space($string)
+{
+    return preg_replace('/([^a-zA-Z\s])/', '', $string);
+}
+
 /**
  * @param $item
  *
@@ -679,7 +684,7 @@ function removerAcentuacao($str, $utf8 = true)
         'ჭ' => 'c',
         'ხ' => 'k',
         'ჯ' => 'j',
-        'ჰ' => 'h',
+        'ჰ' => 'h'
     ];
     $str = str_replace(
         array_keys($transliteration),
