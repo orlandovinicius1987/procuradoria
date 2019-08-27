@@ -25,6 +25,6 @@ $factory->define(App\Data\Models\Juiz::class, function (Faker $faker) {
         },
         'tipo_juiz_id' => function () {
             return factory(\App\Data\Models\TipoJuiz::class)->create()->id;
-        },
+        }
     ];
 });

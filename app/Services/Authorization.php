@@ -41,7 +41,7 @@ class Authorization
             $response = collect(
                 $this->remoteRequest->post(static::PERMISSIONS_URL, [
                     'username' => $username,
-                    'system' => static::SYSTEM_NAME,
+                    'system' => static::SYSTEM_NAME
                 ])
             );
 
@@ -75,32 +75,32 @@ class Authorization
         return collect([
             [
                 'nomeFuncao' => 'Editar',
-                'evento' => 'Editar',
+                'evento' => 'Editar'
             ],
             [
                 'nomeFuncao' => 'Procurador',
-                'evento' => 'Procurar',
+                'evento' => 'Procurar'
             ],
             [
                 'nomeFuncao' => 'Assessor',
-                'evento' => 'Assessorar',
+                'evento' => 'Assessorar'
             ],
             [
                 'nomeFuncao' => 'Estagi rio',
-                'evento' => 'Estagiar',
+                'evento' => 'Estagiar'
             ],
             [
                 'nomeFuncao' => 'Administrador',
-                'evento' => 'Administrador',
+                'evento' => 'Administrador'
             ],
             [
                 'nomeFuncao' => 'Editar',
-                'evento' => 'Editar',
+                'evento' => 'Editar'
             ],
             [
                 'nomeFuncao' => 'Procurador',
-                'evento' => 'Procurar',
-            ],
+                'evento' => 'Procurar'
+            ]
         ]);
     }
 
@@ -108,7 +108,7 @@ class Authorization
     {
         $permissionsArray[] = collect([
             'nomeFuncao' => $user->userType->nome,
-            'evento' => $user->userType->nome,
+            'evento' => $user->userType->nome
         ]);
 
         return collect($permissionsArray);

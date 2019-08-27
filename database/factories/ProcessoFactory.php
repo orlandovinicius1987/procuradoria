@@ -50,6 +50,6 @@ $factory->define(App\Data\Models\Processo::class, function (Faker $faker) {
         },
         'tipo_meio_id' => function () {
             return factory(\App\Data\Models\Meio::class)->create()->id;
-        },
+        }
     ];
 });

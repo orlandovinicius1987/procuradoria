@@ -42,7 +42,7 @@ $factory->define(OpinionsSubjectModel::class, function (Faker $faker) {
             app(OpinionSubjectsRepository::class)
                 ->all()
                 ->toArray()
-        )['id'],
+        )['id']
     ];
 });
 
@@ -85,6 +85,6 @@ $factory->define(OpinionModel::class, function (Faker $faker) {
             app(UsersRepository::class)
                 ->getByType('Procurador')
                 ->toArray()
-        )['id'],
+        )['id']
     ];
 });

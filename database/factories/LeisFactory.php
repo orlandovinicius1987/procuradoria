@@ -36,13 +36,13 @@ $factory->define(LeiModel::class, function (Faker $faker) {
         'nivel_federativo_id' => app(
             NiveisFederativosRepository::class
         )->randomElement()->id,
-        'tipo_lei_id' => app(TiposLeisRepository::class)->randomElement()->id,
+        'tipo_lei_id' => app(TiposLeisRepository::class)->randomElement()->id
     ];
 });
 
 $factory->define(ProcessoLeiModel::class, function (Faker $faker) {
     return [
         'processo_id' => app(ProcessosRepository::class)->randomElement()->id,
-        'lei_id' => app(LeisRepository::class)->randomElement()->id,
+        'lei_id' => app(LeisRepository::class)->randomElement()->id
     ];
 });

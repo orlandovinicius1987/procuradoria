@@ -17,6 +17,6 @@ $factory->define(App\Data\Models\Tribunal::class, function (Faker $faker) {
     return [
         'nome' => only_letters_and_space($faker->name),
         'url_api' => only_letters_and_space($faker->name),
-        'abreviacao' => only_letters_and_space($faker->name),
+        'abreviacao' => only_letters_and_space($faker->name)
     ];
 });

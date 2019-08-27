@@ -684,7 +684,7 @@ function removerAcentuacao($str, $utf8 = true)
         'ჭ' => 'c',
         'ხ' => 'k',
         'ჯ' => 'j',
-        'ჰ' => 'h',
+        'ჰ' => 'h'
     ];
     $str = str_replace(
         array_keys($transliteration),

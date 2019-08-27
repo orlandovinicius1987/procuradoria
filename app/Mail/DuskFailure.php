@@ -32,7 +32,7 @@ class DuskFailure extends Mailable
         $view = $this->view('email.dusk_failure');
         $files = File::allFiles('tests/Browser/screenshots');
         return $this->view('email.dusk_failure', [
-            'files' => $files,
+            'files' => $files
         ])->attach(storage_path('logs/laravel.log'));
     }
 }

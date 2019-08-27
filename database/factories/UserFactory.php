@@ -23,6 +23,6 @@ $factory->define(App\Data\Models\User::class, function (Faker $faker) {
         'remember_token' => str_random(10),
         'user_type_id' => $faker->randomElement(
             \App\Data\Models\TipoUsuario::pluck('id')->toArray()
-        ),
+        )
     ];
 });
