@@ -35,6 +35,7 @@ $factory->define(App\Data\Models\Processo::class, function (Faker $faker) {
         'autor' => only_letters_and_space($faker->name),
         'reu' => only_letters_and_space($faker->name),
         'objeto' => only_letters_and_space($faker->name),
+        'ementa' => only_letters_and_space($faker->name),
         'merito' => only_letters_and_space($faker->name),
         'liminar' => only_letters_and_space($faker->name),
         'recurso' => only_letters_and_space($faker->name),

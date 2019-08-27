@@ -30,6 +30,7 @@ class ProcessosTest extends DuskTestCase
     private static $assessorProcesso;
     private static $tipoMeioProcesso;
     private static $objetoProcesso;
+    private static $ementaProcesso;
     private static $meritoProcesso;
     private static $liminarProcesso;
     private static $apensosObsProcesso;
@@ -90,6 +91,7 @@ class ProcessosTest extends DuskTestCase
             ->randomElement()
             ->toArray();
         static::$objetoProcesso = only_letters_and_space($faker->name);
+        static::$ementaProcesso = only_letters_and_space($faker->name);
         static::$meritoProcesso = only_letters_and_space($faker->name);
         static::$liminarProcesso = only_letters_and_space($faker->name);
         static::$apensosObsProcesso = only_letters_and_space($faker->name);
@@ -117,6 +119,7 @@ class ProcessosTest extends DuskTestCase
         $assessorP = static::$assessorProcesso;
         $tipoMeioP = static::$tipoMeioProcesso;
         $objetoP = static::$objetoProcesso;
+        $ementaP = static::$ementaProcesso;
         $meritoP = static::$meritoProcesso;
         $liminarP = static::$liminarProcesso;
         $apensosObsP = static::$apensosObsProcesso;
@@ -140,6 +143,7 @@ class ProcessosTest extends DuskTestCase
             $assessorP,
             $tipoMeioP,
             $objetoP,
+            $ementaP,
             $meritoP,
             $liminarP,
             $apensosObsP,
@@ -169,6 +173,7 @@ class ProcessosTest extends DuskTestCase
                 ->select('#assessor_id', $assessorP['id'])
                 ->select('#tipo_meio', $tipoMeioP['id'])
                 ->type('#objeto', $objetoP)
+                ->type('#ementa', $ementaP)
                 ->type('#merito', $meritoP)
                 ->type('#liminar', $liminarP)
                 ->type('#apensos_obs', $apensosObsP)
@@ -219,6 +224,7 @@ class ProcessosTest extends DuskTestCase
         $assessorP = static::$assessorProcesso;
         $tipoMeioP = static::$tipoMeioProcesso;
         $objetoP = static::$objetoProcesso;
+        $ementaP = static::$ementaProcesso;
         $meritoP = static::$meritoProcesso;
         $liminarP = static::$liminarProcesso;
         $apensosObsP = static::$apensosObsProcesso;
@@ -242,6 +248,7 @@ class ProcessosTest extends DuskTestCase
             $assessorP,
             $tipoMeioP,
             $objetoP,
+            $ementaP,
             $meritoP,
             $liminarP,
             $apensosObsP,
@@ -287,6 +294,7 @@ class ProcessosTest extends DuskTestCase
             ->toArray();
         $novoAutorP = only_letters_and_space($faker->name);
         $novoObjetoP = only_letters_and_space($faker->name);
+        $novaEmentaP = only_letters_and_space($faker->name);
         $novoProcuradorP = $faker->randomElement(
             app(UsersRepository::class)
                 ->getByType('Procurador')
@@ -310,6 +318,7 @@ class ProcessosTest extends DuskTestCase
             $novoTribunalP,
             $novoAutorP,
             $novoObjetoP,
+            $novaEmentaP,
             $novoProcuradorP,
             $novoAssessorP,
             $novoEstagiarioP
@@ -327,6 +336,7 @@ class ProcessosTest extends DuskTestCase
                 ->select('#procurador_id', $novoProcuradorP['id'])
                 ->select('#estagiario_id', $novoEstagiarioP['id'])
                 ->select('#assessor_id', $novoAssessorP['id'])
+                ->type('#ementa', $novaEmentaP)
                 ->type('#objeto', $novoObjetoP)
                 ->press('Gravar')
                 ->assertSee('Gravado com sucesso', 30)
