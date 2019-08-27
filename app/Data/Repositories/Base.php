@@ -215,4 +215,9 @@ abstract class Base
     {
         return $this->searchFromRequest($request->get('pesquisa'));
     }
+
+    public function randomElement()
+    {
+        return $this->model::inRandomOrder()->first();
+    }
 }

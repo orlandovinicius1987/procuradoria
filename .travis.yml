@@ -4,9 +4,11 @@ language: php
 php:
   - 7.1
   - 7.2
+  - 7.3
 
 services:
     - postgresql
+    - redis-server
 
 sudo: true
 
@@ -14,34 +16,43 @@ cache:
   directories:
     - $HOME/.composer/cache
 
+before_install:
+  - export TZ=America/Sao_Paulo
+
 before_script:
   - sudo apt-get -y update
   - sudo apt-get -y install google-chrome-stable
   - cp .env.travis .env
   - cp .env.travis .env.dusk.local
-  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
+  - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - php artisan key:generate
   - psql -c 'create database teste;' -U postgres
-  - psql -c 'create user vagrant;' -U postgres
+  - psql -c 'create user vagrant WITH SUPERUSER;' -U postgres
   - psql -c "alter user vagrant with encrypted password 'vagrant'" -U postgres;
   - psql -c 'grant all privileges on database teste to vagrant'  -U postgres
   - php artisan migrate
   - php artisan db:seed
-  - export DISPLAY=:99.0
+  - export DISPLAY=:100.0
   - sh -e /etc/init.d/xvfb start
-  - ./vendor/laravel/dusk/bin/chromedriver-linux &
+  - php artisan dusk:chrome-driver
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   - php artisan serve &
 
 script:
-  - php artisan migrate
+  - nohup php artisan queue:work --daemon &
   - php artisan dusk
 
 after_script:
+  - cat nohup.out
   - |
     if [[ "$TRAVIS_PHP_VERSION" == '7.2' ]]; then
       wget https://scrutinizer-ci.com/ocular.phar
       php ocular.phar code-coverage:upload --format=php-clover coverage.clover
     fi
+
+after_failure:
+  - php artisan email:failure
+  - cat storage/logs/laravel.log
 
 notifications:
   email: false

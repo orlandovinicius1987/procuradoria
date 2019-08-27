@@ -17,12 +17,13 @@ class UsersTest extends DuskTestCase
     {
         $faker = app(Faker::class);
         static::$personalEmailUsers = $faker->email;
-        static::$NameUsers = $faker->name;
-        static::$randomUserUsers = $faker->randomElement(
-            app(UsersRepository::class)
-                ->all()
-                ->toArray()
-        );
+        static::$NameUsers = only_letters_and_space($faker->name);
+
+        do {
+            static::$randomUserUsers = app(
+                UsersRepository::class
+            )->randomElement();
+        } while (static::$randomUserUsers->userType->nome == 'Administrador');
     }
 
     public function testValidation()
@@ -73,6 +74,7 @@ class UsersTest extends DuskTestCase
         ) {
             $browser
                 ->visit('/users')
+                ->waitForText($randomUserU['name'])
                 ->clickLink($randomUserU['name'])
                 ->assertPathIs('/users/' . $randomUserU['id'])
                 ->assertSee($randomUserU['email']);

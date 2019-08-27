@@ -72,7 +72,36 @@ class Authorization
      */
     private function mockedPermissions($username)
     {
-        return collect(['Editar']);
+        return collect([
+            [
+                'nomeFuncao' => 'Editar',
+                'evento' => 'Editar',
+            ],
+            [
+                'nomeFuncao' => 'Procurador',
+                'evento' => 'Procurar',
+            ],
+            [
+                'nomeFuncao' => 'Assessor',
+                'evento' => 'Assessorar',
+            ],
+            [
+                'nomeFuncao' => 'Estagi rio',
+                'evento' => 'Estagiar',
+            ],
+            [
+                'nomeFuncao' => 'Administrador',
+                'evento' => 'Administrador',
+            ],
+            [
+                'nomeFuncao' => 'Editar',
+                'evento' => 'Editar',
+            ],
+            [
+                'nomeFuncao' => 'Procurador',
+                'evento' => 'Procurar',
+            ],
+        ]);
     }
 
     private function storedPermissions($user)

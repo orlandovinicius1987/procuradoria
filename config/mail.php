@@ -116,4 +116,16 @@ return [
 
         'paths' => [resource_path('views/vendor/mail')],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Mail flow Settings
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    'throttleToMessagesPerMin' => env(
+        'MAIL_THROTTLE_TO_MESSAGES_PER_MIN',
+        null
+    ),
 ];

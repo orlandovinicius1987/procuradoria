@@ -13,8 +13,10 @@ class TribunaisTest extends DuskTestCase
 
     public function init()
     {
-        static::$nomeTribunal = app(Faker::class)->name;
-        static::$abreviacaoTribunal = app(Faker::class)->name;
+        static::$nomeTribunal = only_letters_and_space(app(Faker::class)->name);
+        static::$abreviacaoTribunal = only_letters_and_space(
+            app(Faker::class)->name
+        );
     }
 
     public function testInsert()

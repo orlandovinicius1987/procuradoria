@@ -25,38 +25,24 @@ $factory->define(LeiModel::class, function (Faker $faker) {
             (string) $faker->randomNumber(4) .
             '/' .
             (string) $faker->randomNumber(4),
-        'autor' => $faker->name,
-        'assunto' => $faker->name,
-        'link' => $faker->name,
+        'autor' => only_letters_and_space($faker->name),
+        'assunto' => only_letters_and_space($faker->name),
+        'link' => only_letters_and_space($faker->name),
         'artigo' => (string) $faker->randomNumber(2),
         'paragrafo' => (string) $faker->randomNumber(2),
         'inciso' => (string) $faker->randomNumber(2),
         'alinea' => (string) $faker->randomNumber(2),
         'item' => (string) $faker->randomNumber(2),
-        'nivel_federativo_id' => $faker->randomElement(
-            app(NiveisFederativosRepository::class)
-                ->all()
-                ->toArray()
-        )['id'],
-        'tipo_lei_id' => $faker->randomElement(
-            app(TiposLeisRepository::class)
-                ->all()
-                ->toArray()
-        )['id'],
+        'nivel_federativo_id' => app(
+            NiveisFederativosRepository::class
+        )->randomElement()->id,
+        'tipo_lei_id' => app(TiposLeisRepository::class)->randomElement()->id,
     ];
 });
 
 $factory->define(ProcessoLeiModel::class, function (Faker $faker) {
     return [
-        'processo_id' => $faker->randomElement(
-            app(ProcessosRepository::class)
-                ->all()
-                ->toArray()
-        )['id'],
-        'lei_id' => $faker->randomElement(
-            app(LeisRepository::class)
-                ->all()
-                ->toArray()
-        )['id'],
+        'processo_id' => app(ProcessosRepository::class)->randomElement()->id,
+        'lei_id' => app(LeisRepository::class)->randomElement()->id,
     ];
 });
