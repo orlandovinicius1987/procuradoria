@@ -9,3 +9,16 @@ Limite para upload de arquivos deve ser aumentado para 64M tanto no PHP quanto n
     <a href="https://scrutinizer-version.com/g/alerj/procuradoria/?branch=master"><img alt="Coverage" src="https://img.shields.io/scrutinizer/coverage/g/alerj/procuradoria.svg?style=flat-square"></a>
     <a href="https://styleci.io/repos/116709546"><img alt="StyleCI" src="https://styleci.io/repos/116709546/shield"></a>
 </p>
+
+### Atualizando a aplicação
+
+- Entrar na `<pasta-aonde-o-site-foi-instalado>`
+- Baixar as atualizações de código fonte usando Git (git pull ou git fetch + git merge, isso depende de como operador prefere trabalhar com Git)
+- Executar, no mínimo, os comandos:
+```
+composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+php artisan migrate --force
+php artisan route:cache
+php artisan cache:clear
+php artisan view:clear
+```
