@@ -87,12 +87,27 @@ class Processos extends Base
         return $this->searchFromRequest($request->get('pesquisa'));
     }
 
+    public function countAll()
+    {
+        return $this->model::all()->count();
+    }
+
+    public function calculatePerPage($perPage){
+        return $perPage == 'all' ? $this->countAll() : $perPage;
+    }
+
+    public function setCurrentPage($page){
+        Paginator::currentPageResolver(function() use ($page) {
+            return $page;
+        });
+    }
+
     /**
      * @param $request
      *
      * @return mixed
      */
-    public function filter($request)
+    public function filter(Request $request)
     {
         $query = $this->makeProcessoQuery(
             $request->get('processos_arquivados_incluidos'),
@@ -115,10 +130,14 @@ class Processos extends Base
             });
         }
 
-        $result = $query->paginate(15);
+        $this->setCurrentPage($request->has('page') ? $request->get('page') : 1);
+
+        $result = $query->paginate($this->calculatePerPage($request->has('perPage') ? $request->get('perPage') : 'all'));
+
         $result->setCollection(
             collect($this->transform($result->getCollection()))
         );
+
         return $result;
     }
 
