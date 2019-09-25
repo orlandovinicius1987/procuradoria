@@ -58,7 +58,7 @@ class Processos extends Base
         'link' => 'string',
         'site_alerj_link' => 'string',
         'armazenado_em' => 'string',
-        'ementa' => 'string'
+        'ementa' => 'string',
     ];
 
     /**
@@ -92,12 +92,14 @@ class Processos extends Base
         return $this->model::all()->count();
     }
 
-    public function calculatePerPage($perPage){
+    public function calculatePerPage($perPage)
+    {
         return $perPage == 'all' ? $this->countAll() : $perPage;
     }
 
-    public function setCurrentPage($page){
-        Paginator::currentPageResolver(function() use ($page) {
+    public function setCurrentPage($page)
+    {
+        Paginator::currentPageResolver(function () use ($page) {
             return $page;
         });
     }
@@ -130,9 +132,15 @@ class Processos extends Base
             });
         }
 
-        $this->setCurrentPage($request->has('page') ? $request->get('page') : 1);
+        $this->setCurrentPage(
+            $request->has('page') ? $request->get('page') : 1
+        );
 
-        $result = $query->paginate($this->calculatePerPage($request->has('perPage') ? $request->get('perPage') : 'all'));
+        $result = $query->paginate(
+            $this->calculatePerPage(
+                $request->has('perPage') ? $request->get('perPage') : 'all'
+            )
+        );
 
         $result->setCollection(
             collect($this->transform($result->getCollection()))
@@ -327,7 +335,7 @@ class Processos extends Base
                 'leis' => $leis,
                 'allLeis' => $allLeis,
                 'tags' => Tag::all(),
-                'tiposProcessos' => ModelTipoProcesso::orderBy('nome')->get()
+                'tiposProcessos' => ModelTipoProcesso::orderBy('nome')->get(),
             ];
         });
     }
@@ -428,7 +436,7 @@ class Processos extends Base
                         : $processo->estagiario->name;
 
                     $processo['show_url'] = route('processos.show', [
-                        'id' => $processo['id']
+                        'id' => $processo['id'],
                     ]);
 
                     return $processo;
