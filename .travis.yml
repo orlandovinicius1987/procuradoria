@@ -51,6 +51,7 @@ after_script:
     fi
 
 after_failure:
+  - sleep 15s
   - php artisan email:failure
   - cat storage/logs/laravel.log
 
