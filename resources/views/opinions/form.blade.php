@@ -73,6 +73,13 @@
                                     </select>
                                 @endif
 
+                                @if($attr->type == 'boolean')
+                                    <br>
+                                        <input type="hidden" name="{{$attr->name}}"value="0">
+                                        <input id="{{$attr->name}}" type="checkbox" name="{{$attr->name}}" {{is_null(old($attr->name))? 'checked="checked"' : old($attr->name)}}>
+
+                                @endif
+
                                 @if($attr->type == 'textarea')
                                     <textarea name="{{$attr->name}}" class="form-control" @include('partials.readonly') id="{{$attr->name}}"
                                               placeholder="{{$attr->showName}}">{{is_null(old($attr->name))? $opinion->{$attr->name} : old($attr->name)}}</textarea>
@@ -119,6 +126,15 @@
                                                 @endif
                                             @endforeach
                                         </select>
+                                    @endif
+
+
+                                    @if($attr->type == 'boolean')
+                                            <label for="{{$attr->name}}">{{$attr->showName}}</label>
+                                            <br>
+                                            <input type="hidden" name="{{$attr->name}}"value="0">
+                                            <input id="{{$attr->name}}" type="checkbox" name="{{$attr->name}}" {{is_null(old($attr->name))? $opinion->{$attr->name} ? 'checked="checked"':'' : old($attr->name)}} @include('partials.disabled')>
+
                                     @endif
 
                                     @if($attr->type == 'textarea')

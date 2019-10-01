@@ -16,7 +16,7 @@ class Opinions extends Base
             'name' => 'identifier',
             'showName' => 'Identificador',
             'columnSize' => '10%',
-            'type' => 'string',
+            'type' => 'string'
         ];
 
         $array[] = (object) [
@@ -25,7 +25,7 @@ class Opinions extends Base
             'columnSize' => '10%',
             'type' => 'id',
             'relationName' => 'opinionScope',
-            'foreignName' => 'name',
+            'foreignName' => 'name'
         ];
 
         $array[] = (object) [
@@ -34,7 +34,7 @@ class Opinions extends Base
             'columnSize' => '10%',
             'type' => 'id',
             'relationName' => 'attorney',
-            'foreignName' => 'name',
+            'foreignName' => 'name'
         ];
 
         $array[] = (object) [
@@ -43,21 +43,34 @@ class Opinions extends Base
             'columnSize' => '10%',
             'type' => 'id',
             'relationName' => 'opinionType',
-            'foreignName' => 'name',
+            'foreignName' => 'name'
         ];
 
         $array[] = (object) [
             'name' => 'formatted_date',
             'showName' => 'Data',
             'columnSize' => '10%',
-            'type' => 'date',
+            'type' => 'date'
         ];
 
         $array[] = (object) [
             'name' => 'abstract',
             'showName' => 'Ementa',
-            'columnSize' => '50%',
-            'type' => 'string',
+            'columnSize' => '38%',
+            'type' => 'string'
+        ];
+
+        //
+        $array[] = (object) [
+            'name' => 'approve_option_id',
+            'showName' => 'Aprovado',
+            'columnSize' => '12%',
+            'type' => 'id',
+            'modelName' => 'ApproveOption',
+            'attributeArray' => 'approveOptions',
+            'relationName' => 'approveOption',
+            'foreignName' => 'name',
+            'visible' => true
         ];
 
         return $array;
@@ -74,7 +87,7 @@ class Opinions extends Base
             'modelName' => 'opinionScope',
             'attributeArray' => 'opinionScopes',
             'relationName' => 'opinionScope',
-            'foreignName' => 'name',
+            'foreignName' => 'name'
         ];
         $array[] = (object) [
             'name' => 'attorney_id',
@@ -83,8 +96,21 @@ class Opinions extends Base
             'modelName' => 'user',
             'attributeArray' => 'attorneys',
             'relationName' => 'attorney',
-            'foreignName' => 'name',
+            'foreignName' => 'name'
         ];
+
+        $array[] = (object) [
+            'name' => 'approve_option_id',
+            'showName' => 'Aprovado',
+            'columnSize' => '25%',
+            'type' => 'id',
+            'modelName' => 'ApproveOption',
+            'attributeArray' => 'approveOptions',
+            'relationName' => 'approveOption',
+            'foreignName' => 'name',
+            'visible' => true
+        ];
+
         $array[] = (object) [
             'name' => 'opinion_type_id',
             'showName' => 'Tipo',
@@ -92,54 +118,63 @@ class Opinions extends Base
             'modelName' => 'opinionType',
             'attributeArray' => 'opinionTypes',
             'relationName' => 'opinionType',
-            'foreignName' => 'name',
+            'foreignName' => 'name'
         ];
         $array[] = (object) [
             'name' => 'suit_number',
             'showName' => 'Número do Processo',
-            'type' => 'string',
+            'type' => 'string'
         ];
         $array[] = (object) [
             'name' => 'suit_sheet',
             'showName' => 'Folha do Processo',
-            'type' => 'string',
+            'type' => 'string'
         ];
         $array[] = (object) [
             'name' => 'identifier',
             'showName' => 'Identificador',
-            'type' => 'string',
+            'type' => 'string'
         ];
         $array[] = (object) [
             'name' => 'date',
             'showName' => 'Data',
-            'type' => 'date',
+            'type' => 'date'
         ];
+
         $array[] = (object) [
             'name' => 'party',
             'showName' => 'Interessado',
-            'type' => 'string',
+            'type' => 'string'
         ];
         $array[] = (object) [
             'name' => 'abstract',
             'showName' => 'Ementa',
-            'type' => 'textarea',
+            'type' => 'textarea'
         ];
         $array[] = (object) [
             'name' => 'opinion',
             'showName' => 'Parecer',
-            'type' => 'textarea',
+            'type' => 'textarea'
         ];
 
         $array[] = (object) [
             'name' => 'pdf_file',
             'showName' => 'Arquivo .pdf',
-            'type' => 'file',
+            'type' => 'file'
         ];
 
         $array[] = (object) [
             'name' => 'doc_file',
             'showName' => 'Arquivo .doc',
-            'type' => 'file',
+            'type' => 'file'
+        ];
+
+        $array[] = (object) [
+            'name' => 'is_active',
+            'showName' => 'Ativo',
+            'columnSize' => '15%',
+            'type' => 'boolean',
+            'visible' => true
         ];
 
         return $array;
@@ -157,7 +192,7 @@ class Opinions extends Base
             'attributeArray' => 'opinionScopes',
             'relationName' => 'opinionScope',
             'foreignName' => 'name',
-            'visible' => true,
+            'visible' => true
         ];
         $array[] = (object) [
             'name' => 'attorney_id',
@@ -167,8 +202,21 @@ class Opinions extends Base
             'attributeArray' => 'attorneys',
             'relationName' => 'attorney',
             'foreignName' => 'name',
-            'visible' => true,
+            'visible' => true
         ];
+
+        $array[] = (object) [
+            'name' => 'approve_option_id',
+            'showName' => 'Aprovado',
+            'columnSize' => '25%',
+            'type' => 'id',
+            'modelName' => 'ApproveOption',
+            'attributeArray' => 'approveOptions',
+            'relationName' => 'approveOption',
+            'foreignName' => 'name',
+            'visible' => true
+        ];
+
         $array[] = (object) [
             'name' => 'opinion_type_id',
             'showName' => 'Tipo',
@@ -177,77 +225,85 @@ class Opinions extends Base
             'attributeArray' => 'opinionTypes',
             'relationName' => 'opinionType',
             'foreignName' => 'name',
-            'visible' => true,
+            'visible' => true
         ];
         $array[] = (object) [
             'name' => 'suit_number',
             'showName' => 'Número do Processo',
             'type' => 'string',
-            'visible' => true,
+            'visible' => true
         ];
         $array[] = (object) [
             'name' => 'suit_sheet',
             'showName' => 'Folha do Processo',
             'type' => 'string',
-            'visible' => true,
+            'visible' => true
         ];
         $array[] = (object) [
             'name' => 'identifier',
             'showName' => 'Identificador',
             'type' => 'string',
-            'visible' => true,
+            'visible' => true
         ];
         $array[] = (object) [
             'name' => 'date',
             'showName' => 'Data',
             'type' => 'date',
-            'visible' => true,
+            'visible' => true
         ];
         $array[] = (object) [
             'name' => 'party',
             'showName' => 'Interessado',
             'type' => 'string',
-            'visible' => true,
+            'visible' => true
         ];
         $array[] = (object) [
             'name' => 'abstract',
             'showName' => 'Ementa',
             'type' => 'textarea',
-            'visible' => true,
+            'visible' => true
         ];
         $array[] = (object) [
             'name' => 'opinion',
             'showName' => 'Parecer',
             'type' => 'textarea',
-            'visible' => true,
+            'visible' => true
         ];
         $array[] = (object) [
             'name' => 'pdf_file_name',
             'showName' => 'PDF',
             'linkName' => 'Visualizar',
             'type' => 'link',
-            'visible' => $isProcurador,
+            'visible' => $isProcurador
         ];
         $array[] = (object) [
             'name' => 'doc_file_name',
             'showName' => 'DOC',
             'linkName' => 'Visualizar',
             'type' => 'link',
-            'visible' => $isProcurador,
+            'visible' => $isProcurador
         ];
 
         $array[] = (object) [
             'name' => 'pdf_file_name',
             'showName' => 'Arquivo .pdf',
             'type' => 'file',
-            'visible' => $isProcurador,
+            'visible' => $isProcurador
         ];
 
         $array[] = (object) [
             'name' => 'doc_file_name',
             'showName' => 'Arquivo .doc',
             'type' => 'file',
-            'visible' => true,
+            'visible' => true
+        ];
+
+        $array[] = (object) [
+            'name' => 'is_active',
+            'showName' => 'Ativo',
+            'columnSize' => '15%',
+            'type' => 'boolean',
+            'visible' => true
         ];
 
         return $array;

@@ -24,7 +24,7 @@ class Andamentos extends Base
     protected $dataTypes = [
         'data_prazo' => 'date',
         'data_entrega' => 'date',
-        'observacoes' => 'string',
+        'observacoes' => 'string'
     ];
 
     /**
@@ -236,8 +236,8 @@ class Andamentos extends Base
                 'end' => $andamento->data_prazo->addHour()->toIso8601String(),
                 'description' => $this->makeFeedDescription($andamento),
                 'url' => route('processos.show', [
-                    'id' => $andamento->processo->id,
-                ]),
+                    'id' => $andamento->processo->id
+                ])
             ];
         });
     }

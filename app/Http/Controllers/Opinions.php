@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\Models\ApproveOption;
 use App\Data\Models\Opinion as OpinionModel;
 use App\Data\Models\OpinionsSubject;
 use App\Data\Models\User;
+use App\Data\Repositories\ApproveOptions as ApproveOptionsRepository;
 use App\Data\Repositories\Opinions as OpinionsRepository;
 use App\Data\Repositories\OpinionScopes as OpinionScopesRepository;
 use App\Data\Repositories\OpinionsSubjects as OpinionsSubjectsRepository;
@@ -127,7 +129,7 @@ class Opinions extends Controller
             [
                 'Content-Type' => $mime,
                 'Content-Disposition' =>
-                    'attachment; filename="' . $fileName . '"',
+                    'attachment; filename="' . $fileName . '"'
             ]
         );
 
@@ -227,6 +229,9 @@ class Opinions extends Controller
             'allOpinionSubjects' => app(
                 OpinionSubjectsRepository::class
             )->allOrderBy('name'),
+            'approveOptions' => app(ApproveOptionsRepository::class)
+                ->allOrderBy('name')
+                ->pluck('name', 'id')
         ];
     }
 }
