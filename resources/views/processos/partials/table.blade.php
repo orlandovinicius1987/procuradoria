@@ -18,6 +18,7 @@
                 :next-text="'Próxima'"
                 :click-handler="clickPageCallback"
                 container-class="pagination"
+                v-model="page"
         ></paginate>
     </div>
     <div class="col-md-6">

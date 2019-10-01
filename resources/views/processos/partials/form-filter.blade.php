@@ -164,9 +164,9 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label for="ementa">Ementa</label>
+                <label for="ementa">Decisão com trânsito em julgado</label>
                 <textarea v-model="form.ementa" class="form-control" @include('partials.readonly')
-                id="ementa" placeholder="Informe a Ementa">{{is_null(old('ementa'))? $processo->ementa : old('ementa')}}</textarea>
+                id="ementa" placeholder="Informe a decisão com trânsito em julgado">{{is_null(old('ementa'))? $processo->ementa : old('ementa')}}</textarea>
             </div>
         </div>
 
