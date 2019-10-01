@@ -1,5 +1,14 @@
 # Procuradoria
-### Controle de processos
+
+## Características da aplicação
+
+- [Git](https://git-scm.com/docs/user-manual.html)
+- [PHP 7.2 ou superior](http://php.net/)
+- [Composer](https://getcomposer.org/)
+- [Redis](https://redis.io/topics/quickstart)
+- [PostgreSQL](https://www.postgresql.org/)
+
+## Controle de processos
 
 Limite para upload de arquivos deve ser aumentado para 64M tanto no PHP quanto no servidor web.
 

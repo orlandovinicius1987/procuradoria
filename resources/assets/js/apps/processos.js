@@ -49,6 +49,8 @@ if (jQuery('#' + appName).length > 0) {
 
       filler: false,
 
+      page: 1,
+
       typeTimeout: null,
 
       advancedFilter: false,
