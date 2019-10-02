@@ -102,13 +102,11 @@ class Opinions extends Base
         $array[] = (object) [
             'name' => 'approve_option_id',
             'showName' => 'Aprovado',
-            'columnSize' => '25%',
             'type' => 'id',
             'modelName' => 'ApproveOption',
             'attributeArray' => 'approveOptions',
             'relationName' => 'approveOption',
-            'foreignName' => 'name',
-            'visible' => true
+            'foreignName' => 'name'
         ];
 
         $array[] = (object) [
@@ -172,9 +170,7 @@ class Opinions extends Base
         $array[] = (object) [
             'name' => 'is_active',
             'showName' => 'Ativo',
-            'columnSize' => '15%',
-            'type' => 'boolean',
-            'visible' => true
+            'type' => 'boolean'
         ];
 
         return $array;
@@ -208,7 +204,6 @@ class Opinions extends Base
         $array[] = (object) [
             'name' => 'approve_option_id',
             'showName' => 'Aprovado',
-            'columnSize' => '25%',
             'type' => 'id',
             'modelName' => 'ApproveOption',
             'attributeArray' => 'approveOptions',
@@ -274,34 +269,37 @@ class Opinions extends Base
             'showName' => 'PDF',
             'linkName' => 'Visualizar',
             'type' => 'link',
-            'visible' => $isProcurador
+            'visible' => true,
+            'extension' => 'pdf'
         ];
         $array[] = (object) [
             'name' => 'doc_file_name',
             'showName' => 'DOC',
             'linkName' => 'Visualizar',
             'type' => 'link',
-            'visible' => $isProcurador
+            'visible' => true,
+            'extension' => 'doc'
         ];
 
         $array[] = (object) [
-            'name' => 'pdf_file_name',
+            'name' => 'pdf_file',
             'showName' => 'Arquivo .pdf',
             'type' => 'file',
-            'visible' => $isProcurador
+            'visible' => true,
+            'extension' => 'pdf'
         ];
 
         $array[] = (object) [
-            'name' => 'doc_file_name',
+            'name' => 'doc_file',
             'showName' => 'Arquivo .doc',
             'type' => 'file',
-            'visible' => true
+            'visible' => true,
+            'extension' => 'doc'
         ];
 
         $array[] = (object) [
             'name' => 'is_active',
             'showName' => 'Ativo',
-            'columnSize' => '15%',
             'type' => 'boolean',
             'visible' => true
         ];

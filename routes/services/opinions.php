@@ -5,6 +5,8 @@ Route::group(['prefix' => '/pareceres'], function () {
 
     Route::post('/', 'Opinions@store')->name('opinions.store');
 
+    Route::post('/{id}', 'Opinions@update')->name('opinions.update');
+
     Route::get('/{id}', 'Opinions@show')->name('opinions.show');
 
     Route::get('/{id}/{fileName}', 'Opinions@download')->name(
@@ -24,6 +26,10 @@ Route::group(['prefix' => '/assuntos'], function () {
     );
 
     Route::post('/', 'OpinionSubjects@store')->name('opinionSubjects.store');
+
+    Route::post('/{id}', 'OpinionSubjects@update')->name(
+        'opinionSubjects.update'
+    );
 
     Route::get('/{id}', 'OpinionSubjects@show')->name('opinionSubjects.show');
 

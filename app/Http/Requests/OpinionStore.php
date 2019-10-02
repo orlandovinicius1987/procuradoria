@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
-class Opinion extends FormRequest
+class OpinionStore extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class Opinion extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Gate::allows('opinions:create');
     }
 
     /**
@@ -29,8 +30,8 @@ class Opinion extends FormRequest
             'opinion_type_id' => 'required',
             'date' => 'required',
             'abstract' => 'required',
-            'pdf_file' => is_null($this->id) ? 'required|mimes:pdf' : '',
-            // 'doc_file' => 'required|mimes:doc',
+            'pdf_file' => 'mimes:pdf',
+            'doc_file' => 'mimes:doc'
         ];
     }
 }

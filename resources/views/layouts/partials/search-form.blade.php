@@ -4,7 +4,7 @@
     <div class="form-group pull-right">
         <div class="row">
             <div class="col-xs-4">
-                @if (isset($routeCreate))
+                @if (isset($routeCreate) && (!isset($newButtonVisible) || $newButtonVisible))
                     <a href="{{ route($routeCreate) }}" class="btn btn-danger pull-right">
                         <i class="fa fa-plus"></i> Novo
                     </a>

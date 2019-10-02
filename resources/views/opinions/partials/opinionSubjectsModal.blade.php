@@ -1,7 +1,9 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary; btn btn-primary pull-right" data-toggle="modal" data-target="#subjectsModal">
-    Relacionar Assunto
-</button>
+@can('opinion-subjects:connect')
+    <button type="button" class="btn btn-primary; btn btn-primary pull-right" data-toggle="modal" data-target="#subjectsModal">
+        Relacionar Assunto
+    </button>
+@endCan
 
 <!-- Modal -->
 <div class="modal fade" id="subjectsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

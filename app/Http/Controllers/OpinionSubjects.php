@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Data\Models\OpinionSubject as OpinionSubjectModel;
 use App\Data\Repositories\OpinionSubjects as OpinionSubjectsRepository;
-use App\Http\Requests\OpinionSubject as OpinionSubjectRequest;
+use App\Http\Requests\OpinionSubjectUpdate as OpinionSubjectUpdateRequest;
+use App\Http\Requests\OpinionSubjectStore as OpinionSubjectStoreRequest;
 use Illuminate\Http\Request;
 
 class OpinionSubjects extends Controller
@@ -44,7 +45,7 @@ class OpinionSubjects extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(
-        OpinionSubjectRequest $request,
+        OpinionSubjectStoreRequest $request,
         OpinionSubjectsRepository $repository
     ) {
         $repository->createFromRequest($request);
@@ -52,6 +53,19 @@ class OpinionSubjects extends Controller
         return redirect()
             ->route('opinionSubjects.index')
             ->with($this->getSuccessMessage());
+    }
+
+    /**
+     * @param OpinionSubjectRequest     $request
+     * @param OpinionSubjectsRepository $repository
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(
+        OpinionSubjectUpdateRequest $request,
+        OpinionSubjectsRepository $repository
+    ) {
+        return $this->store($request, $repository);
     }
 
     /**
