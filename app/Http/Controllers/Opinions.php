@@ -103,12 +103,6 @@ class Opinions extends Controller
 
     public function download($id, $fileExtension)
     {
-        if (!Auth::user()->is_procurador) {
-            return redirect()
-                ->route('opinions.index')
-                ->with($this->getWarningMessage('Você não tem Permissão.'));
-        }
-
         $mime = '';
         $attributeName = '';
         $currentOpinion = OpinionModel::find($id);

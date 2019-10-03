@@ -9,7 +9,7 @@ Route::group(['prefix' => '/pareceres'], function () {
 
     Route::get('/{id}', 'Opinions@show')->name('opinions.show');
 
-    Route::get('/{id}/{fileName}', 'Opinions@download')->name(
+    Route::get('/{id}/{fileExtension}', 'Opinions@download')->name(
         'opinions.download'
     );
 
