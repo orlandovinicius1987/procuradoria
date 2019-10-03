@@ -6,7 +6,7 @@ use App\Data\Repositories\Users;
 use App\Data\Repositories\Users as UsersRepository;
 use App\Services\Traits\RemoteRequest;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Str;
 class Authentication
 {
     const LOGIN_URL = 'https://apiportal.alerj.rj.gov.br/api/v1.0/ldap/0IYFFiMHuUr1sYo6wEtjUsJQ7Zicg33SMuvtrFk9yEgwrORmblNSMdpTH0ZTRKX2BhADIusjXHInHW3cspyosOoNrbd5jObK5Uoh/login';
@@ -36,8 +36,14 @@ class Authentication
         $this->remoteRequest = $remoteRequest;
     }
 
+    public function normalizeCredentialsCase($request)
+    {
+        return $request->merge(['email' => Str::lower($request->get('email'))]);
+    }
+
     public function attempt($request, $remember)
     {
+        $request = $this->normalizeCredentialsCase($request);
         return $this->loginUser(
             $request,
             $this->loginRequest($request),
@@ -88,6 +94,7 @@ class Authentication
                 'Exception na request de login do usuário ' .
                     extract_credentials($request)['username']
             );
+
             Log::info($exception);
             if (is_null($user)) {
                 //Sistema de login fora do ar e usuário novo

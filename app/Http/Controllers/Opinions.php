@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\Models\ApproveOption;
 use App\Data\Models\Opinion as OpinionModel;
 use App\Data\Models\OpinionsSubject;
 use App\Data\Models\User;
+use App\Data\Repositories\ApproveOptions as ApproveOptionsRepository;
 use App\Data\Repositories\Opinions as OpinionsRepository;
 use App\Data\Repositories\OpinionScopes as OpinionScopesRepository;
 use App\Data\Repositories\OpinionsSubjects as OpinionsSubjectsRepository;
 use App\Data\Repositories\OpinionSubjects as OpinionSubjectsRepository;
 use App\Data\Repositories\OpinionTypes as OpinionTypesRepository;
 use App\Data\Repositories\Users as UsersRepository;
-use App\Http\Requests\Opinion as OpinionRequest;
+use App\Http\Requests\OpinionStore as OpinionStoreRequest;
+use App\Http\Requests\OpinionUpdate as OpinionUpdateRequest;
 use App\Http\Requests\OpinionsSubject as OpinionsSubjectRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,13 +52,13 @@ class Opinions extends Controller
     }
 
     /**
-     * @param OpinionRequest     $request
+     * @param OpinionStoreRequest     $request
      * @param OpinionsRepository $repository
      *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(
-        OpinionRequest $request,
+        OpinionStoreRequest $request,
         OpinionsRepository $repository
     ) {
         foreach ($request->allFiles() as $key => $file) {
@@ -66,12 +69,7 @@ class Opinions extends Controller
             );
 
             $request->merge(['file_' . $extension => $base64Content]);
-            //            $date = $newOpinion->date;
-            //            $fileName = $date . '-' . $newOpinion->id . '.' . $extension;
-            //            $file->storeAs('', $fileName, 'opinion-files');
         }
-
-        //        dd($request);
 
         $data = $request->all();
 
@@ -90,14 +88,21 @@ class Opinions extends Controller
             );
     }
 
+    /**
+     * @param OpinionUpdateRequest     $request
+     * @param OpinionsRepository $repository
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(
+        OpinionUpdateRequest $request,
+        OpinionsRepository $repository
+    ) {
+        return $this->store($request, $repository);
+    }
+
     public function download($id, $fileExtension)
     {
-        if (!Auth::user()->is_procurador) {
-            return redirect()
-                ->route('opinions.index')
-                ->with($this->getWarningMessage('Você não tem Permissão.'));
-        }
-
         $mime = '';
         $attributeName = '';
         $currentOpinion = OpinionModel::find($id);
@@ -127,7 +132,7 @@ class Opinions extends Controller
             [
                 'Content-Type' => $mime,
                 'Content-Disposition' =>
-                    'attachment; filename="' . $fileName . '"',
+                    'attachment; filename="' . $fileName . '"'
             ]
         );
 
@@ -227,6 +232,9 @@ class Opinions extends Controller
             'allOpinionSubjects' => app(
                 OpinionSubjectsRepository::class
             )->allOrderBy('name'),
+            'approveOptions' => app(ApproveOptionsRepository::class)
+                ->allOrderBy('name')
+                ->pluck('name', 'id')
         ];
     }
 }

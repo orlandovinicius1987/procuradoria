@@ -14,6 +14,7 @@
                         [
                             'routeSearch' => 'opinions.index',
                             'routeCreate' => 'opinions.create',
+                            'newButtonVisible' => Gate::allows('opinions:create'),
                         ]
                     )
                 </div>
