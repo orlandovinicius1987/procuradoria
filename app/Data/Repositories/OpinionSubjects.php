@@ -106,25 +106,13 @@ class OpinionSubjects extends Base
                 }
             }
         });
-
-        //        $sorted = $query->get()->sortByDesc(function ($product, $key) {
-        //            return ($product['full_name']);
-        //        });
-
-        //        dd($query->get());
         $array = $query->get()->toArray();
-        $array = array_sort($array, 'full_name', SORT_ASC);
+
+        $array = array_sort($array, '_lft', SORT_ASC);
         $objects = [];
         foreach ($array as $item) {
             $objects[] = (object) $item;
         }
-
-        //        $sorted->sortByDesc('full_name');
-
-        //        dd($sorted);
-
-        //        return $this->makeResultForSelect($query->get());
-        //        return $this->makeResultForSelect(collect($objects));
         return collect($objects);
     }
 

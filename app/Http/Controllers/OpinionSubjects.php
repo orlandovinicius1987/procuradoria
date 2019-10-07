@@ -78,18 +78,17 @@ class OpinionSubjects extends Controller
         OpinionSubjectsRepository $opinionSubjects,
         Request $request
     ) {
-        return //            ->with('opinionSubjects', $opinionSubjects->fullTreeArray())
-            view('opinionSubjects.index')
-                ->with('pesquisa', $request->get('pesquisa'))
-                ->with('opinionSubjects', $opinionSubjects->search($request))
-                ->with(
-                    'opinionSubjectsAttributes',
-                    $opinionSubjects->attributesShowing()
-                )
-                ->with(
-                    'opinionSubjectsEditAttribute',
-                    $opinionSubjects->editAttribute
-                );
+        return view('opinionSubjects.index')
+            ->with('pesquisa', $request->get('pesquisa'))
+            ->with('opinionSubjects', $opinionSubjects->search($request))
+            ->with(
+                'opinionSubjectsAttributes',
+                $opinionSubjects->attributesShowing()
+            )
+            ->with(
+                'opinionSubjectsEditAttribute',
+                $opinionSubjects->editAttribute
+            );
     }
 
     /**
