@@ -15,6 +15,13 @@
                             'routeSearch' => 'opinions.index',
                             'routeCreate' => 'opinions.create',
                             'newButtonVisible' => Gate::allows('opinions:create'),
+                            'checkboxes' => [
+                                (object)[
+                                    'field' => 'show-inactive',
+                                    'caption' => 'Mostrar inativos',
+                                    'value' => $checkboxValues['show-inactive'] ?? false,
+                                ]
+                            ],
                         ]
                     )
                 </div>

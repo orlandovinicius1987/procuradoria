@@ -21,7 +21,7 @@ class Processo extends BaseModel
     protected $dates = [
         'data_distribuicao',
         'data_recebimento',
-        'data_arquivamento'
+        'data_arquivamento',
     ];
 
     /**
@@ -33,7 +33,7 @@ class Processo extends BaseModel
         'procurador',
         'assessor',
         'estagiario',
-        'tags'
+        'tags',
     ];
 
     protected $numericColumns = ['numero_judicial'];
@@ -71,7 +71,7 @@ class Processo extends BaseModel
         'site_alerj_link',
         'tipo_processo_id',
         'armazenado_em',
-        'ementa'
+        'ementa',
     ];
 
     /**
@@ -80,7 +80,7 @@ class Processo extends BaseModel
     protected $presenters = [
         'data_distribuicao_formatado',
         'data_recebimento_formatado',
-        'data_arquivamento_formatado'
+        'data_arquivamento_formatado',
     ];
 
     /**
@@ -115,7 +115,7 @@ class Processo extends BaseModel
         'site_alerj_link' => 'link',
         'tipo_processo_id' => 'id',
         'armazenado_em' => 'string',
-        'ementa' => 'string'
+        'ementa' => 'string',
     ];
 
     /**
@@ -125,7 +125,7 @@ class Processo extends BaseModel
      */
     protected $dispatchesEvents = [
         'created' => ProcessoCreated::class,
-        'updated' => ProcessoUpdated::class
+        'updated' => ProcessoUpdated::class,
     ];
 
     /**

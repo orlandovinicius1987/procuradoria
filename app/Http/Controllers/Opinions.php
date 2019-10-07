@@ -22,6 +22,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Opinions extends Controller
 {
+    protected $checkboxes = ['show-inactive'];
+
     /**
      * @var OpinionsRepository
      */
@@ -105,7 +107,7 @@ class Opinions extends Controller
     {
         $mime = '';
         $attributeName = '';
-        $currentOpinion = OpinionModel::find($id);
+        $currentOpinion = OpinionModel::withoutGlobalScopes()->find($id);
 
         if ($fileExtension == 'pdf') {
             $mime = 'application/pdf';
@@ -151,10 +153,27 @@ class Opinions extends Controller
 
         return view('opinions.index')
             ->with('pesquisa', $request->get('pesquisa'))
+            ->with('checkboxValues', $this->getCheckboxValues($request))
             ->with('opinions', $this->repository->search($request))
             ->with('isProcurador', $user->is_procurador)
             ->with('opinionsAttributes', $this->repository->attributesShowing())
             ->with('opinionEditAttribute', $this->repository->editAttribute);
+    }
+
+    public function getCheckboxValues($request)
+    {
+        $array = [];
+
+        collect($this->checkboxes)->each(function ($checkbox) use (
+            &$array,
+            $request
+        ) {
+            if ($request->has($checkbox)) {
+                $array[$checkbox] = !!$request->get($checkbox);
+            }
+        });
+
+        return $array;
     }
 
     /**
@@ -171,7 +190,9 @@ class Opinions extends Controller
 
         return view('opinions.form')
             ->with('formDisabled', true)
-            ->with(['opinion' => OpinionModel::find($id)])
+            ->with([
+                'opinion' => OpinionModel::withoutGlobalScopes()->find($id),
+            ])
             ->with('isProcurador', $user->is_procurador)
             ->with(
                 'opinionsFormAttributes',

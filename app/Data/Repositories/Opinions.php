@@ -3,6 +3,8 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\Opinion;
+use App\Data\Scope\ActiveOpinion;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -56,21 +58,8 @@ class Opinions extends Base
         $array[] = (object) [
             'name' => 'abstract',
             'showName' => 'Ementa',
-            'columnSize' => '38%',
+            'columnSize' => '50%',
             'type' => 'string',
-        ];
-
-        //
-        $array[] = (object) [
-            'name' => 'approve_option_id',
-            'showName' => 'Aprovado',
-            'columnSize' => '12%',
-            'type' => 'id',
-            'modelName' => 'ApproveOption',
-            'attributeArray' => 'approveOptions',
-            'relationName' => 'approveOption',
-            'foreignName' => 'name',
-            'visible' => true,
         ];
 
         return $array;
@@ -323,15 +312,29 @@ class Opinions extends Base
      */
     public function search(Request $request)
     {
-        return $this->searchFromRequest($request->get('pesquisa'));
+        $query = $this->model::query();
+        $query = $this->applyCheckBoxes($query, $request);
+        $query = $this->searchFromRequest($query, $request->get('pesquisa'));
+        return $this->orderBy($query, 'updated_at', 'desc');
+    }
+
+    public function applyCheckBoxes(Builder $query, Request $request)
+    {
+        if ($request->has('show-inactive')) {
+            if ($request->get('show-inactive')) {
+                $query->withoutGlobalScope(ActiveOpinion::class);
+            }
+        }
+
+        return $query;
     }
 
     /**
      * @param null|string $search
      *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Query\Builder
      */
-    public function searchFromRequest($search = null)
+    public function searchFromRequest($query, $search = null)
     {
         $search = is_null($search)
             ? collect()
@@ -340,8 +343,6 @@ class Opinions extends Base
             });
 
         $columns = $this->createFormAttributes();
-
-        $query = Opinion::query();
 
         $search->each(function ($item) use ($columns, $query) {
             foreach ($columns as $column) {
@@ -381,8 +382,10 @@ class Opinions extends Base
             }
         });
 
-        return $this->makeResultForSelect(
-            $query->orderBy('updated_at', 'desc')->get()
-        );
+        return $query;
+    }
+
+    public function applySearchCheckboxes()
+    {
     }
 }
