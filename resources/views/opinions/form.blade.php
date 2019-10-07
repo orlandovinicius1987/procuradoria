@@ -77,8 +77,16 @@
 
                                 @if($attr->type == 'boolean')
                                     <br>
-                                        <input type="hidden" name="{{$attr->name}}"value="0">
-                                        <input id="{{$attr->name}}" type="checkbox" name="{{$attr->name}}" {{is_null(old($attr->name))? 'checked="checked"' : old($attr->name)}}>
+                                    <input type="hidden" name="{{$attr->name}}"value="0">
+                                    <input id="{{$attr->name}}" type="checkbox" name="{{$attr->name}}" {{
+                                            is_null(old($attr->name)) ?
+                                                is_null($opinion->{$attr->name}) ?
+                                                    $attr->default ?
+                                                        'checked="checked"' : ''
+                                                    : $opinion->{$attr->name} ?
+                                                        'checked="checked"' : ''
+                                                : old($attr->name) ?
+                                                    'checked="checked"' : ''}} @include('partials.disabled')>
 
                                 @endif
 
@@ -132,10 +140,18 @@
 
 
                                     @if($attr->type == 'boolean')
-                                            <label for="{{$attr->name}}">{{$attr->showName}}</label>
-                                            <br>
-                                            <input type="hidden" name="{{$attr->name}}"value="0">
-                                            <input id="{{$attr->name}}" type="checkbox" name="{{$attr->name}}" {{is_null(old($attr->name))? $opinion->{$attr->name} ? 'checked="checked"':'' : old($attr->name)}} @include('partials.disabled')>
+                                        <label for="{{$attr->name}}">{{$attr->showName}}</label>
+                                        <br>
+                                        <input type="hidden" name="{{$attr->name}}" value="0">
+                                        <input id="{{$attr->name}}" type="checkbox" name="{{$attr->name}}" {{
+                                            is_null(old($attr->name)) ?
+                                                is_null($opinion->{$attr->name}) ?
+                                                    $attr->default ?
+                                                        'checked="checked"' : ''
+                                                    : $opinion->{$attr->name} ?
+                                                        'checked="checked"' : ''
+                                                : old($attr->name) ?
+                                                    'checked="checked"' : ''}} @include('partials.disabled')>
 
                                     @endif
 

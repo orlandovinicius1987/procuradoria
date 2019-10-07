@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Rules\NotRootSubject;
 use App\Rules\UniqueOpinionsSubject;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class OpinionsSubject extends FormRequest
 {
@@ -15,7 +16,7 @@ class OpinionsSubject extends FormRequest
      */
     public function authorize()
     {
-        return \Gate::allows('opinion-subjects:connect');
+        return Gate::allows('opinion-subjects:connect');
     }
 
     /**
