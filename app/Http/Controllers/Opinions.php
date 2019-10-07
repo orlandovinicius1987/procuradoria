@@ -132,7 +132,7 @@ class Opinions extends Controller
             [
                 'Content-Type' => $mime,
                 'Content-Disposition' =>
-                    'attachment; filename="' . $fileName . '"'
+                    'attachment; filename="' . $fileName . '"',
             ]
         );
 
@@ -195,7 +195,8 @@ class Opinions extends Controller
      */
     public function relacionarAssunto(
         OpinionsSubjectRequest $request,
-        OpinionsSubjectsRepository $repository
+        OpinionsSubjectsRepository $repository,
+        $opinion_id
     ) {
         $repository->createFromRequest($request);
 
@@ -234,7 +235,7 @@ class Opinions extends Controller
             )->allOrderBy('name'),
             'approveOptions' => app(ApproveOptionsRepository::class)
                 ->allOrderBy('name')
-                ->pluck('name', 'id')
+                ->pluck('name', 'id'),
         ];
     }
 }

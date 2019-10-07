@@ -15,9 +15,10 @@ Route::group(['prefix' => '/pareceres'], function () {
 
     Route::get('/', 'Opinions@index')->name('opinions.index');
 
-    Route::post('/relacionarAssunto', 'Opinions@relacionarAssunto')->name(
-        'opinions.relacionarAssunto'
-    );
+    Route::post(
+        '/relacionar-assunto/{opinion_id}',
+        'Opinions@relacionarAssunto'
+    )->name('opinions.relacionar-assunto');
 });
 
 Route::group(['prefix' => '/assuntos'], function () {

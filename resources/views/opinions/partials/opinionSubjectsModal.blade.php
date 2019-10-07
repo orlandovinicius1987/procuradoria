@@ -17,7 +17,7 @@
             </div>
 
 
-            <form class="form" id="form_relacionarAssunto" name="form_relacionarAssunto" action="{{ route('opinions.relacionarAssunto') }}" method="post">
+            <form class="form" id="form_relacionarAssunto" name="form_relacionarAssunto" action="{{ route('opinions.relacionar-assunto', ['opinion_id' => $opinion->id]) }}" method="post" enctype="multipart/form-data">
 
 
                 <div class="modal-body">
