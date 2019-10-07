@@ -6,6 +6,7 @@ use App\Data\Models\OpinionScope as OpinionScopeModel;
 use App\Data\Models\OpinionType as OpinionTypeModel;
 use App\Data\Models\User as UserModel;
 use App\Data\Presenters\OpinionPresenter;
+use App\Data\Scope\ActiveOpinion as ActiveOpinionScope;
 
 class Opinion extends BaseModel
 {
@@ -36,6 +37,8 @@ class Opinion extends BaseModel
         'file_doc',
         'created_by',
         'updated_by',
+        'approve_option_id',
+        'is_active',
     ];
 
     protected $presenters = [
@@ -43,6 +46,13 @@ class Opinion extends BaseModel
         'pdf_file_name',
         'doc_file_name',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new ActiveOpinionScope());
+    }
 
     public function opinionScope()
     {
@@ -62,5 +72,10 @@ class Opinion extends BaseModel
     public function getPresenterClass()
     {
         return OpinionPresenter::class;
+    }
+
+    public function approveOption()
+    {
+        return $this->belongsTo(ApproveOption::class);
     }
 }

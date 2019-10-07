@@ -258,6 +258,7 @@ class ProcessosTest extends DuskTestCase
         ) {
             $browser
                 ->visit('/')
+                ->maximize()
                 ->type('pesquisa', $numeroJudicialP)
                 ->click('@submit-search')
                 ->waitForText($numeroAlerjP)
@@ -270,6 +271,7 @@ class ProcessosTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser
                 ->visit('/')
+                ->maximize()
                 ->clickLink('Novo')
                 ->select('#tipo_meio', '')
                 ->press('Gravar')

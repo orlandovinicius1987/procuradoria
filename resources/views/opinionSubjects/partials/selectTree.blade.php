@@ -16,8 +16,8 @@
         </div>
 
         <div class="col-md-7">
-            <p>Será salvo em</p>
-            <label for="{{$attributeName}}">@{{ fullSubjectName }}</label>
+            <p>Será salvo {{$source == 'create' ? 'em' : 'como'}}</p>
+                <label for="{{$attributeName}}">@{{ fullSubjectName }}</label>
         </div>
     </div>
 </div>

@@ -29,7 +29,7 @@
                         <td class="level-{{$opinionSubject->level}}" width="{{$attr->columnSize}}"><a href="{{$opinionSubject->edit_link}}">{{ $opinionSubject->{$opinionSubjectsEditAttribute} }}</a></td>
                     @else
                         {{--Atributo com o nome já identado--}}
-                        <td class="level-{{$opinionSubject->level}}" width="{{$attr->columnSize}}"><a href="{{$opinionSubject->edit_link}}">{{ $opinionSubject->indented_name}}</a></td>
+                        <td class="level-{{$opinionSubject->level}}" width="{{$attr->columnSize}}"><a href="{{$opinionSubject->edit_link}}">{!!$opinionSubject->indented_name!!}</a></td>
                     @endisset
 
                 @else

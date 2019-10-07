@@ -5,17 +5,20 @@ Route::group(['prefix' => '/pareceres'], function () {
 
     Route::post('/', 'Opinions@store')->name('opinions.store');
 
+    Route::post('/{id}', 'Opinions@update')->name('opinions.update');
+
     Route::get('/{id}', 'Opinions@show')->name('opinions.show');
 
-    Route::get('/{id}/{fileName}', 'Opinions@download')->name(
+    Route::get('/{id}/{fileExtension}', 'Opinions@download')->name(
         'opinions.download'
     );
 
     Route::get('/', 'Opinions@index')->name('opinions.index');
 
-    Route::post('/relacionarAssunto', 'Opinions@relacionarAssunto')->name(
-        'opinions.relacionarAssunto'
-    );
+    Route::post(
+        '/relacionar-assunto/{opinion_id}',
+        'Opinions@relacionarAssunto'
+    )->name('opinions.relacionar-assunto');
 });
 
 Route::group(['prefix' => '/assuntos'], function () {
@@ -24,6 +27,10 @@ Route::group(['prefix' => '/assuntos'], function () {
     );
 
     Route::post('/', 'OpinionSubjects@store')->name('opinionSubjects.store');
+
+    Route::post('/{id}', 'OpinionSubjects@update')->name(
+        'opinionSubjects.update'
+    );
 
     Route::get('/{id}', 'OpinionSubjects@show')->name('opinionSubjects.show');
 

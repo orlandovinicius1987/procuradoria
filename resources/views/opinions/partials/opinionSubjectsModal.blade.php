@@ -1,7 +1,9 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary; btn btn-primary pull-right" data-toggle="modal" data-target="#subjectsModal">
-    Relacionar Assunto
-</button>
+@can('opinion-subjects:connect')
+    <button type="button" class="btn btn-primary; btn btn-primary pull-right" data-toggle="modal" data-target="#subjectsModal">
+        Relacionar Assunto
+    </button>
+@endCan
 
 <!-- Modal -->
 <div class="modal fade" id="subjectsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -15,7 +17,7 @@
             </div>
 
 
-            <form class="form" id="form_relacionarAssunto" name="form_relacionarAssunto" action="{{ route('opinions.relacionarAssunto') }}" method="post">
+            <form class="form" id="form_relacionarAssunto" name="form_relacionarAssunto" action="{{ route('opinions.relacionar-assunto', ['opinion_id' => $opinion->id]) }}" method="post" enctype="multipart/form-data">
 
 
                 <div class="modal-body">

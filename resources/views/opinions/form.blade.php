@@ -17,15 +17,17 @@
                 </div>
 
                 <div class="col-xs-4 col-md-2">
-                    @if(!is_null($opinion->id))
-                        {{-- Create --}}
+                    @can('opinions:update')
+                        @if(!is_null($opinion->id))
+                            {{-- Create --}}
+                                @include('partials.save-button')
+                                @include('partials.edit-button', ['model' => $opinion])
+                        @else
+                            {{-- Show --}}
                             @include('partials.save-button')
                             @include('partials.edit-button', ['model' => $opinion])
-                    @else
-                        {{-- Show --}}
-                        @include('partials.save-button')
-                        @include('partials.edit-button', ['model' => $opinion])
-                    @endIf
+                        @endIf
+                    @endCan
                 </div>
             </div>
         </div>
@@ -33,7 +35,7 @@
         <div class="panel-body">
             @include('partials.alerts')
 
-            <form name="formulario" id="formulario" action="{{ route('opinions.store') }}" method="POST" enctype="multipart/form-data">
+            <form name="formulario" id="formulario" action="{{ is_null($opinion->id) ? route('opinions.store') : route('opinions.update', ['id' => $opinion->id]) }}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
             @if(is_null($opinion->id)) {{-- Create --}}
 
@@ -71,6 +73,21 @@
                                             @endif
                                         @endforeach
                                     </select>
+                                @endif
+
+                                @if($attr->type == 'boolean')
+                                    <br>
+                                    <input type="hidden" name="{{$attr->name}}"value="0">
+                                    <input id="{{$attr->name}}" type="checkbox" name="{{$attr->name}}" {{
+                                            is_null(old($attr->name)) ?
+                                                is_null($opinion->{$attr->name}) ?
+                                                    $attr->default ?
+                                                        'checked="checked"' : ''
+                                                    : $opinion->{$attr->name} ?
+                                                        'checked="checked"' : ''
+                                                : old($attr->name) ?
+                                                    'checked="checked"' : ''}} @include('partials.disabled')>
+
                                 @endif
 
                                 @if($attr->type == 'textarea')
@@ -121,37 +138,45 @@
                                         </select>
                                     @endif
 
+
+                                    @if($attr->type == 'boolean')
+                                        <label for="{{$attr->name}}">{{$attr->showName}}</label>
+                                        <br>
+                                        <input type="hidden" name="{{$attr->name}}" value="0">
+                                        <input id="{{$attr->name}}" type="checkbox" name="{{$attr->name}}" {{
+                                            is_null(old($attr->name)) ?
+                                                is_null($opinion->{$attr->name}) ?
+                                                    $attr->default ?
+                                                        'checked="checked"' : ''
+                                                    : $opinion->{$attr->name} ?
+                                                        'checked="checked"' : ''
+                                                : old($attr->name) ?
+                                                    'checked="checked"' : ''}} @include('partials.disabled')>
+
+                                    @endif
+
                                     @if($attr->type == 'textarea')
                                         <label for="{{$attr->name}}">{{$attr->showName}}</label>
                                         <textarea name="{{$attr->name}}" class="form-control" @include('partials.readonly') id="{{$attr->name}}"
                                                   placeholder="{{$attr->showName}}">{{is_null(old($attr->name))? $opinion->{$attr->name} : old($attr->name)}}</textarea>
                                     @endif
 
-                                    @if($isProcurador)
+
                                         @if($attr->type == 'file')
-                                            <label for="{{$attr->name}}" style="display: none;">{{$attr->showName}}</label>
-                                            <input style="display: none;" name="{{$attr->name}}" id="{{$attr->name}}" type="file" @include('partials.disabled')/>
+                                            @if(!isset($opinion->{'file_'.$attr->extension}))
+                                                <label for="{{$attr->name}}" style="display: none;">{{$attr->showName}}</label>
+                                                <input style="display: none;" name="{{$attr->name}}" id="{{$attr->name}}" type="file" @include('partials.disabled')/>
+                                            @endif
                                         @endif
 
 
                                         @if($attr->type == 'link')
-                                                @if((!isset($opinion->file_doc) && $attr->name =='doc_file_name' ))
-
-                                                @else
-
+                                                @if(isset($opinion->{'file_'.$attr->extension}))
                                                     <label for="{{$attr->name}}">{{$attr->showName}}</label>
-
                                                     <a href="{{$opinion->{$attr->name} }}">{{$attr->linkName}}</a>
                                                 @endif
                                         @endif
-                                    @else
-
-                                        @if($attr->type == 'file' && $attr->name =='doc_file_name' && (!isset($opinion->file_doc)))
-                                            <label for="{{$attr->name}}" style="display: none;">{{$attr->showName}}</label>
-                                            <input name="{{$attr->name}}" id="{{$attr->name}}" type="file" @include('partials.disabled') style="display: none;"/>
-                                        @endif
-                                    @endif
-                                @endif
+                            @endif
                         </div>
                     </div>
                 @endforeach

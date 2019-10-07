@@ -25,9 +25,13 @@ class AndamentosTest extends DuskTestCase
         static::$processoAndamento = app(ProcessosRepository::class)
             ->randomElement()
             ->toArray();
-        static::$tipoAndamentoAndamento = app(TiposAndamentosRepository::class)
-            ->randomElement()
-            ->toArray();
+        do {
+            static::$tipoAndamentoAndamento = app(
+                TiposAndamentosRepository::class
+            )
+                ->randomElement()
+                ->toArray();
+        } while (static::$tipoAndamentoAndamento['nome'] == 'Recebimento');
         static::$tipoPrazoAndamento = app(TiposPrazosRepository::class)
             ->randomElement()
             ->toArray();
