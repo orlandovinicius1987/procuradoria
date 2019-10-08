@@ -8,6 +8,20 @@ use Illuminate\Http\Request;
 
 class Revisions extends Base
 {
+    public $classesAndRoutes = [
+        'App\Data\Models\Tribunal' => 'tribunais.show',
+        'App\Data\Models\Acao' => 'acoes.show',
+        'App\Data\Models\Juiz' => 'juizes.show',
+        'App\Data\Models\Processo' => 'processos.show',
+        'App\Data\Models\User' => 'users.show',
+        'App\Data\Models\Andamento' => 'andamentos.show',
+        'App\Data\Models\Opinion' => 'opinions.show',
+        'App\Data\Models\OpinionSubject' => 'opinionSubjects.show',
+        'App\Data\Models\Lei' => 'leis.show',
+    ];
+
+    protected $hideFields = ['remember_token', 'password'];
+
     /**
      * @var string
      */
@@ -30,7 +44,13 @@ class Revisions extends Base
      */
     public function searchFromRequest($search = null)
     {
-        return Revision::orderBy('created_at', 'DESC')->paginate(25);
+        return Revision::whereIn(
+            'revisionable_type',
+            collect($this->classesAndRoutes)->keys()
+        )
+            ->whereNotIn('key', $this->hideFields)
+            ->orderBy('created_at', 'DESC')
+            ->paginate(25);
     }
 
     /**
