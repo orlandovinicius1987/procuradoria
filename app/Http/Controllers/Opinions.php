@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\Models\ApproveOption;
 use App\Data\Models\Opinion as OpinionModel;
 use App\Data\Models\OpinionsSubject;
 use App\Data\Models\User;
+use App\Data\Repositories\ApproveOptions as ApproveOptionsRepository;
 use App\Data\Repositories\Opinions as OpinionsRepository;
 use App\Data\Repositories\OpinionScopes as OpinionScopesRepository;
 use App\Data\Repositories\OpinionsSubjects as OpinionsSubjectsRepository;
 use App\Data\Repositories\OpinionSubjects as OpinionSubjectsRepository;
 use App\Data\Repositories\OpinionTypes as OpinionTypesRepository;
 use App\Data\Repositories\Users as UsersRepository;
-use App\Http\Requests\Opinion as OpinionRequest;
+use App\Http\Requests\OpinionStore as OpinionStoreRequest;
+use App\Http\Requests\OpinionUpdate as OpinionUpdateRequest;
 use App\Http\Requests\OpinionsSubject as OpinionsSubjectRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +22,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Opinions extends Controller
 {
+    protected $checkboxes = ['show-inactive'];
+
     /**
      * @var OpinionsRepository
      */
@@ -49,13 +54,13 @@ class Opinions extends Controller
     }
 
     /**
-     * @param OpinionRequest     $request
+     * @param OpinionStoreRequest     $request
      * @param OpinionsRepository $repository
      *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(
-        OpinionRequest $request,
+        OpinionStoreRequest $request,
         OpinionsRepository $repository
     ) {
         foreach ($request->allFiles() as $key => $file) {
@@ -66,12 +71,7 @@ class Opinions extends Controller
             );
 
             $request->merge(['file_' . $extension => $base64Content]);
-            //            $date = $newOpinion->date;
-            //            $fileName = $date . '-' . $newOpinion->id . '.' . $extension;
-            //            $file->storeAs('', $fileName, 'opinion-files');
         }
-
-        //        dd($request);
 
         $data = $request->all();
 
@@ -90,17 +90,24 @@ class Opinions extends Controller
             );
     }
 
+    /**
+     * @param OpinionUpdateRequest     $request
+     * @param OpinionsRepository $repository
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(
+        OpinionUpdateRequest $request,
+        OpinionsRepository $repository
+    ) {
+        return $this->store($request, $repository);
+    }
+
     public function download($id, $fileExtension)
     {
-        if (!Auth::user()->is_procurador) {
-            return redirect()
-                ->route('opinions.index')
-                ->with($this->getWarningMessage('Você não tem Permissão.'));
-        }
-
         $mime = '';
         $attributeName = '';
-        $currentOpinion = OpinionModel::find($id);
+        $currentOpinion = OpinionModel::withoutGlobalScopes()->find($id);
 
         if ($fileExtension == 'pdf') {
             $mime = 'application/pdf';
@@ -146,10 +153,27 @@ class Opinions extends Controller
 
         return view('opinions.index')
             ->with('pesquisa', $request->get('pesquisa'))
+            ->with('checkboxValues', $this->getCheckboxValues($request))
             ->with('opinions', $this->repository->search($request))
             ->with('isProcurador', $user->is_procurador)
             ->with('opinionsAttributes', $this->repository->attributesShowing())
             ->with('opinionEditAttribute', $this->repository->editAttribute);
+    }
+
+    public function getCheckboxValues($request)
+    {
+        $array = [];
+
+        collect($this->checkboxes)->each(function ($checkbox) use (
+            &$array,
+            $request
+        ) {
+            if ($request->has($checkbox)) {
+                $array[$checkbox] = !!$request->get($checkbox);
+            }
+        });
+
+        return $array;
     }
 
     /**
@@ -166,7 +190,9 @@ class Opinions extends Controller
 
         return view('opinions.form')
             ->with('formDisabled', true)
-            ->with(['opinion' => OpinionModel::find($id)])
+            ->with([
+                'opinion' => OpinionModel::withoutGlobalScopes()->find($id),
+            ])
             ->with('isProcurador', $user->is_procurador)
             ->with(
                 'opinionsFormAttributes',
@@ -190,7 +216,8 @@ class Opinions extends Controller
      */
     public function relacionarAssunto(
         OpinionsSubjectRequest $request,
-        OpinionsSubjectsRepository $repository
+        OpinionsSubjectsRepository $repository,
+        $opinion_id
     ) {
         $repository->createFromRequest($request);
 
@@ -227,6 +254,9 @@ class Opinions extends Controller
             'allOpinionSubjects' => app(
                 OpinionSubjectsRepository::class
             )->allOrderBy('name'),
+            'approveOptions' => app(ApproveOptionsRepository::class)
+                ->allOrderBy('name')
+                ->pluck('name', 'id'),
         ];
     }
 }

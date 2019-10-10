@@ -3,6 +3,8 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\Opinion;
+use App\Data\Scope\ActiveOpinion;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -85,6 +87,17 @@ class Opinions extends Base
             'relationName' => 'attorney',
             'foreignName' => 'name',
         ];
+
+        $array[] = (object) [
+            'name' => 'approve_option_id',
+            'showName' => 'Aprovado',
+            'type' => 'id',
+            'modelName' => 'ApproveOption',
+            'attributeArray' => 'approveOptions',
+            'relationName' => 'approveOption',
+            'foreignName' => 'name',
+        ];
+
         $array[] = (object) [
             'name' => 'opinion_type_id',
             'showName' => 'Tipo',
@@ -114,6 +127,7 @@ class Opinions extends Base
             'showName' => 'Data',
             'type' => 'date',
         ];
+
         $array[] = (object) [
             'name' => 'party',
             'showName' => 'Interessado',
@@ -140,6 +154,13 @@ class Opinions extends Base
             'name' => 'doc_file',
             'showName' => 'Arquivo .doc',
             'type' => 'file',
+        ];
+
+        $array[] = (object) [
+            'name' => 'is_active',
+            'showName' => 'Ativo',
+            'type' => 'boolean',
+            'default' => true,
         ];
 
         return $array;
@@ -169,6 +190,18 @@ class Opinions extends Base
             'foreignName' => 'name',
             'visible' => true,
         ];
+
+        $array[] = (object) [
+            'name' => 'approve_option_id',
+            'showName' => 'Aprovado',
+            'type' => 'id',
+            'modelName' => 'ApproveOption',
+            'attributeArray' => 'approveOptions',
+            'relationName' => 'approveOption',
+            'foreignName' => 'name',
+            'visible' => true,
+        ];
+
         $array[] = (object) [
             'name' => 'opinion_type_id',
             'showName' => 'Tipo',
@@ -226,28 +259,40 @@ class Opinions extends Base
             'showName' => 'PDF',
             'linkName' => 'Visualizar',
             'type' => 'link',
-            'visible' => $isProcurador,
+            'visible' => true,
+            'extension' => 'pdf',
         ];
         $array[] = (object) [
             'name' => 'doc_file_name',
             'showName' => 'DOC',
             'linkName' => 'Visualizar',
             'type' => 'link',
-            'visible' => $isProcurador,
+            'visible' => true,
+            'extension' => 'doc',
         ];
 
         $array[] = (object) [
-            'name' => 'pdf_file_name',
+            'name' => 'pdf_file',
             'showName' => 'Arquivo .pdf',
             'type' => 'file',
-            'visible' => $isProcurador,
+            'visible' => true,
+            'extension' => 'pdf',
         ];
 
         $array[] = (object) [
-            'name' => 'doc_file_name',
+            'name' => 'doc_file',
             'showName' => 'Arquivo .doc',
             'type' => 'file',
             'visible' => true,
+            'extension' => 'doc',
+        ];
+
+        $array[] = (object) [
+            'name' => 'is_active',
+            'showName' => 'Ativo',
+            'type' => 'boolean',
+            'visible' => true,
+            'default' => true,
         ];
 
         return $array;
@@ -267,15 +312,29 @@ class Opinions extends Base
      */
     public function search(Request $request)
     {
-        return $this->searchFromRequest($request->get('pesquisa'));
+        $query = $this->model::query();
+        $query = $this->applyCheckBoxes($query, $request);
+        $query = $this->searchFromRequest($query, $request->get('pesquisa'));
+        return $this->orderBy($query, 'updated_at', 'desc');
+    }
+
+    public function applyCheckBoxes(Builder $query, Request $request)
+    {
+        if ($request->has('show-inactive')) {
+            if ($request->get('show-inactive')) {
+                $query->withoutGlobalScope(ActiveOpinion::class);
+            }
+        }
+
+        return $query;
     }
 
     /**
      * @param null|string $search
      *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Query\Builder
      */
-    public function searchFromRequest($search = null)
+    public function searchFromRequest($query, $search = null)
     {
         $search = is_null($search)
             ? collect()
@@ -284,8 +343,6 @@ class Opinions extends Base
             });
 
         $columns = $this->createFormAttributes();
-
-        $query = Opinion::query();
 
         $search->each(function ($item) use ($columns, $query) {
             foreach ($columns as $column) {
@@ -325,8 +382,10 @@ class Opinions extends Base
             }
         });
 
-        return $this->makeResultForSelect(
-            $query->orderBy('updated_at', 'desc')->get()
-        );
+        return $query;
+    }
+
+    public function applySearchCheckboxes()
+    {
     }
 }

@@ -48,7 +48,7 @@ Route::group(
 
             require __DIR__ . '/services/buscas.php';
 
-            //        require __DIR__.'/services/opinions.php';
+            require __DIR__ . '/services/opinions.php';
         });
     }
 );

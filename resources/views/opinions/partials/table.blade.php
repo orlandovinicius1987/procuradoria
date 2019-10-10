@@ -32,7 +32,7 @@
             @forelse($opinionsAttributes as $attr)
                 @if($attr->type == 'id')
                     <td width="{{$attr->columnSize}}">
-                        {{ is_null($opinion->{$attr->relationName}->{$attr->foreignName}) ? '' : $opinion->{$attr->relationName}->{$attr->foreignName} }}
+                        {{ $opinion->{$attr->relationName}->{$attr->foreignName} ?? '' }}
                     </td>
                 @else
                     <td width="{{$attr->columnSize}}">{{ is_null($opinion->{$attr->name}) ? '' : $opinion->{$attr->name} }}</td>

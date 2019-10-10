@@ -20,7 +20,7 @@ class Andamento extends BaseModel
         'data_prazo',
         'data_entrega',
         'data_andamento',
-        'observacoes',
+        'observacoes'
     ];
 
     /**

@@ -15,23 +15,17 @@ class ApensosTest extends DuskTestCase
     public function init()
     {
         $faker = app(Faker::class);
-        static::$apensoApenso = $faker->randomElement(
-            app(ProcessosRepository::class)
-                ->all()
-                ->toArray()
-        );
-        static::$apensadoApenso = $faker->randomElement(
-            app(ProcessosRepository::class)
-                ->all()
-                ->toArray()
-        );
+        static::$apensoApenso = app(ProcessosRepository::class)
+            ->randomElement()
+            ->toArray();
+        static::$apensadoApenso = app(ProcessosRepository::class)
+            ->randomElement()
+            ->toArray();
 
         while (static::$apensoApenso['id'] == static::$apensadoApenso['id']) {
-            static::$apensadoApenso = $faker->randomElement(
-                app(ProcessosRepository::class)
-                    ->all()
-                    ->toArray()
-            );
+            static::$apensadoApenso = app(ProcessosRepository::class)
+                ->randomElement()
+                ->toArray();
         }
     }
 

@@ -2,6 +2,8 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use function GuzzleHttp\Psr7\str;
 
 function startTimer()
 {
@@ -26,6 +28,8 @@ function toBoolean($boolean)
 function extract_credentials($request)
 {
     $credentials = $request->only(['email', 'password']);
+
+    $credentials['email'] = $credentials['email'];
 
     $credentials['username'] = $credentials['email'];
 
@@ -55,6 +59,11 @@ class Timer
 function only_numbers($string)
 {
     return preg_replace('/\D/', '', $string);
+}
+
+function only_letters_and_space($string)
+{
+    return preg_replace('/([^a-zA-Z\s])/', '', $string);
 }
 
 /**
@@ -679,7 +688,7 @@ function removerAcentuacao($str, $utf8 = true)
         'ჭ' => 'c',
         'ხ' => 'k',
         'ჯ' => 'j',
-        'ჰ' => 'h',
+        'ჰ' => 'h'
     ];
     $str = str_replace(
         array_keys($transliteration),

@@ -22,9 +22,13 @@ class OpinionSubjectPresenter extends BasePresenter
     public function full_name()
     {
         $current = $this->wrappedObject;
-        $ancestors = $current->ancestors;
+        $ancestors = $current
+            ->ancestors()
+            ->orderBy('_lft')
+            ->get();
 
         $fullName = '';
+
         foreach ($ancestors as $key => $ancestor) {
             if ($key != 0) {
                 $fullName .= $ancestor->name;

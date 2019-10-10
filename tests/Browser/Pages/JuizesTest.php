@@ -17,18 +17,14 @@ class JuizesTest extends DuskTestCase
     public function init()
     {
         $faker = app(Faker::class);
-        static::$nomeJuiz = app(Faker::class)->name;
+        static::$nomeJuiz = only_letters_and_space(app(Faker::class)->name);
 
-        static::$tribunal = $faker->randomElement(
-            app(TribunaisRepository::class)
-                ->searchFromRequest()
-                ->toArray()
-        );
-        static::$tipoJuiz = $faker->randomElement(
-            app(TiposJuizesRepository::class)
-                ->all()
-                ->toArray()
-        );
+        static::$tribunal = app(TribunaisRepository::class)
+            ->randomElement()
+            ->toArray();
+        static::$tipoJuiz = app(TiposJuizesRepository::class)
+            ->randomElement()
+            ->toArray();
     }
 
     public function testInsert()
@@ -102,16 +98,12 @@ class JuizesTest extends DuskTestCase
         $faker = app(Faker::class);
 
         $nomej = static::$nomeJuiz;
-        $tribunal = $faker->randomElement(
-            app(TribunaisRepository::class)
-                ->searchFromRequest()
-                ->toArray()
-        );
-        $tipoJuiz = $faker->randomElement(
-            app(TiposJuizesRepository::class)
-                ->all()
-                ->toArray()
-        );
+        $tribunal = app(TribunaisRepository::class)
+            ->randomElement()
+            ->toArray();
+        $tipoJuiz = app(TiposJuizesRepository::class)
+            ->randomElement()
+            ->toArray();
 
         $this->browse(function (Browser $browser) use (
             $nomej,

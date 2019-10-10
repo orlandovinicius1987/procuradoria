@@ -2,7 +2,9 @@
 
 namespace App\Data\Repositories;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 abstract class Base
 {
@@ -77,6 +79,13 @@ abstract class Base
     public function firstOrCreate(array $search, array $attributes = [])
     {
         return $this->model::firstOrCreate($search, $attributes);
+    }
+
+    public function orderBy($query, $column, $order)
+    {
+        return $this->makeResultForSelect(
+            $query->orderBy($column, $order)->get()
+        );
     }
 
     /**
@@ -213,6 +222,19 @@ abstract class Base
      */
     public function search(Request $request)
     {
-        return $this->searchFromRequest($request->get('pesquisa'));
+        $query = $this->model::query();
+        $query = $this->searchFromRequest($query, $request->get('pesquisa'));
+        $query = $this->applyCheckBoxes($query, $request);
+        return $this->orderBy($query, 'updated_at', 'desc');
+    }
+
+    public function applyCheckBoxes(Builder $query, Request $request)
+    {
+        return $query;
+    }
+
+    public function randomElement()
+    {
+        return $this->model::inRandomOrder()->first();
     }
 }

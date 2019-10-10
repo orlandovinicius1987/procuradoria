@@ -15,7 +15,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Data\Models\User::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'name' => only_letters_and_space($faker->name),
         'username' => $faker->unique()->userName,
         'email' => $faker->unique()->safeEmail,
         'password' =>
@@ -23,6 +23,6 @@ $factory->define(App\Data\Models\User::class, function (Faker $faker) {
         'remember_token' => str_random(10),
         'user_type_id' => $faker->randomElement(
             \App\Data\Models\TipoUsuario::pluck('id')->toArray()
-        ),
+        )
     ];
 });

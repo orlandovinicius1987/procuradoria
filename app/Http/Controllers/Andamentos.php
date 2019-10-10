@@ -143,7 +143,7 @@ class Andamentos extends Controller
             'tipoEntradas' => ModelTipoEntrada::orderBy('nome')->pluck(
                 'nome',
                 'id'
-            ),
+            )
         ];
     }
 }

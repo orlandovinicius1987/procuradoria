@@ -28,7 +28,7 @@
             <div class="panel-body">
                 @include('partials.alerts')
 
-                <form name="formulario" id="formulario" action="{{ route('opinionSubjects.store') }}" method="POST">
+                <form name="formulario" id="formulario" action="{{ is_null($opinionSubject->id) ? route('opinionSubjects.store') : route('opinionSubjects.update', ['id' => $opinionSubject->id]) }}" method="POST">
                     {{ csrf_field() }}
 
                     <input name="id" type='hidden' value="{{$opinionSubject->id}}" id="id" >

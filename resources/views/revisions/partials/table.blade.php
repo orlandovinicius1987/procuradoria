@@ -4,6 +4,7 @@
             <th>#</th>
             <th>Usuário</th>
             <th>Tabela</th>
+            <th>Campo alterado</th>
             <th>Antigo valor</th>
             <th>Novo valor</th>
         </tr>
@@ -25,11 +26,13 @@
 
             <td>{{ is_null($revision->user) ? '' : $revision->user->name }}</td>
 
-            <td>{{ $revision->revisionable }}</td>
+            <td>{{ trans('validation.classes.'.$revision->revisionable) }}</td>
 
-            <td>{{ $revision->old_value }}</td>
+            <td>{{ trans('validation.attributes.'.$revision->key) }}</td>
 
-            <td>{{ $revision->new_value }}</td>
+            <td>{{ str_limit($revision->old_value, 50) }}</td>
+
+            <td>{{ str_limit($revision->new_value,50) }}</td>
         </tr>
     @empty
         <p>Nenhuma revisão encontrada</p>

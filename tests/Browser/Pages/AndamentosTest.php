@@ -22,24 +22,22 @@ class AndamentosTest extends DuskTestCase
     public function init()
     {
         $faker = app(Faker::class);
-        static::$processoAndamento = $faker->randomElement(
-            app(ProcessosRepository::class)
-                ->all()
-                ->toArray()
-        );
-        static::$tipoAndamentoAndamento = $faker->randomElement(
-            app(TiposAndamentosRepository::class)
-                ->all()
-                ->toArray()
-        );
-        static::$tipoPrazoAndamento = $faker->randomElement(
-            app(TiposPrazosRepository::class)
-                ->all()
-                ->toArray()
-        );
+        static::$processoAndamento = app(ProcessosRepository::class)
+            ->randomElement()
+            ->toArray();
+        do {
+            static::$tipoAndamentoAndamento = app(
+                TiposAndamentosRepository::class
+            )
+                ->randomElement()
+                ->toArray();
+        } while (static::$tipoAndamentoAndamento['nome'] == 'Recebimento');
+        static::$tipoPrazoAndamento = app(TiposPrazosRepository::class)
+            ->randomElement()
+            ->toArray();
         static::$dataPrazoAndamento = '01-01-2001';
         static::$dataEntregaAndamento = '01-01-2001';
-        static::$observacaoAndamento = $faker->name;
+        static::$observacaoAndamento = only_letters_and_space($faker->name);
     }
 
     public function testInsert()
@@ -121,30 +119,18 @@ class AndamentosTest extends DuskTestCase
     {
         $faker = app(Faker::class);
 
-        $processoA = $faker->randomElement(
-            app(ProcessosRepository::class)
-                ->all()
-                ->toArray()
-        );
-        $tipoAndamentoA = $faker->randomElement(
-            app(TiposAndamentosRepository::class)
-                ->all()
-                ->toArray()
-        );
-        $tipoPrazoA = $faker->randomElement(
-            app(TiposPrazosRepository::class)
-                ->all()
-                ->toArray()
-        );
-        $dataPrazoA = \DateTime::createFromFormat(
-            'm-d-Y',
-            '03-02-2333'
-        )->format('m-d-Y');
-        $dataEntregaA = \DateTime::createFromFormat(
-            'm-d-Y',
-            '04-05-2444'
-        )->format('m-d-Y');
-        $observacaoA = $faker->name;
+        $processoA = app(ProcessosRepository::class)
+            ->randomElement()
+            ->toArray();
+        $tipoAndamentoA = app(TiposAndamentosRepository::class)
+            ->randomElement()
+            ->toArray();
+        $tipoPrazoA = app(TiposPrazosRepository::class)
+            ->randomElement()
+            ->toArray();
+        $dataPrazoA = \DateTime::createFromFormat('m-d-Y', '03-02-2333');
+        $dataEntregaA = \DateTime::createFromFormat('m-d-Y', '04-05-2444');
+        $observacaoA = only_letters_and_space($faker->name);
 
         $numProcesso = static::$processoAndamento['numero_judicial'];
 
@@ -164,24 +150,16 @@ class AndamentosTest extends DuskTestCase
                 ->select('#processo_id', $processoA['id'])
                 ->select('#tipo_andamento_id', $tipoAndamentoA['id'])
                 ->select('#tipo_prazo_id', $tipoPrazoA['id'])
-                ->keys('#data_prazo', $dataPrazoA)
-                ->keys('#data_entrega', $dataEntregaA)
+                ->keys('#data_prazo', $dataPrazoA->format('d/m/Y'))
+                ->keys('#data_entrega', $dataEntregaA->format('d/m/Y'))
                 ->type('#observacoes', $observacaoA)
                 ->press('Gravar')
                 ->assertSee('Gravado com sucesso')
                 ->assertSee($processoA['numero_judicial'])
                 ->assertSee($tipoAndamentoA['nome'])
                 ->assertSee($tipoPrazoA['nome'])
-                ->assertSee(
-                    Carbon::createFromFormat('m-d-Y', $dataPrazoA)->format(
-                        'd/m/Y'
-                    )
-                )
-                ->assertSee(
-                    Carbon::createFromFormat('m-d-Y', $dataEntregaA)->format(
-                        'd/m/Y'
-                    )
-                )
+                ->waitForText($dataPrazoA->format('d/m/Y'))
+                ->waitForText($dataEntregaA->format('d/m/Y'))
                 ->assertSee($observacaoA);
         });
     }

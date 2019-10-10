@@ -56,7 +56,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'name' => env('MAIL_FROM_NAME', 'Example')
     ],
 
     /*
@@ -114,6 +114,15 @@ return [
     'markdown' => [
         'theme' => 'default',
 
-        'paths' => [resource_path('views/vendor/mail')],
+        'paths' => [resource_path('views/vendor/mail')]
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Mail flow Settings
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    'throttleToMessagesPerMin' => env('MAIL_THROTTLE_TO_MESSAGES_PER_MIN', null)
 ];
