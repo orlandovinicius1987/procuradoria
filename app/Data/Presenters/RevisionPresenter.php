@@ -2,32 +2,23 @@
 
 namespace App\Data\Presenters;
 
+use App\Data\Repositories\Revisions;
 use McCool\LaravelAutoPresenter\BasePresenter;
 
 class RevisionPresenter extends BasePresenter
 {
     /**
-     * @var array
-     */
-    protected $routes = [
-        'App\Data\Models\Tribunal' => 'tribunais.show',
-        'App\Data\Models\Acao' => 'acoes.show',
-        'App\Data\Models\Juiz' => 'juizes.show',
-        'App\Data\Models\Processo' => 'processos.show',
-        'App\Data\Models\User' => 'users.show',
-        'App\Data\Models\Andamento' => 'andamentos.show',
-    ];
-
-    /**
      * @return mixed
      */
     private function getRouteName()
     {
-        if (!isset($this->routes[$this->wrappedObject->revisionable_type])) {
-            return;
+        $routes = app(Revisions::class)->classesAndRoutes;
+
+        if (!isset($routes[$this->wrappedObject->revisionable_type])) {
+            return null;
         }
 
-        return $this->routes[$this->wrappedObject->revisionable_type];
+        return $routes[$this->wrappedObject->revisionable_type];
     }
 
     /**
