@@ -215,6 +215,11 @@ abstract class Base
         return $returnArray;
     }
 
+    public function defaultOrderBy($query)
+    {
+        return $this->orderBy($query, 'updated_at', 'desc');
+    }
+
     /**
      * @param Request $request
      *
@@ -223,9 +228,15 @@ abstract class Base
     public function search(Request $request)
     {
         $query = $this->model::query();
-        $query = $this->searchFromRequest($query, $request->get('pesquisa'));
+        if ($request->has('pesquisa')) {
+            $query = $this->searchFromRequest(
+                $query,
+                $request->get('pesquisa')
+            );
+        }
         $query = $this->applyCheckBoxes($query, $request);
-        return $this->orderBy($query, 'updated_at', 'desc');
+
+        return $this->defaultOrderBy($query);
     }
 
     public function applyCheckBoxes(Builder $query, Request $request)
