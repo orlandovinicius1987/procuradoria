@@ -17,7 +17,7 @@ class SearchTerms extends Base
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function searchFromRequest($search = null)
+    public function searchFromRequest($query, $search = null)
     {
         $search = is_null($search)
             ? collect()
@@ -26,8 +26,6 @@ class SearchTerms extends Base
             });
 
         $columns = collect(['text' => 'string']);
-
-        $query = SearchTerm::query();
 
         $search->each(function ($item) use ($columns, $query) {
             $columns->each(function ($type, $column) use ($query, $item) {
@@ -41,6 +39,11 @@ class SearchTerms extends Base
             });
         });
 
+        return $query;
+    }
+
+    public function defaultOrderBy($query)
+    {
         return $this->makeResultForSelect($query->orderBy('text')->get());
     }
 }

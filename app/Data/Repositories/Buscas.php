@@ -6,6 +6,7 @@ use App\Data\Models\Busca;
 use App\Data\Models\Processo;
 use App\Data\Models\ReadingLog;
 use Auth;
+use Illuminate\Http\Request;
 use DB;
 
 class Buscas extends Base
@@ -18,9 +19,9 @@ class Buscas extends Base
     /**
      * @param null|string $search
      *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return
      */
-    public function searchFromRequest($search = null)
+    public function searchFromRequest($query, $search = null)
     {
         $search = is_null($search)
             ? collect()
@@ -29,8 +30,6 @@ class Buscas extends Base
             });
 
         $columns = collect(['number' => 'string']);
-
-        $query = Busca::query();
 
         $search->each(function ($item) use ($columns, $query) {
             $columns->each(function ($type, $column) use ($query, $item) {
@@ -44,6 +43,11 @@ class Buscas extends Base
             });
         });
 
+        return $query;
+    }
+
+    public function defaultOrderBy($query)
+    {
         return $this->makeResultForSelect(
             $query
                 ->orderBy('created_at', 'desc')
