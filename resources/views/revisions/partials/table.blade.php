@@ -7,6 +7,7 @@
             <th>Campo alterado</th>
             <th>Antigo valor</th>
             <th>Novo valor</th>
+            <th>Data da alteração</th>
         </tr>
     </thead>
 
@@ -33,6 +34,8 @@
             <td>{{ str_limit($revision->old_value, 50) }}</td>
 
             <td>{{ str_limit($revision->new_value,50) }}</td>
+
+            <td>{{ $revision->created_at->format('d/m/Y - H:i') }}</td>
         </tr>
     @empty
         <p>Nenhuma revisão encontrada</p>
