@@ -8,8 +8,8 @@
                 <p>Selecione o assunto</p>
             @endif
 
-            <input name="{{$attributeName}}" type="hidden" value="{{$currentSubject->parent_id ?? null }}" id="value-input" >
-            <input name="label-input" type="hidden" value="{{ $currentSubject->parent->full_name ?? null }}" id="label-input" >
+            <input name="{{$attributeName}}" type="hidden" value="{{$currentSubject->parent_id ?? $root->id ?? null }}" id="value-input" >
+            <input name="label-input" type="hidden" value="{{ $currentSubject->parent->full_name ?? $root->name ?? null }}" id="label-input" >
 
             <div v-if="refreshing">
                 <p class="text-danger">carregando...</p>

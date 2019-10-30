@@ -224,6 +224,8 @@ return [
         'approve_option_id' => 'Aprovado',
         'disabled_at' => 'Desabilitado em',
         'disabled_by_id' => 'Desabilitado por',
+        'subject_id' => 'Assunto',
+        'parent_id' => 'Assunto',
     ],
 
     'classes' => [
