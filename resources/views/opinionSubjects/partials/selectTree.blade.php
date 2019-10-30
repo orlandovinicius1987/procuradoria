@@ -7,17 +7,21 @@
             @else
                 <p>Selecione o assunto</p>
             @endif
+
+            <input name="{{$attributeName}}" type="hidden" value="{{$currentSubject->parent_id ?? null }}" id="value-input" >
+            <input name="label-input" type="hidden" value="{{ $currentSubject->parent->full_name ?? null }}" id="label-input" >
+
             <div v-if="refreshing">
                 <p class="text-danger">carregando...</p>
             </div>
             <div v-else="refreshing">
-                <select name="{{$attributeName}}" id="subjectsTreeSelect" style="width:16em" @include('partials.disabled')></select>
+                <select name="tree" id="subjectsTreeSelect" style="width:16em" @include('partials.disabled')></select>
             </div>
         </div>
 
         <div class="col-md-7">
             <p>Será salvo {{$source == 'create' ? 'em' : 'como'}}</p>
-                <label for="{{$attributeName}}">@{{ fullSubjectName }}</label>
+                <label for="{{$attributeName}}">@{{ selectedLabel }}</label>
         </div>
     </div>
 </div>
