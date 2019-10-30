@@ -30,12 +30,14 @@ class OpinionSubjects extends Controller
      */
     public function create()
     {
+        $repository = app(OpinionSubjectsRepository::class);
         return view('opinionSubjects.form')
             ->with(['opinionSubject' => $this->repository->new()])
             ->with(
                 'opinionSubjectsFormAttributes',
                 $this->repository->formAttributes()
-            );
+            )
+            ->with('root', $repository->getRoot());
     }
 
     /**
@@ -106,7 +108,8 @@ class OpinionSubjects extends Controller
             ->with(
                 'opinionSubjectsFormAttributes',
                 $repository->formAttributes()
-            );
+            )
+            ->with('root', $repository->getRoot());
     }
 
     public function jsonTree($selectedId = null)

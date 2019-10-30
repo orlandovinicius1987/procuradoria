@@ -42,7 +42,8 @@
                                 [
                                     'attributeName' => 'parent_id',
                                     'source' => $opinionSubject->id ? 'update' : 'create',
-                                    'currentSubject' => $opinionSubject ?? null
+                                    'currentSubject' => $opinionSubject ?? null,
+                                    'root' => $root ?? null
                                 ]
                             )
 
