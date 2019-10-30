@@ -109,11 +109,11 @@ class OpinionSubjects extends Controller
             );
     }
 
-    public function jsonTree()
+    public function jsonTree($selectedId = null)
     {
         $opinionSubjectsRepository = app(OpinionSubjectsRepository::class);
 
-        $return = [$opinionSubjectsRepository->fullTree()];
+        $return = [$opinionSubjectsRepository->fullTree($selectedId)];
 
         return $return;
     }

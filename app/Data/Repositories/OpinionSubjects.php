@@ -141,20 +141,31 @@ class OpinionSubjects extends Base
         return $array;
     }
 
-    public function fullTree()
+    public function getRoot()
     {
-        return $this->nodeToTree($this->whereNull('parent_id')->first());
+        return $this->whereNull('parent_id')->first();
     }
 
-    public function nodeToTree($subject)
+    public function fullTree($selectedId)
+    {
+        $root = $this->getRoot();
+
+        return $this->nodeToTree($root, $selectedId ?? $root->id);
+    }
+
+    public function nodeToTree($subject, $selectedId)
     {
         $array = [];
 
         foreach ($subject->children()->get() as $child) {
-            $array[] = $this->nodeToTree($child);
+            $array[] = $this->nodeToTree($child, $selectedId);
         }
 
-        $ownArray = ['id' => $subject->id, 'text' => $subject->name];
+        $ownArray = [
+            'id' => $subject->id,
+            'text' => $subject->name,
+            'selected' => $subject->id == $selectedId ? true : false,
+        ];
 
         if (!empty($array)) {
             $array = array_sort($array, 'text', SORT_ASC);
