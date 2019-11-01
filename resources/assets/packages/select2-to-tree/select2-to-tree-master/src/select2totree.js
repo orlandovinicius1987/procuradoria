@@ -70,6 +70,9 @@
 				var $opt = $("<option></option>");
 				$opt.text(data[treeData.labelFld || "text"]);
 				$opt.val(data[treeData.valFld || "id"]);
+				if (data[treeData.selFld || "selected"] && String(data[treeData.selFld || "selected"]) === "true") {
+					$opt.prop("selected", data[treeData.selFld || "selected"]);
+				}
 				if($opt.val() === "") {
 					$opt.prop("disabled", true);
 					$opt.val(getUniqueValue());
@@ -78,7 +81,7 @@
 				if (pup) $opt.attr("data-pup", pup);
 				$el.append($opt);
 				var inc = data[treeData.incFld || "inc"];
-				if (inc) {
+				if (inc && inc.length > 0) {
 					$opt.addClass("non-leaf");
 					buildOptions(inc, curLevel+1, $opt.val());
 				}

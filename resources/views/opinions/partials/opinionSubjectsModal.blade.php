@@ -29,9 +29,11 @@
                     @include(
                             'opinionSubjects.partials.selectTree',
                             [
+                                'root' => $root ?? null,
+                                'currentSubject' => null,
                                 'attributeName' => 'subject_id',
                                 'formDisabled' => false,
-                                'source' => 'edit'
+                                'source' => 'update'
                             ]
                     )
 
