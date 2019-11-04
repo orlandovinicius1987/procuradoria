@@ -33,16 +33,9 @@ $factory->define(OpinionSubjectModel::class, function (Faker $faker) {
 
 $factory->define(OpinionsSubjectModel::class, function (Faker $faker) {
     return [
-        'opinion_id' => $faker->randomElement(
-            app(OpinionsRepository::class)
-                ->all()
-                ->toArray()
-        )['id'],
-        'subject_id' => $faker->randomElement(
-            app(OpinionSubjectsRepository::class)
-                ->all()
-                ->toArray()
-        )['id']
+        'opinion_id' => app(OpinionsRepository::class)->randomElement()->id,
+        'subject_id' => app(OpinionSubjectsRepository::class)->randomElement()
+            ->id,
     ];
 });
 
@@ -52,16 +45,11 @@ $factory->define(OpinionTypeModel::class, function (Faker $faker) {
 
 $factory->define(OpinionModel::class, function (Faker $faker) {
     return [
-        'opinion_scope_id' => $faker->randomElement(
-            app(OpinionScopesRepository::class)
-                ->all()
-                ->toArray()
-        )['id'],
-        'opinion_type_id' => $faker->randomElement(
-            app(OpinionTypesRepository::class)
-                ->all()
-                ->toArray()
-        )['id'],
+        'opinion_scope_id' => app(
+            OpinionScopesRepository::class
+        )->randomElement()->id,
+        'opinion_type_id' => app(OpinionTypesRepository::class)->randomElement()
+            ->id,
         'attorney_id' => $faker->randomElement(
             app(UsersRepository::class)
                 ->getByType('Procurador')
@@ -76,15 +64,7 @@ $factory->define(OpinionModel::class, function (Faker $faker) {
         'opinion' => $faker->text,
         'file_pdf' => $faker->text,
         'file_doc' => $faker->text,
-        'created_by' => $faker->randomElement(
-            app(UsersRepository::class)
-                ->getByType('Procurador')
-                ->toArray()
-        )['id'],
-        'updated_by' => $faker->randomElement(
-            app(UsersRepository::class)
-                ->getByType('Procurador')
-                ->toArray()
-        )['id']
+        'created_by' => app(UsersRepository::class)->randomElement()->id,
+        'updated_by' => app(UsersRepository::class)->randomElement()->id,
     ];
 });
