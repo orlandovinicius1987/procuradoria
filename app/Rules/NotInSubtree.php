@@ -3,8 +3,9 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use App\Data\Models\OpinionSubject;
 
-class IdNotEqualsToParentId implements Rule
+class NotInSubtree implements Rule
 {
     protected $id;
     protected $parent_id;
@@ -20,6 +21,15 @@ class IdNotEqualsToParentId implements Rule
         $this->parent_id = $parent_id;
     }
 
+    public function assertParentNotInCurrentSubtree(
+        OpinionSubject $current,
+        OpinionSubject $parent
+    ) {
+        return !(
+            $current->id == $parent->id || $parent->isDescendantOf($current)
+        );
+    }
+
     /**
      * Determine if the validation rule passes.
      *
@@ -29,7 +39,10 @@ class IdNotEqualsToParentId implements Rule
      */
     public function passes($attribute, $value)
     {
-        return $this->id != $this->parent_id;
+        $current = OpinionSubject::find($this->id);
+        $parentAttempt = OpinionSubject::find($this->parent_id);
+
+        return $this->assertParentNotInCurrentSubtree($current, $parentAttempt);
     }
 
     /**
@@ -39,6 +52,6 @@ class IdNotEqualsToParentId implements Rule
      */
     public function message()
     {
-        return 'O assunto não pode ser salvo dentro do próprio assunto.';
+        return 'O assunto não pode ser salvo dentro do próprio assunto ou em um assunto que já é filho.';
     }
 }
