@@ -33,24 +33,22 @@
 
                     <input name="id" type='hidden' value="{{$opinionSubject->id}}" id="id" >
 
-                    @if(is_null($opinionSubject->id))
-                        <div class="row">
-                            <div class="form-group col-md-6" @include('partials.disabled')>
+                    <div class="row">
+                        <div class="form-group col-md-6" @include('partials.disabled')>
 
 
-                                @include(
-                                    'opinionSubjects.partials.selectTree',
-                                    [
-                                        'attributeName' => 'parent_id',
-                                        'source' => 'create'
-                                    ]
-                                )
+                            @include(
+                                'opinionSubjects.partials.selectTree',
+                                [
+                                    'attributeName' => 'parent_id',
+                                    'source' => $opinionSubject->id ? 'update' : 'create',
+                                    'currentSubject' => $opinionSubject ?? null,
+                                    'root' => $root ?? null
+                                ]
+                            )
 
-                            </div>
                         </div>
-                    @else
-                        <input name="parent_id" type='hidden' value="{{$opinionSubject->parent_id}}" id="parent_id" >
-                    @endif
+                    </div>
 
 
 

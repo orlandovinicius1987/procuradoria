@@ -37,7 +37,7 @@ Route::group(['prefix' => '/assuntos'], function () {
     Route::get('/', 'OpinionSubjects@index')->name('opinionSubjects.index');
 
     Route::group(['prefix' => '/json'], function () {
-        Route::get('/tree', 'OpinionSubjects@jsonTree')->name(
+        Route::get('/tree/{selectedId?}', 'OpinionSubjects@jsonTree')->name(
             'opinionsubjects.jsontree'
         );
         Route::get('/array', 'OpinionSubjects@jsonArray')->name(

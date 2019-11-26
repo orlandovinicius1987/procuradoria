@@ -77,7 +77,7 @@
 
                                 @if($attr->type == 'boolean')
                                     <br>
-                                    <input type="hidden" name="{{$attr->name}}"value="0">
+                                    <input type="hidden" name="{{$attr->name}}" value="0">
                                     <input id="{{$attr->name}}" type="checkbox" name="{{$attr->name}}" {{
                                             is_null(old($attr->name)) ?
                                                 is_null($opinion->{$attr->name}) ?
