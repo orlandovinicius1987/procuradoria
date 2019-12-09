@@ -329,7 +329,7 @@ class Processos extends Base
                     ->pluck('name', 'id'),
                 'meios' => Meio::orderBy('nome')->pluck('nome', 'id'),
                 'acoes' => Acao::orderBy('nome')->pluck('nome', 'id'),
-                'andamentos' => Andamento::where('processo_id', $id)->get(),
+                'andamentos' => Andamento::where('processo_id', $id)->orderBy('data_andamento','asc')->get(),
                 'apensos' => $apensos,
                 'processos' => $processos,
                 'leis' => $leis,
