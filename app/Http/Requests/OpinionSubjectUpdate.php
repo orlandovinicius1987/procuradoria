@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\IdNotEqualsToParentId;
+use App\Rules\NotInSubtree;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 
@@ -27,10 +27,7 @@ class OpinionSubjectUpdate extends OpinionSubjectStore
     {
         return [
             'name' => 'required',
-            'parent_id' => new IdNotEqualsToParentId(
-                $this->get('id'),
-                $this->get('parent_id')
-            ),
+            'id' => new NotInSubtree($this->get('id'), $this->get('parent_id')),
         ];
     }
 }
