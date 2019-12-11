@@ -344,7 +344,6 @@ class ProcessosTest extends DuskTestCase
                 ->assertSee('Gravado com sucesso', 30)
                 ->waitForText($novoNumeroJudicialP)
                 ->assertSee($novoNumeroJudicialP)
-                ->assertSee($ProcessoP['numero_alerj'])
                 ->assertSee($novoNumeroJudicialP)
                 ->assertSee($novoTribunalP['abreviacao'])
                 ->assertSee($novoAutorP)
