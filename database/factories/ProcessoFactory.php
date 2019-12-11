@@ -15,8 +15,8 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Data\Models\Processo::class, function (Faker $faker) {
     return [
-        'numero_judicial' => $faker->randomNumber(),
-        'numero_alerj' => $faker->randomNumber(),
+        'numero_judicial' => $faker->randomNumber(4),
+        'numero_alerj' => $faker->randomNumber(4),
         'tribunal_id' => function () {
             return factory(\App\Data\Models\Tribunal::class)->create()->id;
         },
