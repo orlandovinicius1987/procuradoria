@@ -26,7 +26,8 @@ class OpinionStore extends FormRequest
     {
         return [
             'opinion_scope_id' => 'required',
-            'attorney_id' => 'required',
+            'authorable_id' => 'required',
+            'authorable_type' => 'required',
             'opinion_type_id' => 'required',
             'date' => 'required',
             'abstract' => 'required',

@@ -67,4 +67,9 @@ abstract class BaseModel extends Model implements HasPresenter
 
         return $attributes;
     }
+
+    public function getModelAttribute()
+    {
+        return get_class($this);
+    }
 }

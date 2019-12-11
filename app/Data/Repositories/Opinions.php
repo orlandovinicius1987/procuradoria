@@ -3,9 +3,13 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\Opinion;
+use App\Data\Models\OpinionAuthor;
+use App\Data\Repositories\Users as UsersRepository;
+use App\Data\Repositories\OpinionAuthors as OpinionAuthorsRepository;
 use App\Data\Scope\ActiveOpinion;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class Opinions extends Base
@@ -76,15 +80,6 @@ class Opinions extends Base
             'modelName' => 'opinionScope',
             'attributeArray' => 'opinionScopes',
             'relationName' => 'opinionScope',
-            'foreignName' => 'name',
-        ];
-        $array[] = (object) [
-            'name' => 'attorney_id',
-            'showName' => 'Procurador',
-            'type' => 'id',
-            'modelName' => 'user',
-            'attributeArray' => 'attorneys',
-            'relationName' => 'attorney',
             'foreignName' => 'name',
         ];
 
@@ -177,16 +172,6 @@ class Opinions extends Base
             'modelName' => 'opinionScope',
             'attributeArray' => 'opinionScopes',
             'relationName' => 'opinionScope',
-            'foreignName' => 'name',
-            'visible' => true,
-        ];
-        $array[] = (object) [
-            'name' => 'attorney_id',
-            'showName' => 'Procurador',
-            'type' => 'id',
-            'modelName' => 'user',
-            'attributeArray' => 'attorneys',
-            'relationName' => 'attorney',
             'foreignName' => 'name',
             'visible' => true,
         ];
@@ -387,5 +372,18 @@ class Opinions extends Base
 
     public function applySearchCheckboxes()
     {
+    }
+
+    public function getAllAuthors($opinionId)
+    {
+        $opinion = Opinion::find($opinionId);
+
+        $authorable = $opinion->authorable;
+
+        return app(OpinionAuthorsRepository::class)->all()->concat(app(UsersRepository::class)->getByType('Procurador'))->map(function ($item) use ($opinion, $authorable) {
+            $collection = new Collection($item);
+            $collection['selected'] = (($authorable->id == $item->id)&&($authorable->model == $item->model));
+            return $collection;
+        });
     }
 }

@@ -38,6 +38,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'no_notifications',
     ];
 
+    protected $appends = ['model'];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -95,5 +97,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getIsAdministratorAttribute()
     {
         return strtolower($this->userType->nome) == 'administrador';
+    }
+
+    public function getModelAttribute()
+    {
+        return get_class($this);
     }
 }
