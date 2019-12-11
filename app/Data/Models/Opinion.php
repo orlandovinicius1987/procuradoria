@@ -24,7 +24,8 @@ class Opinion extends BaseModel
      */
     protected $fillable = [
         'opinion_scope_id',
-        'attorney_id',
+        'authorable_id',
+        'authorable_type',
         'opinion_type_id',
         'suit_number',
         'suit_sheet',
@@ -62,6 +63,11 @@ class Opinion extends BaseModel
     public function attorney()
     {
         return $this->belongsTo(UserModel::class);
+    }
+
+    public function authorable()
+    {
+        return $this->morphTo();
     }
 
     public function opinionType()
