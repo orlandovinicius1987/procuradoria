@@ -226,6 +226,8 @@ return [
         'disabled_by_id' => 'Desabilitado por',
         'subject_id' => 'Assunto',
         'parent_id' => 'Assunto',
+        'authorable_id' => 'Procurador',
+        'authorable_type' => 'Procurador',
     ],
 
     'classes' => [

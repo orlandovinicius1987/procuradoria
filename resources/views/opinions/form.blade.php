@@ -7,6 +7,8 @@
                 <div class="row">
                     <div class="col-xs-8 col-md-10">
                         <h4>
+                            <a href="{{ route('opinions.index') }}">Pareceres</a>
+
                             @if(is_null($opinion->id))
                                 > NOVO
                             @else
