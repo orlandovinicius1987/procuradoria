@@ -20,8 +20,6 @@ class OpinionPresenter extends BasePresenter
     {
         $date = $this->wrappedObject->date;
 
-        //        dd($date);
-
         return !is_null($date)
             ? Carbon::createFromFormat('Y-m-d', $date)->format('d/m/Y')
             : null;

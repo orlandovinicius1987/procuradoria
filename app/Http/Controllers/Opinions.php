@@ -16,6 +16,7 @@ use App\Data\Repositories\Users as UsersRepository;
 use App\Http\Requests\OpinionStore as OpinionStoreRequest;
 use App\Http\Requests\OpinionUpdate as OpinionUpdateRequest;
 use App\Http\Requests\OpinionsSubject as OpinionsSubjectRequest;
+use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,10 +47,8 @@ class Opinions extends Controller
     {
         return view('opinions.form')
             ->with(['opinion' => $this->repository->new()])
-            ->with(
-                'opinionsFormAttributes',
-                $this->repository->createFormAttributes()
-            )
+            ->with('formDisabled', false)
+            ->with('mode', 'create')
             ->with($this->getOpinionsData());
     }
 
@@ -75,7 +74,7 @@ class Opinions extends Controller
 
         $data = $request->all();
 
-        $data['created_by'] = Auth::user()->id;
+        $data['created_by'] = Auth::user()->id; //TODO: está alterando sempre (mesmo com update)
         $data['updated_by'] = Auth::user()->id;
 
         $newOpinion = $repository->createFromRequest($data);
@@ -120,7 +119,7 @@ class Opinions extends Controller
         $fileName =
             'Parecer' .
             ' - ' .
-            $currentOpinion->attorney->name .
+            $currentOpinion->authorable->name .
             ' - ' .
             $currentOpinion->date .
             ' - ' .
@@ -206,6 +205,7 @@ class Opinions extends Controller
                 'opinionSubjectsEditAttribute',
                 $opinionSubjectsRepository->editAttribute
             )
+            ->with('mode', 'update')
             ->with($this->getOpinionsData($id));
     }
 
@@ -226,6 +226,17 @@ class Opinions extends Controller
             ->with($this->getSuccessMessage());
     }
 
+    public function getSelectedAuthorableKey($allAuthors)
+    {
+        $returnKey = null;
+
+        $allAuthors->each(function ($item, $key) use (&$returnKey){
+            if($item['selected']) $returnKey = $key;
+        });
+
+        return $returnKey;
+    }
+
     public function getOpinionsData($id = null)
     {
         if ($id == null) {
@@ -240,23 +251,26 @@ class Opinions extends Controller
             }
         }
 
+        $allAuthors = app(OpinionsRepository::class)
+            ->getAllAuthors($id);
+
+        $selectedAuthorableKey = $this->getSelectedAuthorableKey($allAuthors);
+
         return [
             'opinionTypes' => app(OpinionTypesRepository::class)
                 ->allOrderBy('name')
-                ->pluck('name', 'id'),
+                ->toArray(),
             'opinionScopes' => app(OpinionScopesRepository::class)
-                ->allOrderBy('name')
-                ->pluck('name', 'id'),
-            'attorneys' => app(UsersRepository::class)
-                ->getByType('Procurador')
-                ->pluck('name', 'id'),
+                ->allOrderBy('name')->toArray(),
+            'authorables' => $allAuthors->toArray(),
+            'selectedAuthorableKey' => $selectedAuthorableKey,
             'opinionSubjects' => $opinionSubjects,
             'allOpinionSubjects' => app(
                 OpinionSubjectsRepository::class
             )->allOrderBy('name'),
             'approveOptions' => app(ApproveOptionsRepository::class)
                 ->allOrderBy('name')
-                ->pluck('name', 'id'),
+                ->toArray(),
         ];
     }
 }
