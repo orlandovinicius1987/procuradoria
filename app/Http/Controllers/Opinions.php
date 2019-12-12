@@ -47,10 +47,8 @@ class Opinions extends Controller
     {
         return view('opinions.form')
             ->with(['opinion' => $this->repository->new()])
-            ->with(
-                'opinionsFormAttributes',
-                $this->repository->createFormAttributes()
-            )
+            ->with('formDisabled', false)
+            ->with('mode', 'create')
             ->with($this->getOpinionsData());
     }
 
@@ -76,7 +74,7 @@ class Opinions extends Controller
 
         $data = $request->all();
 
-        $data['created_by'] = Auth::user()->id;
+        $data['created_by'] = Auth::user()->id; //TODO: está alterando sempre (mesmo com update)
         $data['updated_by'] = Auth::user()->id;
 
         $newOpinion = $repository->createFromRequest($data);
@@ -121,7 +119,7 @@ class Opinions extends Controller
         $fileName =
             'Parecer' .
             ' - ' .
-            $currentOpinion->attorney->name .
+            $currentOpinion->authorable->name .
             ' - ' .
             $currentOpinion->date .
             ' - ' .
@@ -207,6 +205,7 @@ class Opinions extends Controller
                 'opinionSubjectsEditAttribute',
                 $opinionSubjectsRepository->editAttribute
             )
+            ->with('mode', 'update')
             ->with($this->getOpinionsData($id));
     }
 

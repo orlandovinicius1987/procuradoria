@@ -1,6 +1,6 @@
 <template>
     <div>
-        <select class="form-control select2" :value="value" :multiple="multiple" :disabled="disabled">
+        <select class="form-control select2" :value="value" :multiple="multiple" :disabled="!!disabled">
             <option value="">SELECIONE</option>
             <option v-for="(option, index) in options" :value="index" ref="input">
                 {{ option.text }}
