@@ -51,7 +51,20 @@ class Processos extends Controller
         ProcessoRequest $request,
         ProcessosRepository $repository
     ) {
-        $p = $repository->createFromRequest($request);
+        foreach ($request->allFiles() as $key => $file) {
+            $extension = $file->getClientOriginalExtension();
+
+            $base64Content = base64_encode(
+                file_get_contents($file->getPathName())
+            );
+
+
+
+            $requestData = $request->all();
+            $requestData['judgment_pdf'] = $base64Content;
+        }
+
+        $p = $repository->createFromRequest($requestData);
 
         $a = new AndamentosRepository();
         $a->createFromProcessos($request, $p);
@@ -83,6 +96,30 @@ class Processos extends Controller
                 )
             )
             ->with($this->getSuccessMessage());
+    }
+
+    public function download($id)
+    {
+
+        $currentProcess = Processo::withoutGlobalScopes()->find($id);
+        $mime = 'application/pdf';
+        $fileName =
+            'Acórdão' .
+            ' - ' .
+            $currentProcess->numero_judicial .
+            '.pdf';
+
+        $response = response(
+            base64_decode($currentProcess->judgment_pdf),
+            200,
+            [
+                'Content-Type' => $mime,
+                'Content-Disposition' =>
+                    'attachment; filename="' . $fileName . '"',
+            ]
+        );
+
+        return $response;
     }
 
     /**

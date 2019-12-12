@@ -1,4 +1,4 @@
-<form name="formulario" id="formulario" action="{{ route($isFilter ? 'home.filter' : 'processos.store') }}" method="POST">
+<form name="formulario" id="formulario" action="{{ route($isFilter ? 'home.filter' : 'processos.store') }}" method="POST" enctype="multipart/form-data">
     {{ csrf_field() }}
 
     @if (isset($processo))
@@ -285,6 +285,16 @@
                 <label for="merito">Mérito</label>
                 <textarea name="merito" class="form-control" @include('partials.readonly')
                 id="merito" placeholder="Informe o Mérito">{{is_null(old('merito'))? $processo->merito : old('merito')}}</textarea>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="acordao">Acórdão</label>
+                <input name="judgment_pdf" id="judgment_pdf" type="file" @include('partials.disabled')/>
+                @if(isset($processo->judgment_pdf))
+                    <a href="{{route('processos.download',['id' => $processo->id])}}">Visualizar</a>
+                @endif
             </div>
         </div>
 
