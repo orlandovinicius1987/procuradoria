@@ -4,6 +4,7 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\Opinion;
 use App\Data\Models\OpinionAuthor;
+use App\Data\Models\User;
 use App\Data\Repositories\Users as UsersRepository;
 use App\Data\Repositories\OpinionAuthors as OpinionAuthorsRepository;
 use App\Data\Scope\ActiveOpinion;
@@ -35,11 +36,11 @@ class Opinions extends Base
         ];
 
         $array[] = (object) [
-            'name' => 'attorney',
+            'name' => 'authorable',
             'showName' => 'Procurador',
             'columnSize' => '10%',
             'type' => 'id',
-            'relationName' => 'attorney',
+            'relationName' => 'authorable',
             'foreignName' => 'name',
         ];
 
@@ -69,17 +70,74 @@ class Opinions extends Base
         return $array;
     }
 
-    public function createFormAttributes()
+    public function searchAttributes()
     {
         $array = [];
-
-        return $array;
-    }
-
-    public function showFormAttributes($isProcurador)
-    {
-        $array = [];
-
+        $array[] = (object) [
+            'name' => 'opinion_scope_id',
+            'type' => 'id',
+            'relationName' => 'opinionScope',
+            'foreignName' => 'name',
+        ];
+        $array[] = (object) [
+            'name' => 'authorable_id',
+            'type' => 'morph',
+            'relationName' => 'authorable',
+            'foreignName' => 'name',
+        ];
+        $array[] = (object) [
+            'name' => 'approve_option_id',
+            'type' => 'id',
+            'relationName' => 'approveOption',
+            'foreignName' => 'name',
+        ];
+        $array[] = (object) [
+            'name' => 'opinion_type_id',
+            'type' => 'id',
+            'relationName' => 'opinionType',
+            'foreignName' => 'name',
+        ];
+        $array[] = (object) [
+            'name' => 'suit_number',
+            'type' => 'string',
+        ];
+        $array[] = (object) [
+            'name' => 'suit_sheet',
+            'type' => 'string',
+        ];
+        $array[] = (object) [
+            'name' => 'identifier',
+            'type' => 'string',
+        ];
+        $array[] = (object) [
+            'name' => 'date',
+            'type' => 'date',
+        ];
+        $array[] = (object) [
+            'name' => 'party',
+            'type' => 'string',
+        ];
+        $array[] = (object) [
+            'name' => 'abstract',
+            'type' => 'textarea',
+        ];
+        $array[] = (object) [
+            'name' => 'opinion',
+            'type' => 'textarea',
+        ];
+        $array[] = (object) [
+            'name' => 'pdf_file',
+            'type' => 'file',
+        ];
+        $array[] = (object) [
+            'name' => 'doc_file',
+            'type' => 'file',
+        ];
+        $array[] = (object) [
+            'name' => 'is_active',
+            'type' => 'boolean',
+            'default' => true,
+        ];
         return $array;
     }
 
@@ -127,7 +185,7 @@ class Opinions extends Base
                 return strtolower($item);
             });
 
-        $columns = $this->createFormAttributes();
+        $columns = $this->searchAttributes();
 
         $search->each(function ($item) use ($columns, $query) {
             foreach ($columns as $column) {
@@ -163,6 +221,17 @@ class Opinions extends Base
                             $query->orWhereDate($column->name, '=', $ifdate);
                         }
                         break;
+                    case 'morph':
+                        $query->orWhereHasMorph($column->relationName, [User::class, OpinionAuthor::class], function (
+                            $query, $type
+                        ) use ($item, $column) {
+                            $query->whereRaw(
+                                'lower(' .
+                                $column->foreignName .
+                                ") like '%{$item}%'"
+                            );
+                        });
+                        break;
                 }
             }
         });
@@ -177,7 +246,7 @@ class Opinions extends Base
     public function getAllAuthors($opinionId = null)
     {
         if($opinionId) {
-            $opinion = Opinion::find($opinionId);
+            $opinion = Opinion::withoutGlobalScopes()->find($opinionId);
 
             $authorable = $opinion->authorable;
 

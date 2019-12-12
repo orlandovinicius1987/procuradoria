@@ -16,7 +16,6 @@ use App\Data\Repositories\Users as UsersRepository;
 use App\Http\Requests\OpinionStore as OpinionStoreRequest;
 use App\Http\Requests\OpinionUpdate as OpinionUpdateRequest;
 use App\Http\Requests\OpinionsSubject as OpinionsSubjectRequest;
-use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -182,9 +181,6 @@ class Opinions extends Controller
      */
     public function show($id)
     {
-        $user = Auth::user();
-
-        $repository = app(OpinionsRepository::class);
         $opinionSubjectsRepository = app(OpinionSubjectsRepository::class);
 
         return view('opinions.form')
@@ -192,19 +188,8 @@ class Opinions extends Controller
             ->with([
                 'opinion' => OpinionModel::withoutGlobalScopes()->find($id),
             ])
-            ->with('isProcurador', $user->is_procurador)
-            ->with(
-                'opinionsFormAttributes',
-                $repository->showFormAttributes($user->is_procurador)
-            )
-            ->with(
-                'opinionSubjectsAttributes',
-                $opinionSubjectsRepository->attributesShowing()
-            )
-            ->with(
-                'opinionSubjectsEditAttribute',
-                $opinionSubjectsRepository->editAttribute
-            )
+            ->with('opinionSubjectsAttributes', $opinionSubjectsRepository->attributesShowing())
+            ->with('opinionSubjectsEditAttribute', $opinionSubjectsRepository->editAttribute)
             ->with('mode', 'update')
             ->with($this->getOpinionsData($id));
     }
