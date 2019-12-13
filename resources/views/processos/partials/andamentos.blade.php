@@ -25,6 +25,7 @@
 
                         <tr>
                             <th>Tipo de andamento</th>
+                            <th>Data andamento</th>
                             <th>Tipo de entrada</th>
                             <th>Tipo de prazo</th>
                             <th>Data prazo</th>
@@ -35,9 +36,10 @@
                         <tr>
 
                             <td><a href="{{ route('andamentos.show',['id' => $andamento->id]) }}">{{ $andamento->tipoAndamento->nome }}</a></td>
+                            <td>{{ $andamento->data_andamento_formatado ?? '' }}</td>
                             <td>{{ $andamento->tipoEntrada->nome }}</td>
                             <td>{{ is_null($andamento->tipoPrazo)? '' :$andamento->tipoPrazo->nome }}</td>
-                            <td>{{ $andamento->data_prazo }}</td>
+                            <td>{{ $andamento->data_prazo_formatado ?? '' }}</td>
                             <td>{{ $andamento->observacoes }}</td>
                         </tr>
                     @empty

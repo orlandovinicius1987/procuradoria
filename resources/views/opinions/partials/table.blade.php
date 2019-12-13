@@ -30,7 +30,7 @@
             </td>
 
             @forelse($opinionsAttributes as $attr)
-                @if($attr->type == 'id')
+                @if($attr->type == 'id' || $attr->type == 'morph')
                     <td width="{{$attr->columnSize}}">
                         {{ $opinion->{$attr->relationName}->{$attr->foreignName} ?? '' }}
                     </td>
