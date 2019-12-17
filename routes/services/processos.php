@@ -17,6 +17,10 @@ Route::group(['prefix' => '/processos'], function () {
 
     Route::get('/{id}', 'Processos@show')->name('processos.show');
 
+    Route::get('/{id}/download', 'Processos@download')->name(
+        'processos.download'
+    );
+
     Route::post('/apensar', 'Processos@apensar')->name('processos.apensar');
 
     Route::post('/relacionarLei', 'Processos@relacionarLei')->name(
