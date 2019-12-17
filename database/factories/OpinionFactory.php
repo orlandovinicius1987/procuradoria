@@ -1,6 +1,7 @@
 <?php
 
 use App\Data\Models\Opinion as OpinionModel;
+use App\Data\Models\User as UserModel;
 use App\Data\Models\OpinionScope as OpinionScopeModel;
 use App\Data\Models\OpinionsSubject as OpinionsSubjectModel;
 use App\Data\Models\OpinionSubject as OpinionSubjectModel;
@@ -50,11 +51,12 @@ $factory->define(OpinionModel::class, function (Faker $faker) {
         )->randomElement()->id,
         'opinion_type_id' => app(OpinionTypesRepository::class)->randomElement()
             ->id,
-        'attorney_id' => $faker->randomElement(
+        'authorable_id' => $faker->randomElement(
             app(UsersRepository::class)
                 ->getByType('Procurador')
                 ->toArray()
         )['id'],
+        'authorable_type' => UserModel::class,
         'suit_number' => only_letters_and_space($faker->name),
         'suit_sheet' => only_letters_and_space($faker->name),
         'identifier' => only_letters_and_space($faker->name),

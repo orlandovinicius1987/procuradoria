@@ -46,10 +46,8 @@ class Opinions extends Controller
     {
         return view('opinions.form')
             ->with(['opinion' => $this->repository->new()])
-            ->with(
-                'opinionsFormAttributes',
-                $this->repository->createFormAttributes()
-            )
+            ->with('formDisabled', false)
+            ->with('mode', 'create')
             ->with($this->getOpinionsData());
     }
 
@@ -75,7 +73,7 @@ class Opinions extends Controller
 
         $data = $request->all();
 
-        $data['created_by'] = Auth::user()->id;
+        $data['created_by'] = Auth::user()->id; //TODO: está alterando sempre (mesmo com update)
         $data['updated_by'] = Auth::user()->id;
 
         $newOpinion = $repository->createFromRequest($data);
@@ -120,7 +118,7 @@ class Opinions extends Controller
         $fileName =
             'Parecer' .
             ' - ' .
-            $currentOpinion->attorney->name .
+            $currentOpinion->authorable->name .
             ' - ' .
             $currentOpinion->date .
             ' - ' .
@@ -183,9 +181,6 @@ class Opinions extends Controller
      */
     public function show($id)
     {
-        $user = Auth::user();
-
-        $repository = app(OpinionsRepository::class);
         $opinionSubjectsRepository = app(OpinionSubjectsRepository::class);
 
         return view('opinions.form')
@@ -193,19 +188,9 @@ class Opinions extends Controller
             ->with([
                 'opinion' => OpinionModel::withoutGlobalScopes()->find($id),
             ])
-            ->with('isProcurador', $user->is_procurador)
-            ->with(
-                'opinionsFormAttributes',
-                $repository->showFormAttributes($user->is_procurador)
-            )
-            ->with(
-                'opinionSubjectsAttributes',
-                $opinionSubjectsRepository->attributesShowing()
-            )
-            ->with(
-                'opinionSubjectsEditAttribute',
-                $opinionSubjectsRepository->editAttribute
-            )
+            ->with('opinionSubjectsAttributes', $opinionSubjectsRepository->attributesShowing())
+            ->with('opinionSubjectsEditAttribute', $opinionSubjectsRepository->editAttribute)
+            ->with('mode', 'update')
             ->with($this->getOpinionsData($id));
     }
 
@@ -226,6 +211,17 @@ class Opinions extends Controller
             ->with($this->getSuccessMessage());
     }
 
+    public function getSelectedAuthorableKey($allAuthors)
+    {
+        $returnKey = null;
+
+        $allAuthors->each(function ($item, $key) use (&$returnKey){
+            if($item['selected']) $returnKey = $key;
+        });
+
+        return $returnKey;
+    }
+
     public function getOpinionsData($id = null)
     {
         if ($id == null) {
@@ -240,23 +236,26 @@ class Opinions extends Controller
             }
         }
 
+        $allAuthors = app(OpinionsRepository::class)
+            ->getAllAuthors($id);
+
+        $selectedAuthorableKey = $this->getSelectedAuthorableKey($allAuthors);
+
         return [
             'opinionTypes' => app(OpinionTypesRepository::class)
                 ->allOrderBy('name')
-                ->pluck('name', 'id'),
+                ->toArray(),
             'opinionScopes' => app(OpinionScopesRepository::class)
-                ->allOrderBy('name')
-                ->pluck('name', 'id'),
-            'attorneys' => app(UsersRepository::class)
-                ->getByType('Procurador')
-                ->pluck('name', 'id'),
+                ->allOrderBy('name')->toArray(),
+            'authorables' => $allAuthors->toArray(),
+            'selectedAuthorableKey' => $selectedAuthorableKey,
             'opinionSubjects' => $opinionSubjects,
             'allOpinionSubjects' => app(
                 OpinionSubjectsRepository::class
             )->allOrderBy('name'),
             'approveOptions' => app(ApproveOptionsRepository::class)
                 ->allOrderBy('name')
-                ->pluck('name', 'id'),
+                ->toArray(),
         ];
     }
 }
