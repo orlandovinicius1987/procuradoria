@@ -51,20 +51,17 @@ class Processos extends Controller
         ProcessoRequest $request,
         ProcessosRepository $repository
     ) {
+        $base64Content = null;
         foreach ($request->allFiles() as $key => $file) {
-            $extension = $file->getClientOriginalExtension();
 
             $base64Content = base64_encode(
                 file_get_contents($file->getPathName())
             );
-
-
-
-            $requestData = $request->all();
-            $requestData['judgment_pdf'] = $base64Content;
         }
 
-        $p = $repository->createFromRequest($requestData);
+        $request->merge(['judgment_pdf' => $base64Content]);
+
+        $p = $repository->createFromRequest($request);
 
         $a = new AndamentosRepository();
         $a->createFromProcessos($request, $p);

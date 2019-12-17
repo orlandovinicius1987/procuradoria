@@ -291,7 +291,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="acordao">Acórdão</label>
-                <input name="judgment_pdf" id="judgment_pdf" type="file" @include('partials.disabled')/>
+                <input name="pdf_judgment" id="judgment_pdf" type="file" @include('partials.disabled')/>
                 @if(isset($processo->judgment_pdf))
                     <a href="{{route('processos.download',['id' => $processo->id])}}">Visualizar</a>
                 @endif
