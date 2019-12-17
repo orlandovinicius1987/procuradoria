@@ -72,6 +72,7 @@ class Processo extends BaseModel
         'tipo_processo_id',
         'armazenado_em',
         'ementa',
+        'judgment_pdf',
     ];
 
     /**

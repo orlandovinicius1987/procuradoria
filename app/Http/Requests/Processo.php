@@ -36,6 +36,7 @@ class Processo extends FormRequest
             //           'procurador_id' => 'required',
             //           'estagiario_id'  => 'required',
             'tipo_meio_id' => 'numeric|required|max:99|exists:meios,id',
+            'judgment_pdf'=>'mimes:pdf',
         ];
     }
 }
