@@ -36,7 +36,7 @@ $factory->define(OpinionsSubjectModel::class, function (Faker $faker) {
     return [
         'opinion_id' => app(OpinionsRepository::class)->randomElement()->id,
         'subject_id' => app(OpinionSubjectsRepository::class)->randomElement()
-            ->id,
+            ->id
     ];
 });
 
@@ -67,6 +67,6 @@ $factory->define(OpinionModel::class, function (Faker $faker) {
         'file_pdf' => $faker->text,
         'file_doc' => $faker->text,
         'created_by' => app(UsersRepository::class)->randomElement()->id,
-        'updated_by' => app(UsersRepository::class)->randomElement()->id,
+        'updated_by' => app(UsersRepository::class)->randomElement()->id
     ];
 });

@@ -73,7 +73,7 @@ class Opinions extends Controller
 
         $data = $request->all();
 
-        if(is_null($request['id'])) {
+        if (is_null($request['id'])) {
             $data['created_by'] = Auth::user()->id;
         }
         $data['updated_by'] = Auth::user()->id;
@@ -134,7 +134,7 @@ class Opinions extends Controller
             [
                 'Content-Type' => $mime,
                 'Content-Disposition' =>
-                    'attachment; filename="' . $fileName . '"',
+                    'attachment; filename="' . $fileName . '"'
             ]
         );
 
@@ -188,10 +188,16 @@ class Opinions extends Controller
         return view('opinions.form')
             ->with('formDisabled', true)
             ->with([
-                'opinion' => OpinionModel::withoutGlobalScopes()->find($id),
+                'opinion' => OpinionModel::withoutGlobalScopes()->find($id)
             ])
-            ->with('opinionSubjectsAttributes', $opinionSubjectsRepository->attributesShowing())
-            ->with('opinionSubjectsEditAttribute', $opinionSubjectsRepository->editAttribute)
+            ->with(
+                'opinionSubjectsAttributes',
+                $opinionSubjectsRepository->attributesShowing()
+            )
+            ->with(
+                'opinionSubjectsEditAttribute',
+                $opinionSubjectsRepository->editAttribute
+            )
             ->with('mode', 'update')
             ->with($this->getOpinionsData($id));
     }
@@ -217,8 +223,10 @@ class Opinions extends Controller
     {
         $returnKey = null;
 
-        $allAuthors->each(function ($item, $key) use (&$returnKey){
-            if($item['selected']) $returnKey = $key;
+        $allAuthors->each(function ($item, $key) use (&$returnKey) {
+            if ($item['selected']) {
+                $returnKey = $key;
+            }
         });
 
         return $returnKey;
@@ -238,8 +246,7 @@ class Opinions extends Controller
             }
         }
 
-        $allAuthors = app(OpinionsRepository::class)
-            ->getAllAuthors($id);
+        $allAuthors = app(OpinionsRepository::class)->getAllAuthors($id);
 
         $selectedAuthorableKey = $this->getSelectedAuthorableKey($allAuthors);
 
@@ -248,7 +255,8 @@ class Opinions extends Controller
                 ->allOrderBy('name')
                 ->toArray(),
             'opinionScopes' => app(OpinionScopesRepository::class)
-                ->allOrderBy('name')->toArray(),
+                ->allOrderBy('name')
+                ->toArray(),
             'authorables' => $allAuthors->toArray(),
             'selectedAuthorableKey' => $selectedAuthorableKey,
             'opinionSubjects' => $opinionSubjects,
@@ -257,7 +265,7 @@ class Opinions extends Controller
             )->allOrderBy('name'),
             'approveOptions' => app(ApproveOptionsRepository::class)
                 ->allOrderBy('name')
-                ->toArray(),
+                ->toArray()
         ];
     }
 }
