@@ -74,7 +74,7 @@ class Opinions extends Controller
         $data = $request->all();
 
         if(is_null($request['id'])) {
-            $data['created_by'] = Auth::user()->id; //TODO: está alterando sempre (mesmo com update)
+            $data['created_by'] = Auth::user()->id;
         }
         $data['updated_by'] = Auth::user()->id;
 
