@@ -8,7 +8,7 @@
             </div>
 
             <div class="modal-body">
-                @include('processos.partials.form-filter')
+                @include('processos.partials.form-filter', ['isFilter' => true])
             </div>
         </div>
     </div>

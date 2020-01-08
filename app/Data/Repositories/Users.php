@@ -245,6 +245,20 @@ class Users extends Base
     }
 
     /**
+     * @param $type
+     *
+     * @return mixed
+     */
+    public function queryByType($type)
+    {
+        $type = $this->tiposUsuarios->findByName($type);
+
+        $model = $this->model;
+
+        return $model::where('user_type_id', $type->id);
+    }
+
+    /**
      * @return mixed
      */
     public function all()
@@ -320,5 +334,32 @@ class Users extends Base
         } else {
             abort(403, 'Você não está autorizado a usar o sistema');
         }
+    }
+
+    public function selectAttorneyOptions()
+    {
+        return $this->formatToSelect2(
+            $this->queryByType('Procurador')
+                ->orderBy('name')
+                ->pluck('name', 'id')
+        );
+    }
+
+    public function selectInternOptions()
+    {
+        return $this->formatToSelect2(
+            $this->queryByType('Estagiario')
+                ->orderBy('name')
+                ->pluck('name', 'id')
+        );
+    }
+
+    public function selectAdvisorOptions()
+    {
+        return $this->formatToSelect2(
+            $this->queryByType('Assessor')
+                ->orderBy('name')
+                ->pluck('name', 'id')
+        );
     }
 }
