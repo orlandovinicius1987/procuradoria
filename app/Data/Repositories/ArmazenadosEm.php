@@ -10,4 +10,11 @@ class ArmazenadosEm extends Base
     {
         return '[{"id":"Não Armazenado","value":"Não Armazenado","text":"Não Armazenado"},{"id":"One Drive","value":"One Drive","text":"One Drive"}]';
     }
+
+    public function selectOptions()
+    {
+        return $this->formatToSelect2(
+            collect(json_decode($this->all()))->pluck('text', 'value')
+        );
+    }
 }

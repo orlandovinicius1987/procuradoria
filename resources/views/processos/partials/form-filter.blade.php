@@ -148,12 +148,13 @@
             </div>
         </div>
 
-        <div class="col-xs-12 col-md-6">
-            <div class="form-group">
-                <label for="armazenado_em">Armazenamento</label>
-                <select2 v-model="form.armazenado_em" :options="tables.armazenados_em"></select2>
-            </div>
-        </div>
+        {{--TODO: Fazer isso funcionar!--}}
+{{--        <div class="col-xs-12 col-md-6">--}}
+{{--            <div class="form-group">--}}
+{{--                <label for="armazenado_em">Armazenamento</label>--}}
+{{--                <select2 v-model="form.armazenado_em" :options="tables.armazenados_em"></select2>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
         <div class="col-xs-12 col-md-6">
             <div class="form-group">

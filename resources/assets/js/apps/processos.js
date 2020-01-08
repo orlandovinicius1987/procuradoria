@@ -210,7 +210,7 @@ if (jQuery('#' + appName).length > 0) {
 
       refreshTable(table) {
         axios
-          .get('/' + table)
+          .get('/api/v1/' + table)
           .then(response => {
             this.tables[table] = response.data
           })

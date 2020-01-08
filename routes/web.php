@@ -52,3 +52,22 @@ Route::group(
         });
     }
 );
+
+Route::group(
+    [
+        'prefix' => '/api/v1',
+        'namespace' => 'Api',
+        'middleware' => ['auth']
+    ],
+    function () {
+        require __DIR__ . '/api/acoes.php';
+        require __DIR__ . '/api/tipos_andamentos.php';
+        require __DIR__ . '/api/meios.php';
+        require __DIR__ . '/api/users.php';
+        require __DIR__ . '/api/tribunais.php';
+        require __DIR__ . '/api/juizes.php';
+        require __DIR__ . '/api/armazenados_em.php';
+        require __DIR__ . '/api/tags.php';
+        require __DIR__ . '/api/tipos_processos.php';
+    }
+);

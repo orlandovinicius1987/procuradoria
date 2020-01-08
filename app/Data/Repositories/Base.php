@@ -248,4 +248,18 @@ abstract class Base
     {
         return $this->model::inRandomOrder()->first();
     }
+
+    public function selectOptions()
+    {
+        return $this->formatToSelect2(
+            $this->model::orderBy('nome')->pluck('nome', 'id')
+        );
+    }
+
+    public function formatToSelect2($collection)
+    {
+        return $collection->map(function ($item) {
+            return ['text' => $item];
+        });
+    }
 }
