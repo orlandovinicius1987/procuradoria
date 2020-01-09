@@ -49,21 +49,15 @@ class AlterTableUsers extends Migration
                         '=',
                         $user->id
                     )->get();
-                    $attorneyUser = Opinion::where(
-                        'attorney_id',
-                        '=',
-                        $user->id
-                    )->get();
-                    $createdBy = Opinion::where(
-                        'created_by',
-                        '=',
-                        $user->id
-                    )->get();
-                    $updatedBy = Opinion::where(
-                        'updated_by',
-                        '=',
-                        $user->id
-                    )->get();
+                    $attorneyUser = Opinion::withoutGlobalScopes()
+                        ->where('attorney_id', '=', $user->id)
+                        ->get();
+                    $createdBy = Opinion::withoutGlobalScopes()
+                        ->where('created_by', '=', $user->id)
+                        ->get();
+                    $updatedBy = Opinion::withoutGlobalScopes()
+                        ->where('updated_by', '=', $user->id)
+                        ->get();
                     $importedBy = Busca::where(
                         'imported_by_id',
                         '=',
