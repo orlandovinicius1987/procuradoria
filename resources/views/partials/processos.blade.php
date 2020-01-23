@@ -29,7 +29,7 @@
                                 <td>{{ $processo->numero_alerj }}</td>
                                 <td>{{ $processo->tribunal->nome }}</td>
                                 <td class=".hidden-xs">{{ $processo->data_distribuicao_formatado }}</td>
-                                <td>{{ $processo->acao->nome }}</td>
+                                <td>{{ is_null($processo->acao) ? '': $processo->acao->nome }}</td>
                                 <td class=".hidden-xs">{{ $processo->autor }}</td>
                                 <td class=".hidden-xs">{{ $processo->objeto }}</td>
                                 <td class=".hidden-xs">{{ is_null($processo->procurador) ? 'N/C' : $processo->procurador->name }}</td>
