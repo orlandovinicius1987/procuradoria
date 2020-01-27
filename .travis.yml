@@ -20,7 +20,7 @@ before_install:
 
 before_script:
   - sudo apt-get -y update
-  - sudo apt-get -y install google-chrome-stable
+  - sudo apt-get -y --allow-unauthenticated install google-chrome-stable
   - cp .env.travis .env
   - cp .env.travis .env.dusk.local
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
