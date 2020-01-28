@@ -27,7 +27,7 @@
                                     <a href="{{ route('processos.show', ['id' => $processo->id]) }}">{{ $processo->numero_judicial }}</a>
                                 </td>
                                 <td>{{ $processo->numero_alerj }}</td>
-                                <td>{{ $processo->tribunal->nome }}</td>
+                                <td>{{ is_null($processo->tribunal) ? '':$processo->tribunal->nome }}</td>
                                 <td class=".hidden-xs">{{ $processo->data_distribuicao_formatado }}</td>
                                 <td>{{ is_null($processo->acao) ? '': $processo->acao->nome }}</td>
                                 <td class=".hidden-xs">{{ $processo->autor }}</td>
