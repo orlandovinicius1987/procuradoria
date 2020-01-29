@@ -26,15 +26,15 @@
                                 <td>
                                     <a href="{{ route('processos.show', ['id' => $processo->id]) }}">{{ $processo->numero_judicial }}</a>
                                 </td>
-                                <td>{{ $processo->numero_alerj }}</td>
-                                <td>{{ is_null($processo->tribunal) ? '':$processo->tribunal->nome }}</td>
-                                <td class=".hidden-xs">{{ $processo->data_distribuicao_formatado }}</td>
-                                <td>{{ is_null($processo->acao) ? '': $processo->acao->nome }}</td>
-                                <td class=".hidden-xs">{{ $processo->autor }}</td>
-                                <td class=".hidden-xs">{{ $processo->objeto }}</td>
-                                <td class=".hidden-xs">{{ is_null($processo->procurador) ? 'N/C' : $processo->procurador->name }}</td>
-                                <td class=".hidden-xs">{{ is_null($processo->assessor) ? 'N/C' : $processo->assessor->name }}</td>
-                                <td class=".hidden-xs">{{ is_null($processo->estagiario) ? 'N/C' : $processo->estagiario->name }}</td>
+                                <td>{{ $processo->numero_alerj ?? 'N/C'  }}</td>
+                                <td>{{ $processo->tribunal->nome ?? 'N/C' }}</td>
+                                <td class=".hidden-xs">{{ $processo->data_distribuicao_formatado ?? 'N/C' }}</td>
+                                <td>{{ $processo->acao->nome ?? 'N/C'}}</td>
+                                <td class=".hidden-xs">{{ $processo->autor ?? 'N/C' }}</td>
+                                <td class=".hidden-xs">{{ $processo->objeto ?? 'N/C'}}</td>
+                                <td class=".hidden-xs">{{ $processo->procurador->name ?? 'N/C'}}</td>
+                                <td class=".hidden-xs">{{ $processo->assessor->name ?? 'N/C'}}</td>
+                                <td class=".hidden-xs">{{ $processo->estagiario->name ?? 'N/C'}}</td>
                             </tr>
                         @empty
                             <p>Nenhum processo encontrado</p>
