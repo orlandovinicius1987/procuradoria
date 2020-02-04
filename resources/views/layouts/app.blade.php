@@ -1,98 +1,102 @@
 <!DOCTYPE html>
 
 <html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- CSRF Token -->
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    </head>
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <body>
-        <div id="app">
-            <nav class="navbar navbar-default navbar-static-top">
-                <div class="container-fluid">
-                    <div class="navbar-header">
+    <!-- Styles -->
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+</head>
 
-                        <!-- Collapsed Hamburger -->
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
-                            <span class="sr-only">Toggle Navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
+<body>
+    <div id="app">
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
 
-                        <!-- Branding Image -->
-                        <a class="navbar-brand" href="{{ url('/') }}">
-                            {{ config('app.name', 'Laravel') }}
-                        </a>
-                    </div>
+                    <!-- Collapsed Hamburger -->
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#app-navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
 
-                    <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                        <!-- Left Side Of Navbar -->
-                        <ul class="nav navbar-nav">
-                            &nbsp;
-                        </ul>
-
-                        <!-- Right Side Of Navbar -->
-                        <ul class="nav navbar-nav navbar-right">
-                            @include('home.partials.menu')
-                        </ul>
-                    </div>
+                    <!-- Branding Image -->
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ config('app.name', 'Laravel') }}
+                    </a>
                 </div>
-            </nav>
+
+                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="nav navbar-nav">
+                        &nbsp;
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="nav navbar-nav navbar-right">
+                        @include('home.partials.menu')
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    @if (isset($errors) && $errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                </div>
+            </div>
 
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12">
-                        @if (isset($errors) && $errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+                    <div class="col-xs-12">
+                        @yield('content')
                     </div>
                 </div>
+            </div>
 
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            @yield('content')
-                        </div>
-                    </div>
-                </div>
-
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="text-center">
-                                @version
-                            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="text-center">
+                            @version
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}"></script>
+    <!-- Scripts -->
+    <script src="{{ mix('js/app.js') }}"></script>
 
-        <script type="application/javascript">
-            function f_gravar() {
-                $("#formulario").submit();
-            }
-        </script>
+    <script type="application/javascript">
+        function f_gravar() {
+            $("#formulario").submit();
+        }
 
-        @include('layouts.partials.google-analytics')
-    </body>
+    </script>
+
+    @include('layouts.partials.google-analytics')
+</body>
+
 </html>
