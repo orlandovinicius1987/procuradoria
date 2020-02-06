@@ -12,13 +12,22 @@
       v-on:input="refresh($event)"
       :elementid="idname"
       :disabled="disabled"
+      :dusk="dusk"
     ></select2>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['idname', 'typename', 'showname', 'disabled', 'selected', 'alljson'],
+  props: [
+    'idname',
+    'typename',
+    'showname',
+    'disabled',
+    'selected',
+    'alljson',
+    'dusk',
+  ],
 
   data() {
     return {

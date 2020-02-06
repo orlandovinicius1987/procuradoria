@@ -36,6 +36,11 @@ function extract_credentials($request)
     return $credentials;
 }
 
+function set_subsystem($subsystem)
+{
+    \Session::put('subsystem', $subsystem);
+}
+
 function subsystem_is($subsystem)
 {
     return \Session::get('subsystem') === $subsystem;

@@ -31,6 +31,15 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::before(function ($user, $ability) {
+            if (
+                ($user && $user->is_administrador) ||
+                !config('auth.authorization.enabled')
+            ) {
+                return true;
+            }
+        });
+
         Gate::define('opinion-subjects:connect', function ($user) {
             return !$this->isEstagiario($user);
         });

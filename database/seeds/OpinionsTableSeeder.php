@@ -3,7 +3,7 @@
 use App\Data\Models\Opinion as OpinionModel;
 use App\Data\Models\OpinionsSubject as OpinionsSubjectModel;
 use Illuminate\Database\Seeder;
-
+use App\Data\Models\OpinionSubject;
 class OpinionsTableSeeder extends Seeder
 {
     /**
@@ -14,6 +14,7 @@ class OpinionsTableSeeder extends Seeder
     public function run()
     {
         factory(OpinionModel::class, 50)->create();
+        factory(OpinionSubject::class, 50)->create();
         factory(OpinionsSubjectModel::class, 300)->create();
     }
 }

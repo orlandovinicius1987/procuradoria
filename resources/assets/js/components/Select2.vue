@@ -5,6 +5,9 @@
       :value="value"
       :multiple="multiple"
       :disabled="!!disabled"
+      :dusk="dusk"
+      name="teste"
+      :id="dusk"
     >
       <option value="">SELECIONE</option>
       <option v-for="(option, index) in options" :value="index" ref="input">
@@ -16,8 +19,13 @@
 
 <script>
 export default {
-  props: ['options', 'value', 'multiple', 'disabled'],
+  props: ['options', 'value', 'multiple', 'disabled', 'dusk'],
 
+  methods: {
+    onChange($event) {
+      vm.$emit('input', $event.params.data.id)
+    },
+  },
   mounted: function() {
     var vm = this
     $(this.$el)
