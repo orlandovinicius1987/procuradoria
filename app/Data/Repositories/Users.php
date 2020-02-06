@@ -149,7 +149,7 @@ class Users extends Base
         }
     }
 
-    private function isAdministrador($permissions)
+    public function isAdministrador($permissions)
     {
         return $this->isType($permissions, 'Procurador') &&
             $this->isType($permissions, 'Assessor') &&

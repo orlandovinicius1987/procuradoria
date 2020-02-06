@@ -75,6 +75,16 @@ class Opinion extends BaseModel
         return $this->belongsTo(OpinionTypeModel::class);
     }
 
+    public function opinionSubjects()
+    {
+        return $this->belongsToMany(
+            OpinionSubject::class,
+            'opinions_subjects',
+            'opinion_id',
+            'subject_id'
+        );
+    }
+
     public function getPresenterClass()
     {
         return OpinionPresenter::class;
@@ -84,4 +94,20 @@ class Opinion extends BaseModel
     {
         return $this->belongsTo(ApproveOption::class);
     }
+
+    public function unrelateSubject($opinionSubjectId)
+    {
+        if (
+        $relation = OpinionsSubject::where('opinion_id', $this->id)->where(
+            'subject_id',
+            $opinionSubjectId
+        )
+        ) {
+            $relation->delete();
+        }
+
+        return $relation;
+    }
+
+
 }

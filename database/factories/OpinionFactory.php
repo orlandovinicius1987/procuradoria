@@ -12,6 +12,7 @@ use App\Data\Repositories\OpinionSubjects as OpinionSubjectsRepository;
 use App\Data\Repositories\OpinionTypes as OpinionTypesRepository;
 use App\Data\Repositories\Users as UsersRepository;
 use Faker\Generator as Faker;
+use App\Data\Repositories\OpinionsSubjects as OpinionsSubjectsRepository;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,19 +25,19 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(OpinionScopeModel::class, function (Faker $faker) {
-    return ['name' => only_letters_and_space($faker->name)];
-});
-
 $factory->define(OpinionSubjectModel::class, function (Faker $faker) {
-    return ['name' => only_letters_and_space($faker->name)];
+    return [
+        'parent_id' => app(OpinionsSubjectsRepository::class)->randomElement()
+            ->id,
+        'name' => only_letters_and_space($faker->name)
+    ];
 });
 
 $factory->define(OpinionsSubjectModel::class, function (Faker $faker) {
     return [
         'opinion_id' => app(OpinionsRepository::class)->randomElement()->id,
         'subject_id' => app(OpinionSubjectsRepository::class)->randomElement()
-            ->id,
+            ->id
     ];
 });
 
@@ -67,6 +68,6 @@ $factory->define(OpinionModel::class, function (Faker $faker) {
         'file_pdf' => $faker->text,
         'file_doc' => $faker->text,
         'created_by' => app(UsersRepository::class)->randomElement()->id,
-        'updated_by' => app(UsersRepository::class)->randomElement()->id,
+        'updated_by' => app(UsersRepository::class)->randomElement()->id
     ];
 });

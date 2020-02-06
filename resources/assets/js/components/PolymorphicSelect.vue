@@ -5,13 +5,29 @@
         <input type="hidden" :name="idname" :value="polymorphicId">
         <input type="hidden" :name="typename" :value="polymorphicType">
 
-        <select2 :options="all" :value="selected" :multiple="false" v-on:input="refresh($event)" :elementid="idname" :disabled="disabled"></select2>
+    <select2
+            :options="all"
+            :value="selected"
+            :multiple="false"
+            v-on:input="refresh($event)"
+            :elementid="idname"
+            :disabled="disabled"
+            :dusk="dusk"
+    ></select2>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['idname', 'typename', 'showname', 'disabled', 'selected', 'alljson'],
+    props: [
+        'idname',
+        'typename',
+        'showname',
+        'disabled',
+        'selected',
+        'alljson',
+        'dusk',
+    ],
 
     data() {
         return {
@@ -33,12 +49,20 @@ export default {
         },
         polymorphicId: {
             get(){
-                return this.selectedElement ? this.selectedElement.hasOwnProperty('id') ? this.selectedElement.id : null : null
+                return this.selectedElement
+                    ? this.selectedElement.hasOwnProperty('id')
+                        ? this.selectedElement.id
+                        : null
+                    : null
             }
         },
         polymorphicType: {
             get(){
-                return this.selectedElement ? this.selectedElement.hasOwnProperty('model') ? this.selectedElement.model : null : null
+                return this.selectedElement
+                    ? this.selectedElement.hasOwnProperty('model')
+                        ? this.selectedElement.model
+                        : null
+                    : null
             }
         },
     },

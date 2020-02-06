@@ -155,7 +155,7 @@ class Opinions extends Controller
             ->with('pesquisa', $request->get('pesquisa'))
             ->with('checkboxValues', $this->getCheckboxValues($request))
             ->with('opinions', $this->repository->search($request))
-            ->with('isProcurador', $user->is_procurador)
+            ->with('isProcurador', $user ? $user->is_procurador : false)
             ->with('opinionsAttributes', $this->repository->attributesShowing())
             ->with('opinionEditAttribute', $this->repository->editAttribute);
     }

@@ -179,4 +179,25 @@ class OpinionSubjects extends Base
 
         return $ownArray;
     }
+
+    public function notRootRandomElement()
+    {
+        return $this->model
+            ::where('name', '<>', 'Root')
+            ->inRandomOrder()
+            ->first();
+    }
+
+    public function randomElementNotDescendant($subjectId)
+    {
+        return OpinionSubjectsModel::whereNotIn(
+            'id',
+            OpinionSubjectsModel::find($subjectId)->descendants->pluck('id')
+        )
+            ->inRandomOrder()
+            ->first();
+    }
+
 }
+
+

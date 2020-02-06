@@ -37,6 +37,15 @@ class Revisions extends Base
         return $this->searchFromRequest($request->get('pesquisa'));
     }
 
+    public function last()
+    {
+        return $this->model
+            ::orderBy('created_at', 'DESC')
+            ->orderBy('id', 'DESC')
+            ->first();
+    }
+
+
     /**
      * @param null $search
      *
