@@ -12,30 +12,30 @@
 
 <table id="opinionsTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
     @if(!is_null($opinions))
-    <thead>
-        <th>ID&nbsp;#&nbsp;&nbsp;</th>
-        @forelse($opinionsAttributes as $attr)
-            <th>{{$attr->showName}}</th>
-        @empty
-        @endforelse
-    </thead>
+        <thead>
+            <th>ID&nbsp;#&nbsp;&nbsp;</th>
+            @forelse($opinionsAttributes as $attr)
+                <th>{{ $attr->showName }}</th>
+            @empty
+            @endforelse
+        </thead>
     @endif
 
     @forelse ($opinions as $opinion)
         <tr>
             <td width="20px">
-                <a href="{{$opinion->edit_link}}">
+                <a href="{{ $opinion->edit_link }}">
                     {{ $opinion->id }}
                 </a>
             </td>
-
+    
             @forelse($opinionsAttributes as $attr)
                 @if($attr->type == 'id' || $attr->type == 'morph')
-                    <td width="{{$attr->columnSize}}">
+                    <td width="{{ $attr->columnSize }}">
                         {{ $opinion->{$attr->relationName}->{$attr->foreignName} ?? '' }}
                     </td>
                 @else
-                    <td width="{{$attr->columnSize}}">{{ is_null($opinion->{$attr->name}) ? '' : $opinion->{$attr->name} }}</td>
+                    <td width="{{ $attr->columnSize }}">{{ is_null($opinion->{$attr->name}) ? '' : $opinion->{$attr->name} }}</td>
                 @endif
             @empty
             @endforelse
