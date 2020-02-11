@@ -88,15 +88,15 @@ class LeisTest extends DuskTestCase
 
     public function testVisit()
     {
-        $this->init();
-
         $this->browse(function (Browser $browser) {
+            $browser = $this->loginPareceres($browser, false, 'Processos');
             $browser->visit('/leis')->assertSee('Leis');
         });
     }
 
     public function testInsert()
     {
+        $this->init();
         $numero_lei = static::$numero_lei;
 
         $autor = static::$autor;
@@ -125,6 +125,7 @@ class LeisTest extends DuskTestCase
             $nivel_federativo,
             $tipo_lei
         ) {
+            $browser = $this->loginPareceres($browser, false, 'Processos');
             $browser
                 ->visit('/leis')
                 ->clickLink('Novo')
@@ -158,6 +159,7 @@ class LeisTest extends DuskTestCase
             $autor,
             $assunto
         ) {
+            $browser = $this->loginPareceres($browser, false, 'Processos');
             $browser
                 ->visit('/leis')
                 ->clickLink('Novo')
@@ -185,25 +187,28 @@ class LeisTest extends DuskTestCase
 
     public function testValidationDoubleInsert()
     {
-        $insertProcessoId = static::$insertProcessoId;
+        $processoRandom = app(ProcessosRepository::class)
+            ->randomElement()
+            ->toArray();
         $insertLeiId = static::$insertLeiId;
         $numero_lei = static::$numero_lei;
 
         $this->browse(function (Browser $browser) use (
             $numero_lei,
-            $insertProcessoId,
-            $insertLeiId
+            $insertLeiId,
+            $processoRandom
         ) {
+            $browser = $this->loginPareceres($browser, false, 'Processos');
             $browser
-                ->visit('/processos/' . $insertProcessoId)
-                ->click('#editar')
+                ->visit('/processos/' . $processoRandom['id'])
+                ->press('#editar')
                 ->select('#lei_id', $insertLeiId)
-                ->click('#buttonRelacionarLei')
+                ->press('#buttonRelacionarLei')
                 ->assertSee('Gravado com sucesso')
                 ->assertSee($numero_lei)
-                ->click('#editar')
+                ->press('#editar')
                 ->select('#lei_id', $insertLeiId)
-                ->click('#buttonRelacionarLei')
+                ->press('#buttonRelacionarLei')
                 ->assertSee('A lei já está relacionada ao processo.');
         });
     }
@@ -211,6 +216,7 @@ class LeisTest extends DuskTestCase
     public function testWrongSearch()
     {
         $this->browse(function (Browser $browser) {
+            $browser = $this->loginPareceres($browser, false, 'Processos');
             $browser
                 ->visit('/leis')
                 ->type('pesquisa', '4587dfs9349875348975387958973sgd48973484')
@@ -225,6 +231,7 @@ class LeisTest extends DuskTestCase
         $numero_lei = static::$numero_lei;
 
         $this->browse(function (Browser $browser) use ($numero_lei) {
+            $browser = $this->loginPareceres($browser, false, 'Processos');
             $browser
                 ->visit('/leis')
                 ->type('pesquisa', $numero_lei)
@@ -243,6 +250,7 @@ class LeisTest extends DuskTestCase
             $insertLeiId,
             $numero_lei
         ) {
+            $browser = $this->loginPareceres($browser, false, 'Processos');
             $browser
                 ->visit('/leis/' . $insertLeiId)
                 ->click('#editar')
