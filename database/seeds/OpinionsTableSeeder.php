@@ -14,7 +14,7 @@ class OpinionsTableSeeder extends Seeder
     public function run()
     {
         factory(OpinionModel::class, 50)->create();
-        factory(OpinionSubject::class, 50)->create();
+        //factory(OpinionSubject::class, 50)->create();
         factory(OpinionsSubjectModel::class, 300)->create();
     }
 }

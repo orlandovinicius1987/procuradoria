@@ -61,211 +61,211 @@ class OpinionsTest extends DuskTestCase
             ->toArray();
     }
 
-    //    public function testInsert()
-    //    {
-    //        $this->init();
-    //
-    //        $opinionScopeO = static::$opinionScope;
-    //        $authorKeyO = static::$authorKey;
-    //        $authorO = static::$author;
-    //        $opinionTypeO = static::$opinionType;
-    //        $suitNumberO = static::$suitNumber;
-    //        $suitSheetO = static::$suitSheet;
-    //        $identifierO = static::$identifier;
-    //        $partyO = static::$party;
-    //        $opinionO = static::$opinion;
-    //        $approveOptionO = static::$approveOption;
-    //
-    //        $this->browse(function (Browser $browser) use (
-    //            $opinionScopeO,
-    //            $authorKeyO,
-    //            $opinionTypeO,
-    //            $suitNumberO,
-    //            $suitSheetO,
-    //            $identifierO,
-    //            $partyO,
-    //            $opinionO,
-    //            $authorO,
-    //            $approveOptionO
-    //        ) {
-    //            $browser = $this->loginPareceres($browser, false, 'Pareceres');
-    //
-    //            $browser
-    //
-    //                ->clickLink('Novo')
-    //                ->select('#opinion_scope_id', $opinionScopeO['id'])
-    //                ->script("$('#authorable-select').val($authorKeyO);
-    //                $('#authorable-select').trigger({
-    //        type: 'select2:select',
-    //        params: {
-    //                    data: {id: $authorKeyO}
-    //                }
-    //    });");
-    //            $browser
-    //                ->screenshot('ihgfufhguha')
-    //                ->select('#approve_option_id', $approveOptionO['id'])
-    //                ->select('#opinion_type_id', $opinionTypeO['id'])
-    //                ->type('#suit_number', $suitNumberO)
-    //                ->type('#suit_sheet', $suitSheetO)
-    //                ->type('#identifier', $identifierO)
-    //                ->keys('#date', '01/01/2000')
-    //                ->type('#party', $partyO)
-    //                ->type('#abstract', 'teste')
-    //                ->type('#opinion', $opinionO)
-    //                ->screenshot('testando')
-    //                ->press('#gravar')
-    //                ->waitForText(
-    //                    'Gravado com sucesso. Insira os assuntos correspondentes.',
-    //                    10
-    //                )
-    //                ->waitForText($opinionScopeO)
-    //                ->assertSee($opinionScopeO['name'])
-    //                ->assertSee($authorO['name'])
-    //                ->assertSee($approveOptionO['name'])
-    //                ->assertSee($opinionTypeO['name'])
-    //                ->screenshot('TestInsert');
-    //        });
-    //    }
-    //
-    //    public function testValidation()
-    //    {
-    //        $this->browse(function (Browser $browser) {
-    //            $browser
-    //                ->visit('/pareceres')
-    //                ->maximize()
-    //                ->clickLink('Novo')
-    //                ->select('#abstract', '')
-    //                ->press('Gravar')
-    //                ->assertSee('O campo Abrangência é obrigatório.')
-    //                ->assertSee('O campo Procurador é obrigatório.')
-    //                ->assertSee('O campo Tipo é obrigatório.')
-    //                ->assertSee('O campo Data é obrigatório.')
-    //                ->assertSee('O campo Ementa é obrigatório.')
-    //                ->screenshot('TestValidation');
-    //        });
-    //    }
-    //
-    //    public function testRightSearch()
-    //    {
-    //        $this->init();
-    //
-    //        $opinionScopeO = static::$opinionScope;
-    //
-    //        $this->browse(function (Browser $browser) use ($opinionScopeO) {
-    //            $browser
-    //                ->visit('/pareceres')
-    //                ->maximize()
-    //                ->type('pesquisa', $opinionScopeO['name'])
-    //                ->click('#searchButton')
-    //                ->waitForText($opinionScopeO)
-    //                ->assertSee($opinionScopeO['name'])
-    //                ->screenshot('TestRightSearch');
-    //        });
-    //    }
-    //
-    //    public function testSearchWithCheckBox()
-    //    {
-    //        $this->init();
-    //
-    //        $opinionScopeO = static::$opinionScope;
-    //        $isActiveO = static::$isActive;
-    //
-    //        $this->browse(function (Browser $browser) use (
-    //            $opinionScopeO,
-    //            $isActiveO
-    //        ) {
-    //            $browser
-    //                ->visit('/pareceres')
-    //                ->maximize()
-    //                ->type('pesquisa', $opinionScopeO['name'])
-    //                ->check('show-inactive')
-    //                ->click('#searchButton')
-    //                ->waitForText($opinionScopeO)
-    //                ->assertSee($opinionScopeO['name'])
-    //                ->assertNotChecked($isActiveO)
-    //                ->screenshot('TestSearchWithCheckbox');
-    //        });
-    //    }
-    //
-    //    public function testWrongSearch()
-    //    {
-    //        $this->browse(function (Browser $browser) {
-    //            $browser
-    //                ->visit('/pareceres')
-    //                ->type('pesquisa', '132312312vcxvdsf413543445654')
-    //                ->click('#searchButton')
-    //                ->waitForText('Nenhum parecer encontrado')
-    //                ->screenshot('wrongsearch')
-    //                ->assertSee('Nenhum parecer encontrado')
-    //                ->screenshot('TestWrongSearch');
-    //        });
-    //    }
-    //
-    //    public function testAlter()
-    //    {
-    //        $this->init();
-    //
-    //        $opinionAdress = app(OpinionsRepository::class)
-    //            ->randomElement()
-    //            ->toArray();
-    //        $novoOpinionScopeO = static::$opinionScope;
-    //        $novoAuthorKeyO = static::$authorKey;
-    //        $novoOpinionType = static::$opinionType;
-    //        $novoSuitNumber = static::$suitNumber;
-    //        $novoSuitSheet = static::$suitSheet;
-    //        $novoIdentifier = static::$identifier;
-    //        $novoParty = static::$party;
-    //        $novoApproveOption = static::$approveOption;
-    //        $novoAuthor = static::$author;
-    //
-    //        $this->browse(function (Browser $browser) use (
-    //            $opinionAdress,
-    //            $novoOpinionScopeO,
-    //            $novoAuthorKeyO,
-    //            $novoOpinionType,
-    //            $novoSuitNumber,
-    //            $novoSuitSheet,
-    //            $novoIdentifier,
-    //            $novoParty,
-    //            $novoAuthor,
-    //            $novoApproveOption
-    //        ) {
-    //            $browser
-    //                ->visit('/pareceres/' . $opinionAdress['id'])
-    //                ->click('#editar')
-    //                ->select('#opinion_scope_id', $novoOpinionScopeO['id'])
-    //                ->script(
-    //                    "$('#authorable-select').val($novoAuthorKeyO);
-    //                $('#authorable-select').trigger({
-    //        type: 'select2:select',
-    //        params: {
-    //                    data: {id: $novoAuthorKeyO}
-    //                }
-    //    });"
-    //                );
-    //            $browser
-    //                ->select('#approve_option_id', $novoApproveOption['id'])
-    //                ->select('#opinion_type_id', $novoOpinionType['id'])
-    //                ->type('#suit_number', $novoSuitNumber)
-    //                ->type('#suit_sheet', $novoSuitSheet)
-    //                ->type('#identifier', $novoIdentifier)
-    //                ->keys('#date', '04/03/2015')
-    //                ->type('#party', $novoParty)
-    //                ->type('#abstract', 'testando')
-    //                ->type('#opinion', 'testando123')
-    //                ->press('Gravar')
-    //                ->waitForText(
-    //                    'Gravado com sucesso. Insira os assuntos correspondentes.',
-    //                    10
-    //                )
-    //                ->waitForText($novoOpinionScopeO)
-    //                ->assertSee($novoOpinionScopeO['name'])
-    //                ->assertSee($novoAuthor['name'])
-    //                ->assertSee($novoApproveOption['name'])
-    //                ->assertSee($novoOpinionType['name'])
-    //                ->screenshot('TestAlter');
-    //        });
-    //    }
+    public function testInsert()
+    {
+        $this->init();
+
+        $opinionScopeO = static::$opinionScope;
+        $authorKeyO = static::$authorKey;
+        $authorO = static::$author;
+        $opinionTypeO = static::$opinionType;
+        $suitNumberO = static::$suitNumber;
+        $suitSheetO = static::$suitSheet;
+        $identifierO = static::$identifier;
+        $partyO = static::$party;
+        $opinionO = static::$opinion;
+        $approveOptionO = static::$approveOption;
+
+        $this->browse(function (Browser $browser) use (
+            $opinionScopeO,
+            $authorKeyO,
+            $opinionTypeO,
+            $suitNumberO,
+            $suitSheetO,
+            $identifierO,
+            $partyO,
+            $opinionO,
+            $authorO,
+            $approveOptionO
+        ) {
+            $browser = $this->loginPareceres($browser, false, 'Pareceres');
+
+            $browser
+
+                ->clickLink('Novo')
+                ->select('#opinion_scope_id', $opinionScopeO['id'])
+                ->script("$('#authorable-select').val($authorKeyO);
+                    $('#authorable-select').trigger({
+            type: 'select2:select',
+            params: {
+                        data: {id: $authorKeyO}
+                    }
+        });");
+            $browser
+                ->screenshot('ihgfufhguha')
+                ->select('#approve_option_id', $approveOptionO['id'])
+                ->select('#opinion_type_id', $opinionTypeO['id'])
+                ->type('#suit_number', $suitNumberO)
+                ->type('#suit_sheet', $suitSheetO)
+                ->type('#identifier', $identifierO)
+                ->keys('#date', '01/01/2000')
+                ->type('#party', $partyO)
+                ->type('#abstract', 'teste')
+                ->type('#opinion', $opinionO)
+                ->screenshot('testando')
+                ->press('#gravar')
+                ->waitForText(
+                    'Gravado com sucesso. Insira os assuntos correspondentes.',
+                    10
+                )
+                ->waitForText($opinionScopeO)
+                ->assertSee($opinionScopeO['name'])
+                ->assertSee($authorO['name'])
+                ->assertSee($approveOptionO['name'])
+                ->assertSee($opinionTypeO['name'])
+                ->screenshot('TestInsert');
+        });
+    }
+
+    public function testValidation()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser
+                ->visit('/pareceres')
+                ->maximize()
+                ->clickLink('Novo')
+                ->select('#abstract', '')
+                ->press('Gravar')
+                ->assertSee('O campo Abrangência é obrigatório.')
+                ->assertSee('O campo Procurador é obrigatório.')
+                ->assertSee('O campo Tipo é obrigatório.')
+                ->assertSee('O campo Data é obrigatório.')
+                ->assertSee('O campo Ementa é obrigatório.')
+                ->screenshot('TestValidation');
+        });
+    }
+
+    public function testRightSearch()
+    {
+        $this->init();
+
+        $opinionScopeO = static::$opinionScope;
+
+        $this->browse(function (Browser $browser) use ($opinionScopeO) {
+            $browser
+                ->visit('/pareceres')
+                ->maximize()
+                ->type('pesquisa', $opinionScopeO['name'])
+                ->click('#searchButton')
+                ->waitForText($opinionScopeO)
+                ->assertSee($opinionScopeO['name'])
+                ->screenshot('TestRightSearch');
+        });
+    }
+
+    public function testSearchWithCheckBox()
+    {
+        $this->init();
+
+        $opinionScopeO = static::$opinionScope;
+        $isActiveO = static::$isActive;
+
+        $this->browse(function (Browser $browser) use (
+            $opinionScopeO,
+            $isActiveO
+        ) {
+            $browser
+                ->visit('/pareceres')
+                ->maximize()
+                ->type('pesquisa', $opinionScopeO['name'])
+                ->check('show-inactive')
+                ->click('#searchButton')
+                ->waitForText($opinionScopeO)
+                ->assertSee($opinionScopeO['name'])
+                ->assertNotChecked($isActiveO)
+                ->screenshot('TestSearchWithCheckbox');
+        });
+    }
+
+    public function testWrongSearch()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser
+                ->visit('/pareceres')
+                ->type('pesquisa', '132312312vcxvdsf413543445654')
+                ->click('#searchButton')
+                ->waitForText('Nenhum parecer encontrado')
+                ->screenshot('wrongsearch')
+                ->assertSee('Nenhum parecer encontrado')
+                ->screenshot('TestWrongSearch');
+        });
+    }
+
+    public function testAlter()
+    {
+        $this->init();
+
+        $opinionAdress = app(OpinionsRepository::class)
+            ->randomElement()
+            ->toArray();
+        $novoOpinionScopeO = static::$opinionScope;
+        $novoAuthorKeyO = static::$authorKey;
+        $novoOpinionType = static::$opinionType;
+        $novoSuitNumber = static::$suitNumber;
+        $novoSuitSheet = static::$suitSheet;
+        $novoIdentifier = static::$identifier;
+        $novoParty = static::$party;
+        $novoApproveOption = static::$approveOption;
+        $novoAuthor = static::$author;
+
+        $this->browse(function (Browser $browser) use (
+            $opinionAdress,
+            $novoOpinionScopeO,
+            $novoAuthorKeyO,
+            $novoOpinionType,
+            $novoSuitNumber,
+            $novoSuitSheet,
+            $novoIdentifier,
+            $novoParty,
+            $novoAuthor,
+            $novoApproveOption
+        ) {
+            $browser
+                ->visit('/pareceres/' . $opinionAdress['id'])
+                ->click('#editar')
+                ->select('#opinion_scope_id', $novoOpinionScopeO['id'])
+                ->script(
+                    "$('#authorable-select').val($novoAuthorKeyO);
+                    $('#authorable-select').trigger({
+            type: 'select2:select',
+            params: {
+                        data: {id: $novoAuthorKeyO}
+                    }
+        });"
+                );
+            $browser
+                ->select('#approve_option_id', $novoApproveOption['id'])
+                ->select('#opinion_type_id', $novoOpinionType['id'])
+                ->type('#suit_number', $novoSuitNumber)
+                ->type('#suit_sheet', $novoSuitSheet)
+                ->type('#identifier', $novoIdentifier)
+                ->keys('#date', '04/03/2015')
+                ->type('#party', $novoParty)
+                ->type('#abstract', 'testando')
+                ->type('#opinion', 'testando123')
+                ->press('Gravar')
+                ->waitForText(
+                    'Gravado com sucesso. Insira os assuntos correspondentes.',
+                    10
+                )
+                ->waitForText($novoOpinionScopeO)
+                ->assertSee($novoOpinionScopeO['name'])
+                ->assertSee($novoAuthor['name'])
+                ->assertSee($novoApproveOption['name'])
+                ->assertSee($novoOpinionType['name'])
+                ->screenshot('TestAlter');
+        });
+    }
 
     public function initSubject()
     {
