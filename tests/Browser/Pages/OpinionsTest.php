@@ -102,7 +102,6 @@ class OpinionsTest extends DuskTestCase
                     }
         });");
             $browser
-                ->screenshot('ihgfufhguha')
                 ->select('#approve_option_id', $approveOptionO['id'])
                 ->select('#opinion_type_id', $opinionTypeO['id'])
                 ->type('#suit_number', $suitNumberO)
