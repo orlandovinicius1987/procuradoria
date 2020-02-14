@@ -32,7 +32,7 @@ class RevisionsTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser = $this->loginPareceres($browser, false, 'Pareceres');
-            $browser->visit('/revisions')->assertSee('Revisões');
+            $browser->assertSee('Pareceres');
         });
     }
 
