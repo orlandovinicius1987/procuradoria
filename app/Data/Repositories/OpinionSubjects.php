@@ -16,7 +16,7 @@ class OpinionSubjects extends Base
             'name' => 'full_name',
             'showName' => 'Nome do Assunto',
             'columnSize' => '100%',
-            'type' => 'string',
+            'type' => 'string'
         ];
 
         return $array;
@@ -29,7 +29,7 @@ class OpinionSubjects extends Base
         $array[] = (object) [
             'name' => 'name',
             'showName' => 'Nome do Assunto',
-            'type' => 'string',
+            'type' => 'string'
         ];
 
         return $array;
@@ -164,7 +164,7 @@ class OpinionSubjects extends Base
         $ownArray = [
             'id' => $subject->id,
             'text' => $subject->name,
-            'selected' => $subject->id == $selectedId ? true : false,
+            'selected' => $subject->id == $selectedId ? true : false
         ];
 
         if (!empty($array)) {
@@ -197,7 +197,4 @@ class OpinionSubjects extends Base
             ->inRandomOrder()
             ->first();
     }
-
 }
-
-

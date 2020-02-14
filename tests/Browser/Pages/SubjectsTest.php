@@ -63,7 +63,7 @@ class SubjectsTest extends DuskTestCase
                 ->visit('/assuntos')
                 ->clickLink('Novo')
                 ->waitForText('Gravar')
-                ->waitFor('#select2-subjectsTreeSelect-container',10)
+                ->waitFor('#select2-subjectsTreeSelect-container', 10)
                 ->assertSee('Root')
                 ->press('#gravar')
                 ->waitForText('O campo Nome é obrigatório.', 10)

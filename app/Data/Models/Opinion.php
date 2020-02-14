@@ -39,13 +39,13 @@ class Opinion extends BaseModel
         'created_by',
         'updated_by',
         'approve_option_id',
-        'is_active',
+        'is_active'
     ];
 
     protected $presenters = [
         'formatted_date',
         'pdf_file_name',
-        'doc_file_name',
+        'doc_file_name'
     ];
 
     public static function boot()
@@ -98,16 +98,14 @@ class Opinion extends BaseModel
     public function unrelateSubject($opinionSubjectId)
     {
         if (
-        $relation = OpinionsSubject::where('opinion_id', $this->id)->where(
-            'subject_id',
-            $opinionSubjectId
-        )
+            $relation = OpinionsSubject::where('opinion_id', $this->id)->where(
+                'subject_id',
+                $opinionSubjectId
+            )
         ) {
             $relation->delete();
         }
 
         return $relation;
     }
-
-
 }

@@ -17,7 +17,7 @@ class Revisions extends Base
         'App\Data\Models\Andamento' => 'andamentos.show',
         'App\Data\Models\Opinion' => 'opinions.show',
         'App\Data\Models\OpinionSubject' => 'opinionSubjects.show',
-        'App\Data\Models\Lei' => 'leis.show',
+        'App\Data\Models\Lei' => 'leis.show'
     ];
 
     protected $hideFields = ['remember_token', 'password'];
@@ -44,7 +44,6 @@ class Revisions extends Base
             ->orderBy('id', 'DESC')
             ->first();
     }
-
 
     /**
      * @param null $search

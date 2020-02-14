@@ -40,7 +40,6 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
-
         Gate::define('opinion-subjects:connect', function ($user) {
             return !$this->isEstagiario($user);
         });
