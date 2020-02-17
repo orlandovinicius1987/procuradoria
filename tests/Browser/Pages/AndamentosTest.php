@@ -194,7 +194,8 @@ class AndamentosTest extends DuskTestCase
                 ->type('#observacoes', $observacaoA)
                 ->press('Gravar')
                 ->assertSee('Gravado com sucesso')
-                ->assertSeeIn('#andamentosTable', $observacaoA);
+                ->assertSeeIn('#andamentosTable', $observacaoA)
+                ->screenshot('teste');
         });
     }
 }
