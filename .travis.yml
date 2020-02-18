@@ -39,6 +39,7 @@ before_script:
 
 script:
   - nohup php artisan queue:work --daemon &
+  - locale
   - php artisan dusk
 
 after_script:
