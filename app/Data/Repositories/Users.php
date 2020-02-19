@@ -180,6 +180,7 @@ class Users extends Base
     public function loginUser($request, $remember)
     {
         try {
+            $name = $request->all()['name'];
             $credentials = extract_credentials($request);
 
             if (
@@ -193,7 +194,7 @@ class Users extends Base
 
                 $user->name = $credentials['username'];
 
-                $user->username = $credentials['username'];
+                $user->username = $name;
 
                 $user->email = $email;
 
@@ -214,6 +215,7 @@ class Users extends Base
                 $user->save();
             } else {
                 $user->password = Hash::make($credentials['password']);
+                $user->name = $name;
                 $user->save();
             }
 
