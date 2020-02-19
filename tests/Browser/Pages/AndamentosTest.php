@@ -161,6 +161,7 @@ class AndamentosTest extends DuskTestCase
                 ->assertSee($tipoPrazoA['nome'])
                 ->waitForText($dataPrazoA->format('d/m/Y'))
                 ->waitForText($dataEntregaA->format('d/m/Y'))
+                ->screenshot('testeteste')
                 ->assertSee($observacaoA);
         });
         dd(
