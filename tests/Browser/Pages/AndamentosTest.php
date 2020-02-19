@@ -144,11 +144,6 @@ class AndamentosTest extends DuskTestCase
             $observacaoA,
             $numProcesso
         ) {
-            dd(
-                Andamento::where('processo_id', $processoA['id'])
-                    ->where('observacoes', $observacaoA)
-                    ->first()
-            );
             $browser
                 ->visit('/andamentos')
                 ->clickLink($numProcesso)
@@ -164,11 +159,15 @@ class AndamentosTest extends DuskTestCase
                 ->assertSee($processoA['numero_judicial'])
                 ->assertSee($tipoAndamentoA['nome'])
                 ->assertSee($tipoPrazoA['nome'])
-                ->waitForText($dataPrazoA->format('d/m/Y'))
-                ->waitForText($dataEntregaA->format('d/m/Y'))
-                ->screenshot('testeteste')
+                //                ->waitForText($dataPrazoA->format('d/m/Y'))
+                //                ->waitForText($dataEntregaA->format('d/m/Y'))
                 ->assertSee($observacaoA);
         });
+        dd(
+            Andamento::where('processo_id', $processoA['id'])
+                ->where('observacoes', $observacaoA)
+                ->first()
+        );
     }
 
     public function testInsertInsideProcesso()
