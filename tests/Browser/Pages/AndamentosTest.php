@@ -128,8 +128,8 @@ class AndamentosTest extends DuskTestCase
         $tipoPrazoA = app(TiposPrazosRepository::class)
             ->randomElement()
             ->toArray();
-        $dataPrazoA = \DateTime::createFromFormat('m-d-Y', '03-02-2333');
-        $dataEntregaA = \DateTime::createFromFormat('m-d-Y', '04-05-2444');
+        $dataPrazoA = \DateTime::createFromFormat('d-m-Y', '03-02-2333');
+        $dataEntregaA = \DateTime::createFromFormat('d-m-Y', '04-05-2444');
         $observacaoA = only_letters_and_space($faker->name);
 
         $numProcesso = static::$processoAndamento['numero_judicial'];
