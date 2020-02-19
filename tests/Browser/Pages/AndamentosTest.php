@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use App\Data\Models\Andamento;
 use App\Data\Repositories\Processos as ProcessosRepository;
 use App\Data\Repositories\TiposAndamentos as TiposAndamentosRepository;
 use App\Data\Repositories\TiposPrazos as TiposPrazosRepository;
@@ -143,7 +144,6 @@ class AndamentosTest extends DuskTestCase
             $observacaoA,
             $numProcesso
         ) {
-            app()->setlocale('em');
             $browser
                 ->visit('/andamentos')
                 ->clickLink($numProcesso)
@@ -163,6 +163,11 @@ class AndamentosTest extends DuskTestCase
                 ->waitForText($dataEntregaA->format('d/m/Y'))
                 ->assertSee($observacaoA);
         });
+        dd(
+            Andamento::where('processo_id', $processoA['id'])
+                ->where('observacoes', $observacaoA)
+                ->first()
+        );
     }
 
     public function testInsertInsideProcesso()
