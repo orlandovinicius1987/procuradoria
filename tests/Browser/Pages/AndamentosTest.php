@@ -167,6 +167,7 @@ class AndamentosTest extends DuskTestCase
             Andamento::where('processo_id', $processoA['id'])
                 ->where('observacoes', $observacaoA)
                 ->first()
+                ->data_prazo->format('d/m/Y')
         );
     }
 
