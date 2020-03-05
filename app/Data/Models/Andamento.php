@@ -4,6 +4,7 @@ namespace App\Data\Models;
 
 use App\Data\Presenters\AndamentoPresenter;
 use Illuminate\Support\Facades\Cache;
+use Carbon\Carbon;
 
 class Andamento extends BaseModel
 {
@@ -33,7 +34,7 @@ class Andamento extends BaseModel
      *
      * @var array
      */
-    protected $dates = ['data_prazo', 'data_entrega', 'data_andamento'];
+    protected $dates = ['data_entrega', 'data_andamento'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -65,6 +66,16 @@ class Andamento extends BaseModel
     public function tipoPrazo()
     {
         return $this->belongsTo(TipoPrazo::class);
+    }
+
+    public function getDataPrazoFormatadoAttribute()
+    {
+        return !is_null($this->data_prazo)
+            ? Carbon::createFromFormat(
+                'Y-m-d H:i:s',
+                $this->data_prazo
+            )->format('d/m/Y')
+            : null;
     }
 
     /**
