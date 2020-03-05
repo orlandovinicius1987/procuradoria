@@ -40,6 +40,7 @@ before_script:
 script:
   - nohup php artisan queue:work --daemon &
   - locale
+  - psql -d teste -U vagrant -c "show DateStyle;"
   - php artisan dusk
 
 after_script:
