@@ -192,9 +192,9 @@ class Users extends Base
             ) {
                 $user = new User();
 
-                $user->name = $credentials['username'];
+                $user->name = $name;
 
-                $user->username = $name;
+                $user->username = $credentials['username'];
 
                 $user->email = $email;
 
