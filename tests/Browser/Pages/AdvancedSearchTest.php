@@ -38,19 +38,6 @@ class AdvancedSearchTest extends DuskTestCase
     private static $observacaoProcesso;
     private static $linkProcesso;
 
-    public function randomAcceptableDate()
-    {
-        $faker = app(Faker::class);
-        return Carbon::createFromFormat(
-            'd-m-Y',
-            $faker->numberBetween(1, 28) .
-                '-' .
-                $faker->numberBetween(1, 12) .
-                '-' .
-                $faker->numberBetween(2000, 3000)
-        );
-    }
-
     public function init()
     {
         $faker = app(Faker::class);
@@ -60,7 +47,10 @@ class AdvancedSearchTest extends DuskTestCase
             ->randomElement()
             ->toArray();
         static::$varaProcesso = only_letters_and_space($faker->name);
-        static::$dataDistribuicaoProcesso = $this->randomAcceptableDate();
+        static::$dataDistribuicaoProcesso = \DateTime::createFromFormat(
+            'm-d-Y',
+            '03-02-2033'
+        );
         static::$acaoProcesso = app(AcoesRepository::class)
             ->randomElement()
             ->toArray();

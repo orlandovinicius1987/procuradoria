@@ -58,16 +58,16 @@ class AndamentoPresenter extends BasePresenter
     /**
      * @return null|string
      */
-    public function data_prazo_formatado()
-    {
-        $data_prazo = $this->wrappedObject->data_prazo;
-
-        return !is_null($data_prazo)
-            ? Carbon::createFromFormat('Y-m-d H:i:s', $data_prazo)->format(
-                'd/m/Y'
-            )
-            : null;
-    }
+    //    public function data_prazo_formatado()
+    //    {
+    //        $data_prazo = $this->wrappedObject->data_prazo;
+    //
+    //        return !is_null($data_prazo)
+    //            ? Carbon::createFromFormat('Y-m-d H:i:s', $data_prazo)->format(
+    //                'd/m/Y'
+    //            )
+    //            : null;
+    //    }
 
     /**
      * @return null|string
