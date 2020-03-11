@@ -63,6 +63,7 @@ class AndamentosTest extends DuskTestCase
             $browser
                 ->visit('/andamentos')
                 ->clickLink('Novo')
+                ->screenshot('datanovo')
                 ->select('#processo_id', $processoA['id'])
                 ->select('#tipo_andamento_id', $tipoAndamentoA['id'])
                 ->select('#tipo_prazo_id', $tipoPrazoA['id'])
@@ -75,46 +76,46 @@ class AndamentosTest extends DuskTestCase
         });
     }
 
-    public function testValidation()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser
-                ->visit('/andamentos')
-                ->clickLink('Novo')
-                ->press('Gravar')
-                ->assertSee('O campo Processo é obrigatório.')
-                ->assertSee('O campo Tipo de andamento é obrigatório.');
-        });
-    }
-
-    public function testWrongSearch()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser
-                ->visit('/andamentos')
-                ->type(
-                    'pesquisa',
-                    '45879349875348975387958973489734897345893478957984'
-                )
-                ->click('#searchButton')
-                ->waitForText('Nenhum andamento encontrado')
-                ->assertSee('Nenhum andamento encontrado');
-        });
-    }
-
-    public function testRightSearch()
-    {
-        $observacaoA = static::$observacaoAndamento;
-
-        $this->browse(function (Browser $browser) use ($observacaoA) {
-            $browser
-                ->visit('/andamentos')
-                ->type('pesquisa', $observacaoA)
-                ->click('#searchButton')
-                ->waitForText($observacaoA)
-                ->assertSeeIn('#andamentosTable', $observacaoA);
-        });
-    }
+    //    public function testValidation()
+    //    {
+    //        $this->browse(function (Browser $browser) {
+    //            $browser
+    //                ->visit('/andamentos')
+    //                ->clickLink('Novo')
+    //                ->press('Gravar')
+    //                ->assertSee('O campo Processo é obrigatório.')
+    //                ->assertSee('O campo Tipo de andamento é obrigatório.');
+    //        });
+    //    }
+    //
+    //    public function testWrongSearch()
+    //    {
+    //        $this->browse(function (Browser $browser) {
+    //            $browser
+    //                ->visit('/andamentos')
+    //                ->type(
+    //                    'pesquisa',
+    //                    '45879349875348975387958973489734897345893478957984'
+    //                )
+    //                ->click('#searchButton')
+    //                ->waitForText('Nenhum andamento encontrado')
+    //                ->assertSee('Nenhum andamento encontrado');
+    //        });
+    //    }
+    //
+    //    public function testRightSearch()
+    //    {
+    //        $observacaoA = static::$observacaoAndamento;
+    //
+    //        $this->browse(function (Browser $browser) use ($observacaoA) {
+    //            $browser
+    //                ->visit('/andamentos')
+    //                ->type('pesquisa', $observacaoA)
+    //                ->click('#searchButton')
+    //                ->waitForText($observacaoA)
+    //                ->assertSeeIn('#andamentosTable', $observacaoA);
+    //        });
+    //    }
 
     public function testAlter()
     {
@@ -129,8 +130,10 @@ class AndamentosTest extends DuskTestCase
         $tipoPrazoA = app(TiposPrazosRepository::class)
             ->randomElement()
             ->toArray();
-        $dataPrazoA = \DateTime::createFromFormat('m-d-Y', '03-02-2333');
-        $dataEntregaA = \DateTime::createFromFormat('m-d-Y', '04-05-2444');
+        //        $dataPrazoA = \DateTime::createFromFormat('m-d-Y', '03-02-2333');
+        //        $dataEntregaA = \DateTime::createFromFormat('m-d-Y', '04-05-2444');
+        $dataPrazoA = '04-01-2011';
+        $dataEntregaA = '02-04-2012';
         $observacaoA = only_letters_and_space($faker->name);
 
         $numProcesso = static::$processoAndamento['numero_judicial'];
@@ -148,11 +151,14 @@ class AndamentosTest extends DuskTestCase
                 ->visit('/andamentos')
                 ->clickLink($numProcesso)
                 ->click('#editar')
+                ->screenshot('dataeditar')
                 ->select('#processo_id', $processoA['id'])
                 ->select('#tipo_andamento_id', $tipoAndamentoA['id'])
                 ->select('#tipo_prazo_id', $tipoPrazoA['id'])
-                ->keys('#data_prazo', $dataPrazoA->format('d/m/Y'))
-                ->keys('#data_entrega', $dataEntregaA->format('d/m/Y'))
+                //                ->keys('#data_prazo', $dataPrazoA->format('d/m/Y'))
+                //                ->keys('#data_entrega', $dataEntregaA->format('d/m/Y'))
+                ->keys('#data_prazo', $dataPrazoA)
+                ->keys('#data_entrega', $dataEntregaA)
                 ->type('#observacoes', $observacaoA)
                 ->press('Gravar')
                 ->assertSee('Gravado com sucesso')
@@ -160,15 +166,16 @@ class AndamentosTest extends DuskTestCase
                 ->assertSee($tipoAndamentoA['nome'])
                 ->assertSee($tipoPrazoA['nome'])
                 //                ->waitForText($dataPrazoA->format('d/m/Y'))
+                ->waitForText($dataPrazoA)
                 //                ->waitForText($dataEntregaA->format('d/m/Y'))
+                ->waitForText($dataEntregaA)
                 ->assertSee($observacaoA);
         });
-        dd(
-            Andamento::where('processo_id', $processoA['id'])
-                ->where('observacoes', $observacaoA)
-                ->first()
-                ->data_prazo->format('d/m/Y')
-        );
+        //        dd(
+        //            Andamento::where('processo_id', $processoA['id'])
+        //                ->where('observacoes', $observacaoA)
+        //                ->first()->data_prazo
+        //        );
     }
 
     public function testInsertInsideProcesso()
