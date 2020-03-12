@@ -19,6 +19,8 @@ before_install:
   - export TZ=America/Sao_Paulo
 
 before_script:
+  - export LANGUAGE=pt_BR.UTF-8
+  - locale
   - sudo apt-get -y update
   - sudo apt-get -y --allow-unauthenticated install google-chrome-stable
   - cp .env.travis .env
@@ -29,6 +31,7 @@ before_script:
   - psql -c 'create user vagrant WITH SUPERUSER;' -U postgres
   - psql -c "alter user vagrant with encrypted password 'vagrant'" -U postgres;
   - psql -c 'grant all privileges on database teste to vagrant'  -U postgres
+  - psql -d teste -U vagrant -c "show DateStyle;"
   - php artisan migrate
   - php artisan db:seed
   - php artisan dusk:chrome-driver
