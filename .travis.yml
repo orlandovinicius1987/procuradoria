@@ -39,6 +39,7 @@ before_script:
 
 script:
   - nohup php artisan queue:work --daemon &
+  - sudo update-locale LANGUAGE="pt_BR.UTF-8"
   - locale
   - psql -d teste -U vagrant -c "show DateStyle;"
   - php artisan dusk
