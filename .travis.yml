@@ -7,8 +7,8 @@ php:
   - 7.4
 
 services:
-    - postgresql
-    - redis-server
+  - postgresql
+  - redis-server
 
 sudo: true
 
@@ -26,6 +26,10 @@ before_script:
   - sudo apt-get -y --allow-unauthenticated install google-chrome-stable
   - cp .env.travis .env
   - cp .env.travis .env.dusk.local
+  - |
+    if [[ "$TRAVIS_PHP_VERSION" == '7.4' ]]; then
+      sudo apt-get install php7.4-zip
+    fi
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - php artisan key:generate
   - psql -c 'create database teste;' -U postgres
