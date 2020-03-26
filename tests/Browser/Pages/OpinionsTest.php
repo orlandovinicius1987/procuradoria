@@ -94,15 +94,15 @@ class OpinionsTest extends DuskTestCase
 
                 ->clickLink('Novo')
                 ->select('#opinion_scope_id', $opinionScopeO['id'])
-                ->select('#authorable', $authorKeyO['id'])
-                //                ->script("$('#authorable-select').val($authorKeyO);
-                //                    $('#authorable-select').trigger({
-                //            type: 'select2:select',
-                //            params: {
-                //                        data: {id: $authorKeyO}
-                //                    }
-                //        });");
-                //            $browser
+//                ->select('#authorable', $authorKeyO['id'])
+                                ->script("$('#authorable-select').val($authorKeyO);
+                                    $('#authorable-select').trigger({
+                            type: 'select2:select',
+                            params: {
+                                        data: {id: $authorKeyO}
+                                    }
+                        });");
+                            $browser
                 ->select('#approve_option_id', $approveOptionO['id'])
                 ->select('#opinion_type_id', $opinionTypeO['id'])
                 ->type('#suit_number', $suitNumberO)
