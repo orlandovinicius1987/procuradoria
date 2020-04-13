@@ -91,15 +91,14 @@ class OpinionsTest extends DuskTestCase
             $browser = $this->loginPareceres($browser, false, 'Pareceres');
 
             $browser
-
                 ->clickLink('Novo')
                 ->select('#opinion_scope_id', $opinionScopeO['id'])
 //                ->select('#authorable', $authorKeyO['id'])
-                                ->script("$('#authorable-select').val($authorKeyO);
+                                ->script("$('#authorable-select').val({$authorKeyO});
                                     $('#authorable-select').trigger({
                             type: 'select2:select',
                             params: {
-                                        data: {id: $authorKeyO}
+                                        data: {id: {$authorKeyO}}
                                     }
                         });");
                             $browser
