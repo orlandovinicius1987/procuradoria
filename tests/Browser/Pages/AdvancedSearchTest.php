@@ -174,6 +174,7 @@ class AdvancedSearchTest extends DuskTestCase
                 ->press('Gravar')
                 ->waitForText('Gravado com sucesso', 40)
                 ->waitForText($numeroJudicialP)
+                ->waitForText($numeroAlerjP)
                 ->assertSee($numeroJudicialP)
                 ->assertSee($numeroAlerjP)
                 ->assertSee($tribunalP['abreviacao'])

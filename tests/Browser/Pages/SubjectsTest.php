@@ -33,10 +33,13 @@ class SubjectsTest extends DuskTestCase
 
         $newOpinionSubjectInfoO = static::$newOpinionSubjectInfo;
 
+
         $this->browse(function (Browser $browser) use (
             $newOpinionSubjectInfoO
         ) {
             $browser = $this->loginPareceres($browser, false, 'Pareceres');
+
+           // dd(OpinionSubjectModel::find($newOpinionSubjectInfoO['parent_id']));
 
             $browser
                 ->visit('/assuntos')
@@ -47,7 +50,7 @@ class SubjectsTest extends DuskTestCase
                 );
             $browser
                 ->type('#name', $newOpinionSubjectInfoO['name'])
-                ->click('#gravar')
+                ->press('#gravar')
                 ->waitForText($newOpinionSubjectInfoO['name'])
                 ->assertSee($newOpinionSubjectInfoO['name'])
                 ->screenshot('TestInsertSubjects');
@@ -63,10 +66,11 @@ class SubjectsTest extends DuskTestCase
                 ->visit('/assuntos')
                 ->clickLink('Novo')
                 ->waitForText('Gravar')
-                ->waitFor('#select2-subjectsTreeSelect-container', 10)
-                ->assertSee('Root')
+//                ->waitFor('#select2-subjectsTreeSelect-container', 5)
+//                ->waitForText('Root')
+                ->pause(5)
                 ->press('#gravar')
-                ->waitForText('O campo Nome é obrigatório.', 10)
+                ->waitForText('O campo Nome é obrigatório.', 5)
                 ->assertSee('O campo Nome é obrigatório.')
                 ->screenshot('ValidationSubject');
         });
