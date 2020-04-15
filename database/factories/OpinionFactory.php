@@ -27,7 +27,7 @@ use App\Data\Repositories\OpinionsSubjects as OpinionsSubjectsRepository;
 
 $factory->define(OpinionSubjectModel::class, function (Faker $faker) {
     return [
-        'parent_id' => app(OpinionsSubjectsRepository::class)->randomElement()
+        'parent_id' => app(OpinionSubjectsRepository::class)->randomElement()
             ->id,
         'name' => only_letters_and_space($faker->name)
     ];
