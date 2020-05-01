@@ -1,4 +1,6 @@
-dist: trusty
+os: linux
+
+dist: bionic
 language: php
 
 php:
@@ -9,8 +11,20 @@ php:
 services:
   - postgresql
   - redis-server
+  - xvfb
 
 sudo: true
+
+addons:
+  chrome: stable
+  postgresql: "12"
+  apt:
+    packages:
+      - postgresql-12
+      - postgresql-client-12
+      - postgresql-server-dev-12
+
+
 
 cache:
   directories:
@@ -18,20 +32,21 @@ cache:
 
 before_install:
   - export TZ=America/Sao_Paulo
+  - sudo pg_dropcluster --stop 12 main
+  - sudo pg_upgradecluster 11 main
+  - sudo pg_ctlcluster 12 main restart
+  - sudo pg_dropcluster 11 main
 
 before_script:
+  - phpenv config-rm xdebug.ini || true
+  - composer self-update
   - export LANGUAGE=pt_BR.UTF-8
   - locale
-  - sudo apt-get -y update
-  - sudo apt-get -y --allow-unauthenticated install google-chrome-stable
   - cp .env.travis .env
   - cp .env.travis .env.dusk.local
-  - |
-    if [[ "$TRAVIS_PHP_VERSION" == '7.4' ]]; then
-      sudo apt-get install php7.4-zip
-    fi
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - php artisan key:generate
+  - psql -V
   - psql -c 'create database teste;' -U postgres
   - psql -c 'create user vagrant WITH SUPERUSER;' -U postgres
   - psql -c "alter user vagrant with encrypted password 'vagrant'" -U postgres;
@@ -41,7 +56,6 @@ before_script:
   - php artisan db:seed
   - php artisan dusk:chrome-driver
   - export DISPLAY=:100.0
-  - sh -e /etc/init.d/xvfb start
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   - php artisan serve &
 
