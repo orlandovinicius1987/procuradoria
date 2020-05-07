@@ -11,6 +11,11 @@ Route::group(
     function () {
         require __DIR__ . '/services/subsystem.php';
 
+        Route::get('admin/phpinfo', function () {
+            phpinfo();
+            die();
+        });
+
         Route::group(['middleware' => ['app.subsystem']], function () {
             require __DIR__ . '/services/home.php';
 
