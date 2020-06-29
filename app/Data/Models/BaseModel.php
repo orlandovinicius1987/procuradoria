@@ -6,11 +6,15 @@ use App\Data\Presenters\BasePresenter;
 use Illuminate\Database\Eloquent\Model;
 use McCool\LaravelAutoPresenter\Facades\AutoPresenter;
 use McCool\LaravelAutoPresenter\HasPresenter;
+use OwenIt\Auditing\Auditable as AuditableTrait;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 use Venturecraft\Revisionable\RevisionableTrait;
 
-abstract class BaseModel extends Model implements HasPresenter
+abstract class BaseModel extends Model implements
+    HasPresenter,
+    AuditableContract
 {
-    use RevisionableTrait;
+    use RevisionableTrait, AuditableTrait;
 
     /**
      * @var bool

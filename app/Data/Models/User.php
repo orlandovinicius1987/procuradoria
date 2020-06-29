@@ -7,11 +7,14 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Venturecraft\Revisionable\RevisionableTrait;
+use OwenIt\Auditing\Auditable as AuditableTrait;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, AuditableContract
 {
     use Notifiable;
     use RevisionableTrait;
+    use AuditableTrait;
     //use SoftDeletes;
 
     /**
@@ -36,6 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'personal_email',
         'all_notifications',
         'no_notifications',
+        'last_login_at',
     ];
 
     protected $appends = ['model'];
