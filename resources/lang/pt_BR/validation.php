@@ -228,6 +228,8 @@ return [
         'parent_id' => 'Assunto',
         'authorable_id' => 'Procurador',
         'authorable_type' => 'Procurador',
+        'last_login_at' => 'Último login',
+        'judgment_pdf' => 'Acórdão',
     ],
 
     'classes' => [
