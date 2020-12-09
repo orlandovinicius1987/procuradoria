@@ -131,7 +131,6 @@ class Processos extends Base
                 }
             });
         }
-
         $this->setCurrentPage(
             $request->has('page') ? $request->get('page') : 1
         );
@@ -156,6 +155,7 @@ class Processos extends Base
      */
     public function addQueryByType($search, $column, $query)
     {
+
         switch (Processo::getDataTypeOf($column)) {
             case 'id':
                 $query->where($column, '=', $search);
@@ -174,6 +174,20 @@ class Processos extends Base
             case 'date':
                 $query->where($column, '=', $search);
                 break;
+            //Caso seja um range de datas
+            default :
+                $fragments = explode('_',$column);
+                if($fragments[count($fragments) - 1] == "start"){
+                    $query->where(str_replace('_start', '', $column),'>=',$search);
+                    break;
+                }
+                if($fragments[count($fragments) - 1] == "end"){
+                    $query->where(str_replace('_end', '', $column),'<=',$search);
+                    break;
+                }
+
+
+
         }
     }
 
