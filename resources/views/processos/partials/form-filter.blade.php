@@ -47,15 +47,29 @@
             </div>
         </div>
 
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-md-3">
             <div class="form-group">
-                <label for="data_distribuicao">Data distribuição</label>
+                <label for="data_distribuicao">Data distribuição (De):</label>
                 <input
-                    value="{{ is_null(old('data_distribuicao'))? (! is_null($processo->id) ? $processo->data_distribuicao : '' ) :  old('data_distribuicao')}}"
+                    value="{{ is_null(old('data_distribuicao_start'))? (! is_null($processo->id) ? $processo->data_distribuicao : '' ) :  old('data_distribuicao')}}"
                     type="date"
-                    v-model="form.data_distribuicao"
+                    v-model="form.data_distribuicao_start"
                     class="form-control"
-                    id="data_distribuicao" @include('partials.readonly')
+                    id="data_distribuicao_start" @include('partials.readonly')
+                />
+                {{--<input value="{{Carbon\Carbon::parse($processo->data_distribuicao)->format('Y-m-d')}}" type="date" v-model="form.data_distribuicao" class="form-control" id="data_distribuicao" @include('partials.readonly') />--}}
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-3">
+            <div class="form-group">
+                <label for="data_distribuicao">Data distribuição (Até):</label>
+                <input
+                        value="{{ is_null(old('data_distribuicao_end'))? (! is_null($processo->id) ? $processo->data_distribuicao : '' ) :  old('data_distribuicao')}}"
+                        type="date"
+                        v-model="form.data_distribuicao_end"
+                        class="form-control"
+                        id="data_distribuicao_end" @include('partials.readonly')
                 />
                 {{--<input value="{{Carbon\Carbon::parse($processo->data_distribuicao)->format('Y-m-d')}}" type="date" v-model="form.data_distribuicao" class="form-control" id="data_distribuicao" @include('partials.readonly') />--}}
             </div>
@@ -72,6 +86,34 @@
                         v-model="form.ano_distribuicao"
                         class="form-control"
                         id="ano_distribuicao" @include('partials.readonly')
+                />
+                {{--<input value="{{Carbon\Carbon::parse($processo->data_distribuicao)->format('Y-m-d')}}" type="date" v-model="form.data_distribuicao" class="form-control" id="data_distribuicao" @include('partials.readonly') />--}}
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-3">
+            <div class="form-group">
+                <label for="data_distribuicao">Data Recebimento (De):</label>
+                <input
+                        value="{{ is_null(old('data_recebimento_start'))? (! is_null($processo->id) ? $processo->data_distribuicao : '' ) :  old('data_distribuicao')}}"
+                        type="date"
+                        v-model="form.data_recebimento_start"
+                        class="form-control"
+                        id="data_recebimento_start" @include('partials.readonly')
+                />
+                {{--<input value="{{Carbon\Carbon::parse($processo->data_distribuicao)->format('Y-m-d')}}" type="date" v-model="form.data_distribuicao" class="form-control" id="data_distribuicao" @include('partials.readonly') />--}}
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-3">
+            <div class="form-group">
+                <label for="data_distribuicao">Data Recebimento (Até):</label>
+                <input
+                        value="{{ is_null(old('data_recebimento'))? (! is_null($processo->id) ? $processo->data_distribuicao : '' ) :  old('data_distribuicao')}}"
+                        type="date"
+                        v-model="form.data_recebimento_end"
+                        class="form-control"
+                        id="data_recebimento_end" @include('partials.readonly')
                 />
                 {{--<input value="{{Carbon\Carbon::parse($processo->data_distribuicao)->format('Y-m-d')}}" type="date" v-model="form.data_distribuicao" class="form-control" id="data_distribuicao" @include('partials.readonly') />--}}
             </div>
