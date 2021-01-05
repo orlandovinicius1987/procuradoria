@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@babel/plugin-proposal-object-rest-spread": "^7.9.6",
-        "axios": "^0.18.1",
+        "axios": "^0.21.1",
         "bootstrap": "^4.4.1",
         "bootstrap-sass": "^3.4.1",
         "cross-env": "^5.2.1",
@@ -19,7 +19,7 @@
         "fullcalendar": "^3.10.1",
         "jquery": "^3.5.0",
         "laravel-mix": "^4.1.4",
-        "lodash": "^4.17.15",
+        "lodash": "^4.17.20",
         "moment": "^2.24.0",
         "popper.js": "^1.16.1",
         "remove-accents": "^0.4.2",
