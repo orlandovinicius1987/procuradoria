@@ -49,9 +49,9 @@
 
         <div class="col-xs-12 col-md-3">
             <div class="form-group">
-                <label for="data_distribuicao">Data distribuição (De):</label>
+                <label for="data_distribuicao_start">Data distribuição (De):</label>
                 <input
-                    value="{{ is_null(old('data_distribuicao_start'))? (! is_null($processo->id) ? $processo->data_distribuicao : '' ) :  old('data_distribuicao')}}"
+                    value="{{ is_null(old('data_distribuicao_start'))? (! is_null($processo->id) ? $processo->data_distribuicao : '' ) :  old('data_distribuicao_start')}}"
                     type="date"
                     v-model="form.data_distribuicao_start"
                     class="form-control"
@@ -63,9 +63,9 @@
 
         <div class="col-xs-12 col-md-3">
             <div class="form-group">
-                <label for="data_distribuicao">Data distribuição (Até):</label>
+                <label for="data_distribuicao_end">Data distribuição (Até):</label>
                 <input
-                        value="{{ is_null(old('data_distribuicao_end'))? (! is_null($processo->id) ? $processo->data_distribuicao : '' ) :  old('data_distribuicao')}}"
+                        value="{{ is_null(old('data_distribuicao_end'))? (! is_null($processo->id) ? $processo->data_distribuicao : '' ) :  old('data_distribuicao_end')}}"
                         type="date"
                         v-model="form.data_distribuicao_end"
                         class="form-control"
@@ -77,9 +77,9 @@
 
         <div class="col-xs-12 col-md-6">
             <div class="form-group">
-                <label for="data_distribuicao">Ano distribuição</label>
+                <label for="ano_distribuicao">Ano distribuição</label>
                 <input
-                        value="{{ is_null(old('ano_distribuicao'))? (! is_null($processo->id) ? $processo->data_distribuicao : '' ) :  old('ano_distribuicao')}}"
+                        value="{{ is_null(old('ano_distribuicao'))? (! is_null($processo->id) ? $processo->ano_distribuicao : '' ) :  old('ano_distribuicao')}}"
                         type="number"
                         min="1900"
                         max="2100"
@@ -93,9 +93,9 @@
 
         <div class="col-xs-12 col-md-3">
             <div class="form-group">
-                <label for="data_distribuicao">Data Recebimento (De):</label>
+                <label for="data_recebimento_start">Data Recebimento (De):</label>
                 <input
-                        value="{{ is_null(old('data_recebimento_start'))? (! is_null($processo->id) ? $processo->data_distribuicao : '' ) :  old('data_distribuicao')}}"
+                        value="{{ is_null(old('data_recebimento_start'))? (! is_null($processo->id) ? $processo->data_distribuicao : '' ) :  old('data_recebimento_start')}}"
                         type="date"
                         v-model="form.data_recebimento_start"
                         class="form-control"
@@ -107,9 +107,9 @@
 
         <div class="col-xs-12 col-md-3">
             <div class="form-group">
-                <label for="data_distribuicao">Data Recebimento (Até):</label>
+                <label for="data_recebimento_end">Data Recebimento (Até):</label>
                 <input
-                        value="{{ is_null(old('data_recebimento'))? (! is_null($processo->id) ? $processo->data_distribuicao : '' ) :  old('data_distribuicao')}}"
+                        value="{{ is_null(old('data_recebimento_end'))? (! is_null($processo->id) ? $processo->data_recebimento : '' ) :  old('data_recebimento_end')}}"
                         type="date"
                         v-model="form.data_recebimento_end"
                         class="form-control"
