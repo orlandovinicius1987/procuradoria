@@ -15,7 +15,7 @@
                     <a
                         class="btn btn-lg btn-primary"
                         style="font-size: 3em;"
-                        href="{{ route('subsystem.select', ['type' => App\Support\Constants::SUBSYSTEM_PROCESSOS]) }}"
+                        href="{{ route('subsystem.select', ['subsystem' => App\Support\Constants::SUBSYSTEM_PROCESSOS]) }}"
                     >
                         Processos
                     </a>
@@ -23,7 +23,7 @@
                     <a
                         class="btn btn-lg btn-primary"
                         style="font-size: 3em;"
-                        href="{{ route('subsystem.select', ['type' => App\Support\Constants::SUBSYSTEM_OPINIOES]) }}"
+                        href="{{ route('subsystem.select', ['subsystem' => App\Support\Constants::SUBSYSTEM_OPINIOES]) }}"
                     >
                         Pareceres
                     </a>
