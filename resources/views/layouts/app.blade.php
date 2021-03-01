@@ -45,6 +45,7 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
+
                         @include('home.partials.menu')
                     </ul>
                 </div>
@@ -78,7 +79,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="text-center">
-                            @version
+{{--                            @version--}}
                         </div>
                     </div>
                 </div>
