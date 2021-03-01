@@ -10,6 +10,7 @@ mix
     ],
     'public/js/app.js',
   )
+    .vue({version:2})
   .sass('resources/assets/sass/app.scss', 'public/css')
   .version()
 

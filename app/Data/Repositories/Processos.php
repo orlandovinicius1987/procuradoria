@@ -155,7 +155,6 @@ class Processos extends Base
      */
     public function addQueryByType($search, $column, $query)
     {
-
         switch (Processo::getDataTypeOf($column)) {
             case 'id':
                 $query->where($column, '=', $search);
@@ -175,19 +174,24 @@ class Processos extends Base
                 $query->where($column, '=', $search);
                 break;
             //Caso seja um range de datas
-            default :
-                $fragments = explode('_',$column);
-                if($fragments[count($fragments) - 1] == "start"){
-                    $query->where(str_replace('_start', '', $column),'>=',$search);
+            default:
+                $fragments = explode('_', $column);
+                if ($fragments[count($fragments) - 1] == 'start') {
+                    $query->where(
+                        str_replace('_start', '', $column),
+                        '>=',
+                        $search
+                    );
                     break;
                 }
-                if($fragments[count($fragments) - 1] == "end"){
-                    $query->where(str_replace('_end', '', $column),'<=',$search);
+                if ($fragments[count($fragments) - 1] == 'end') {
+                    $query->where(
+                        str_replace('_end', '', $column),
+                        '<=',
+                        $search
+                    );
                     break;
                 }
-
-
-
         }
     }
 
@@ -343,7 +347,9 @@ class Processos extends Base
                     ->pluck('name', 'id'),
                 'meios' => Meio::orderBy('nome')->pluck('nome', 'id'),
                 'acoes' => Acao::orderBy('nome')->pluck('nome', 'id'),
-                'andamentos' => Andamento::where('processo_id', $id)->orderBy('data_andamento','asc')->get(),
+                'andamentos' => Andamento::where('processo_id', $id)
+                    ->orderBy('data_andamento', 'asc')
+                    ->get(),
                 'apensos' => $apensos,
                 'processos' => $processos,
                 'leis' => $leis,
