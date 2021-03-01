@@ -4,7 +4,7 @@ import Vue from 'vue'
 import Paginate from 'vuejs-paginate'
 import TextHighlight from 'vue-text-highlight'
 
-var accents = require('remove-accents')
+//var accents = require('remove-accents')
 
 Vue.component('paginate', Paginate)
 Vue.component('text-highlight', TextHighlight)
@@ -118,8 +118,7 @@ if (jQuery('#' + appName).length > 0) {
           .get('/', {
             params: {
               search: this.pesquisa,
-              processos_arquivados_incluidos: this
-                .processos_arquivados_incluidos,
+              processos_arquivados_incluidos: this.processos_arquivados_incluidos,
               processos_arquivados_apenas: this.processos_arquivados_apenas,
               advancedFilter: this.advancedFilter,
               filter: this.form,
@@ -128,11 +127,11 @@ if (jQuery('#' + appName).length > 0) {
               page: this.page,
             },
           })
-          .then(response => {
+          .then((response) => {
             this.tables.processos = response.data
             this.refreshing = false
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error)
 
             this.tables.processos = []
@@ -146,7 +145,7 @@ if (jQuery('#' + appName).length > 0) {
           return []
         }
 
-        return this.pesquisa.split(' ').map(value => {
+        return this.pesquisa.split(' ').map((value) => {
           return this.createRegex(value)
         })
       },
@@ -156,9 +155,7 @@ if (jQuery('#' + appName).length > 0) {
         if (isNaN(wordWithoutDots)) {
           return new RegExp(this.makeWords(word), 'i')
         } else {
-          let numberWithDots = wordWithoutDots
-            .toString()
-            .replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+          let numberWithDots = wordWithoutDots.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
           return new RegExp(numberWithDots + '|' + wordWithoutDots, 'i')
         }
       },
@@ -178,10 +175,8 @@ if (jQuery('#' + appName).length > 0) {
           .remove(word)
           .toLowerCase()
           .split('')
-          .map(letter => {
-            return letters.hasOwnProperty(letter)
-              ? '[' + letters[letter] + ']'
-              : letter
+          .map((letter) => {
+            return letters.hasOwnProperty(letter) ? '[' + letters[letter] + ']' : letter
           })
           .join('')
       },
@@ -215,10 +210,10 @@ if (jQuery('#' + appName).length > 0) {
       refreshTable(table) {
         axios
           .get('/api/v1/' + table)
-          .then(response => {
+          .then((response) => {
             this.tables[table] = response.data
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error)
 
             this.tables[table] = []
@@ -252,9 +247,7 @@ if (jQuery('#' + appName).length > 0) {
       },
 
       pageCount() {
-        return Math.ceil(
-          this.tables.processos.total / this.tables.processos.per_page,
-        )
+        return Math.ceil(this.tables.processos.total / this.tables.processos.per_page)
       },
     },
 

@@ -2,29 +2,49 @@
  * Calendar instantiation
  */
 
-jQuery(document).ready(function() {
-    jQuery('#calendar').fullCalendar({
-        locale: 'pt-br',
+import { Calendar } from '@fullcalendar/core'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import listPlugin from '@fullcalendar/list'
 
-        eventSources: [
-            '/agenda/feed',
-        ],
+var calendarEl = document.getElementById('calendar')
 
-        header: { center: 'month,agendaDay,agendaWeek,listYear' }, // buttons for switching between views
-
-        views: {
-            month: {
-                buttonText: 'mês'
-            },
-            agendaDay: {
-                buttonText: 'dia'
-            },
-            agendaWeek: {
-                buttonText: 'semana'
-            },
-            listYear: {
-                buttonText: 'ano'
-            },
-        }
-    })
+let calendar = new Calendar(calendarEl, {
+  plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
+  initialView: 'dayGridMonth',
+  headerToolbar: {
+    start: 'title',
+    center: 'dayGridMonth,timeGridDay,timeGridWeek,listYear',
+    end: 'today prev,next',
+  },
+  locale: 'pt-br',
+  eventSources: ['/agenda/feed'],
+  views: {
+    dayGridMonth: {
+      buttonText: 'mês',
+    },
+    timeGridDay: {
+      buttonText: 'dia',
+    },
+    timeGridWeek: {
+      buttonText: 'semana',
+    },
+    listYear: {
+      buttonText: 'ano',
+    },
+  },
 })
+
+calendar.render()
+
+//
+// jQuery(document).ready(function () {
+//   jQuery('#calendar').fullCalendar({
+//     locale: 'pt-br',
+//
+//     eventSources: ['/agenda/feed'],
+//
+//     header: { center: 'month,agendaDay,agendaWeek,listYear' }, // buttons for switching between views
+//
+//   })
+// })
