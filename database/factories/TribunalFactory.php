@@ -1,22 +1,30 @@
 <?php
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use App\Models\Tribunal;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
-*/
+class TribunalFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Tribunal::class;
 
-$factory->define(\App\Models\Tribunal::class, function (Faker $faker) {
-    return [
-        'nome' => only_letters_and_space($faker->name),
-        'url_api' => only_letters_and_space($faker->name),
-        'abreviacao' => only_letters_and_space($faker->name)
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'nome' => only_letters_and_space($faker->name),
+            'url_api' => only_letters_and_space($faker->name),
+            'abreviacao' => only_letters_and_space($faker->name)
+        ];
+    }
+}

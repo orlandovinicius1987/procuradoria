@@ -1,18 +1,17 @@
 <?php
 namespace Database\Factories;
-
-use App\Models\Meio;
+use App\Models\OpinionScope;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class MeioFactory extends Factory
+class OpinionScopeFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Meio::class;
+    protected $model = OpinionScope::class;
 
     /**
      * Define the model's default state.
@@ -21,6 +20,6 @@ class MeioFactory extends Factory
      */
     public function definition()
     {
-        return ['nome' => only_letters_and_space($faker->name)];
+        return ['name' => only_letters_and_space($faker->name)];
     }
 }
