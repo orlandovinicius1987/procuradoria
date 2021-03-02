@@ -23,13 +23,13 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => only_letters_and_space($faker->name),
-            'username' => $faker->unique()->userName,
-            'email' => $faker->unique()->safeEmail,
+            'name' => only_letters_and_space($this->faker->name),
+            'username' => $this->faker->unique()->userName,
+            'email' => $this->faker->unique()->safeEmail,
             'password' =>
                 '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
             'remember_token' => str_random(10),
-            'user_type_id' => $faker->randomElement(
+            'user_type_id' => $this->faker->randomElement(
                 \App\Models\TipoUsuario::pluck('id')->toArray()
             )
         ];

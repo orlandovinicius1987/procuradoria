@@ -12,6 +12,6 @@ class ProcessosTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(ProcessoModel::class, 50)->create();
+        ProcessoModel::factory(50)->create();
     }
 }

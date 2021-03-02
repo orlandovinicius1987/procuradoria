@@ -25,17 +25,17 @@ class LeiFactory extends Factory
     {
         return [
             'numero_lei' =>
-                (string) $faker->randomNumber(4) .
+                (string) $this->faker->randomNumber(4) .
                 '/' .
-                (string) $faker->randomNumber(4),
-            'autor' => only_letters_and_space($faker->name),
-            'assunto' => only_letters_and_space($faker->name),
-            'link' => only_letters_and_space($faker->name),
-            'artigo' => (string) $faker->randomNumber(2),
-            'paragrafo' => (string) $faker->randomNumber(2),
-            'inciso' => (string) $faker->randomNumber(2),
-            'alinea' => (string) $faker->randomNumber(2),
-            'item' => (string) $faker->randomNumber(2),
+                (string) $this->faker->randomNumber(4),
+            'autor' => only_letters_and_space($this->faker->name),
+            'assunto' => only_letters_and_space($this->faker->name),
+            'link' => only_letters_and_space($this->faker->name),
+            'artigo' => (string) $this->faker->randomNumber(2),
+            'paragrafo' => (string) $this->faker->randomNumber(2),
+            'inciso' => (string) $this->faker->randomNumber(2),
+            'alinea' => (string) $this->faker->randomNumber(2),
+            'item' => (string) $this->faker->randomNumber(2),
             'nivel_federativo_id' => app(
                 NiveisFederativosRepository::class
             )->randomElement()->id,

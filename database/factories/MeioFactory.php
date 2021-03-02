@@ -21,6 +21,6 @@ class MeioFactory extends Factory
      */
     public function definition()
     {
-        return ['nome' => only_letters_and_space($faker->name)];
+        return ['nome' => only_letters_and_space($this->faker->name)];
     }
 }
