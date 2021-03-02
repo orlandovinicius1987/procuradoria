@@ -13,7 +13,7 @@ class CreateExtensionUnaccent extends Migration
      */
     public function up()
     {
-        DB::statement('CREATE EXTENSION unaccent');
+        DB::statement('CREATE EXTENSION IF NOT EXISTS unaccent;');
     }
 
     /**
@@ -23,6 +23,6 @@ class CreateExtensionUnaccent extends Migration
      */
     public function down()
     {
-        DB::statement('DROP EXTENSION unaccent');
+        DB::statement('DROP EXTENSION IF EXISTS unaccent');
     }
 }
