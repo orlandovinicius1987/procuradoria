@@ -1,3 +1,3 @@
 <?php
 
-Route::get('/meios', 'Meios@select')->name('meios.select');
+Route::get('/meios', [\App\Http\Controllers\Meios::class, 'select'])->name('meios.select');

@@ -5,25 +5,29 @@ Route::group(['prefix' => '/processos'], function () {
     //Index
 
     //Create and Store
-    Route::get('/', 'Processos@create')->name('processos.create');
-    Route::post('/', 'Processos@store')->name('processos.store');
+    Route::get('/', [\App\Http\Controllers\Processos::class, 'create'])->name('processos.create');
+    Route::post('/', [\App\Http\Controllers\Processos::class, 'store'])->name('processos.store');
 
     // Search and Detail
-    Route::get('/search', 'Processos@search')->name('processos.search');
+    Route::get('/search', [\App\Http\Controllers\Processos::class, 'search'])->name(
+        'processos.search'
+    );
 
-    //    Route::post('/resultSearch', 'Processos@resultSearch')->name('processos.resultSearch');
+    //    Route::post('/resultSearch', [\App\Http\Controllers\Processos::class,'resultSearch'])->name('processos.resultSearch');
 
-    //    Route::get('/resultSearch', 'Processos@search')->name('processos.search');
+    //    Route::get('/resultSearch', [\App\Http\Controllers\Processos::class,'search'])->name('processos.search');
 
-    Route::get('/{id}', 'Processos@show')->name('processos.show');
+    Route::get('/{id}', [\App\Http\Controllers\Processos::class, 'show'])->name('processos.show');
 
-    Route::get('/{id}/download', 'Processos@download')->name(
+    Route::get('/{id}/download', [\App\Http\Controllers\Processos::class, 'download'])->name(
         'processos.download'
     );
 
-    Route::post('/apensar', 'Processos@apensar')->name('processos.apensar');
+    Route::post('/apensar', [\App\Http\Controllers\Processos::class, 'apensar'])->name(
+        'processos.apensar'
+    );
 
-    Route::post('/relacionarLei', 'Processos@relacionarLei')->name(
+    Route::post('/relacionarLei', [\App\Http\Controllers\Processos::class, 'relacionarLei'])->name(
         'processos.relacionarLei'
     );
 });

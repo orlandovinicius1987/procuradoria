@@ -1,3 +1,3 @@
 <?php
 
-Route::get('/tags', 'Tags@index')->name('tags.index');
+Route::get('/tags', [\App\Http\Controllers\Tags::class, 'index'])->name('tags.index');

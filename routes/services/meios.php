@@ -1,3 +1,3 @@
 <?php
 
-Route::get('/meios', 'Meios@index')->name('meios.index');
+Route::get('/meios', [\App\Http\Controllers\Meios::class, 'index'])->name('meios.index');

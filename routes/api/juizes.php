@@ -1,9 +1,11 @@
 <?php
 
 Route::group(['prefix' => '/juizes'], function () {
-    Route::get('/', 'Juizes@select')->name('juizes.select');
+    Route::get('/', [\App\Http\Controllers\Juizes::class, 'select'])->name('juizes.select');
 });
 
 Route::group(['prefix' => '/tiposjuizes'], function () {
-    Route::get('/', 'TiposJuizes@select')->name('tipos_juizes.select');
+    Route::get('/', [\App\Http\Controllers\TiposJuizes::class, 'select'])->name(
+        'tipos_juizes.select'
+    );
 });
