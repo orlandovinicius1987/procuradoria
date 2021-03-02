@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\TipoEntrada;
+use App\Models\TipoEntrada;
 
 class TiposEntradas extends Base
 {

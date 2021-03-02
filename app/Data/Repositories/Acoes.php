@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\Acao;
+use App\Models\Acao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

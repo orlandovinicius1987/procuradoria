@@ -13,6 +13,6 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\Data\Models\Meio::class, function (Faker $faker) {
+$factory->define(\App\Models\Meio::class, function (Faker $faker) {
     return ['nome' => only_letters_and_space($faker->name)];
 });

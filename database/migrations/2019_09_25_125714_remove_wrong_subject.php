@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\Data\Models\OpinionSubject;
-use App\Data\Models\OpinionsSubject;
+use App\Models\OpinionSubject;
+use App\Models\OpinionsSubject;
 
 class RemoveWrongSubject extends Migration
 {

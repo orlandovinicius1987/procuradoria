@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\Data\Models\Opinion as OpinionModel;
-use App\Data\Models\User as UserModel;
-use App\Data\Models\OpinionAuthor as OpinionAuthorModel;
+use App\Models\Opinion as OpinionModel;
+use App\Models\User as UserModel;
+use App\Models\OpinionAuthor as OpinionAuthorModel;
 
 class PolymorphicAuthorRefactor extends Migration
 {

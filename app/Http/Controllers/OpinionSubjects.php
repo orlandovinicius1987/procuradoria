@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\Models\OpinionSubject as OpinionSubjectModel;
+use App\Models\OpinionSubject as OpinionSubjectModel;
 use App\Data\Repositories\OpinionSubjects as OpinionSubjectsRepository;
 use App\Http\Requests\OpinionSubjectUpdate as OpinionSubjectUpdateRequest;
 use App\Http\Requests\OpinionSubjectStore as OpinionSubjectStoreRequest;

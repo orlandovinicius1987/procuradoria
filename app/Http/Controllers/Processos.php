@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\Models\Processo;
-use App\Data\Models\Processo as ProcessoModel;
+use App\Models\Processo;
+use App\Models\Processo as ProcessoModel;
 use App\Data\Repositories\Andamentos as AndamentosRepository;
 use App\Data\Repositories\Apensos as ApensosRepository;
 use App\Data\Repositories\Processos as ProcessosRepository;

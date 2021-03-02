@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\NivelFederativo as NivelFederativo;
+use App\Models\NivelFederativo as NivelFederativo;
 
 class NiveisFederativos extends Base
 {

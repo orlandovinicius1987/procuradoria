@@ -1,7 +1,7 @@
 <?php
 
 use App\Data\Repositories\Users;
-use App\Data\Models\User;
+use App\Models\User;
 
 Artisan::command(
     'procuradoria:import:processos {usersFile} {processesFile}',

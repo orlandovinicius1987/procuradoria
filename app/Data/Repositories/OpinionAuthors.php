@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\OpinionAuthor;
+use App\Models\OpinionAuthor;
 
 class OpinionAuthors extends Base
 {

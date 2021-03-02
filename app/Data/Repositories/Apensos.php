@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\Apenso;
+use App\Models\Apenso;
 
 class Apensos extends Base
 {

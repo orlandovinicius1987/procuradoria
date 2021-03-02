@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\Models\Juiz;
-use App\Data\Models\TipoJuiz as ModelTipoJuiz;
-use App\Data\Models\Tribunal as ModelTribunal;
+use App\Models\Juiz;
+use App\Models\TipoJuiz as ModelTipoJuiz;
+use App\Models\Tribunal as ModelTribunal;
 use App\Data\Repositories\Juizes as JuizesRepository;
 use App\Http\Requests\Juiz as JuizRequest;
 use Illuminate\Http\Request;
