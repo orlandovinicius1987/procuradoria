@@ -35,7 +35,9 @@ let calendar = new Calendar(calendarEl, {
   },
 })
 
-calendar.render()
+if (calendarEl) {
+  calendar.render()
+}
 
 //
 // jQuery(document).ready(function () {
