@@ -1,18 +1,18 @@
 <?php
 namespace Database\Factories;
 
-use App\Models\Meio;
+use App\Models\TipoJuiz;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class MeioFactory extends Factory
+class TipoJuizFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Meio::class;
+    protected $model = TipoJuiz::class;
 
     /**
      * Define the model's default state.
