@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Data\Repositories\Users;
 use App\Services\Authorization;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -44,16 +45,15 @@ class AppServiceProvider extends ServiceProvider
         $this->bootComposers();
 
         $this->setUpMailMessagesPerMinute();
+
+        Paginator::useBootstrap();
     }
 
     private function bootComposers()
     {
         View::composer('*', function ($view) {
             $view->with(
-                array_merge(
-                    ['formDisabled' => false, 'isFilter' => false],
-                    $view->getData()
-                )
+                array_merge(['formDisabled' => false, 'isFilter' => false], $view->getData())
             );
         });
     }
@@ -73,9 +73,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('use-app', function ($user = null) {
             if (config('auth.authorization.enabled')) {
                 $permissions = $user
-                    ? app(Authorization::class)->getUserPermissions(
-                        $user->username
-                    )
+                    ? app(Authorization::class)->getUserPermissions($user->username)
                     : null;
 
                 $this->usersRepository->updateCurrentUser($permissions);
