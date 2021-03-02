@@ -2,6 +2,8 @@
 namespace Database\Factories;
 
 use App\Models\Juiz;
+use App\Models\Tribunal;
+use App\Models\TipoJuiz;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -22,12 +24,12 @@ class JuizFactory extends Factory
     public function definition()
     {
         return [
-            'nome' => only_letters_and_space($faker->name),
+            'nome' => only_letters_and_space($this->faker->name),
             'lotacao_id' => function () {
-                return factory(\App\Models\Tribunal::class)->create()->id;
+                return Tribunal::factory()->create()->id;
             },
             'tipo_juiz_id' => function () {
-                return factory(\App\Models\TipoJuiz::class)->create()->id;
+                return TipoJuiz::factory()->create()->id;
             }
         ];
     }

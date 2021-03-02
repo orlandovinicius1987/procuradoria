@@ -13,7 +13,7 @@ class OpinionsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(OpinionModel::class, 50)->create();
-        factory(OpinionsSubjectModel::class, 300)->create();
+        OpinionModel::factory(50)->create();
+        OpinionsSubjectModel::factory(300)->create();
     }
 }

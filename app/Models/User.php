@@ -9,12 +9,14 @@ use Illuminate\Notifications\Notifiable;
 use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable implements MustVerifyEmail, AuditableContract
 {
     use Notifiable;
     use RevisionableTrait;
     use AuditableTrait;
+    use HasFactory;
     //use SoftDeletes;
 
     /**
@@ -39,7 +41,7 @@ class User extends Authenticatable implements MustVerifyEmail, AuditableContract
         'personal_email',
         'all_notifications',
         'no_notifications',
-        'last_login_at',
+        'last_login_at'
     ];
 
     protected $appends = ['model'];
