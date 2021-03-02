@@ -199,15 +199,18 @@
                             <label for="is_active">Ativo</label>
                             <br>
                             <input type="hidden" name="is_active" value="0">
-                            <input id="is_active" type="checkbox" name="is_active" {{
+                            <input id="is_active" type="checkbox" name="is_active"
+                                    {{
                                                         is_null(old('is_active')) ?
                                                             is_null($opinion->is_active) ?
                                                                 true ?
                                                                     'checked="checked"' : ''
-                                                                : $opinion->is_active ?
-                                                                    'checked="checked"' : ''
-                                                            : old('is_active') ?
-                                                                'checked="checked"' : ''}} @include('partials.disabled')>
+                                                                : ($opinion->is_active ?
+                                                                    'checked="checked"' : '')
+                                                            : (old('is_active') ?
+                                                                'checked="checked"' : '')
+                                    }}
+                                    @include('partials.disabled')>
                         </div>
                     </div>
                 </form>
