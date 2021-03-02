@@ -1,19 +1,23 @@
 <?php
 
 Route::group(['prefix' => '/juizes'], function () {
-    Route::get('/create', 'Juizes@create')->name('juizes.create');
+    Route::get('/create', [\App\Http\Controllers\Juizes::class, 'create'])->name('juizes.create');
 
-    Route::post('/', 'Juizes@store')->name('juizes.store');
+    Route::post('/', [\App\Http\Controllers\Juizes::class, 'store'])->name('juizes.store');
 
-    Route::get('/', 'Juizes@index')->name('juizes.index');
+    Route::get('/', [\App\Http\Controllers\Juizes::class, 'index'])->name('juizes.index');
 
-    Route::get('/{id}', 'Juizes@show')->name('juizes.show');
+    Route::get('/{id}', [\App\Http\Controllers\Juizes::class, 'show'])->name('juizes.show');
 
-    Route::get('/', 'Juizes@index')->name('juizes.index');
+    Route::get('/', [\App\Http\Controllers\Juizes::class, 'index'])->name('juizes.index');
 });
 
 Route::group(['prefix' => '/tiposjuizes'], function () {
-    Route::get('/', 'TiposJuizes@create')->name('tipos_juizes.create');
+    Route::get('/', [\App\Http\Controllers\TiposJuizes::class, 'create'])->name(
+        'tipos_juizes.create'
+    );
 
-    Route::post('/', 'TiposJuizes@store')->name('tipos_juizes.store');
+    Route::post('/', [\App\Http\Controllers\TiposJuizes::class, 'store'])->name(
+        'tipos_juizes.store'
+    );
 });

@@ -1,5 +1,5 @@
 <?php
 
-Route::get('/', 'Home@index')->name('home.index');
+Route::get('/', [\App\Http\Controllers\Home::class, 'index'])->name('home.index');
 
-Route::post('/', 'Home@filter')->name('home.filter');
+Route::post('/', [\App\Http\Controllers\Home::class, 'filter'])->name('home.filter');
