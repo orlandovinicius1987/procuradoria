@@ -1,11 +1,11 @@
 <?php
 
-use App\Data\Models\Opinion as OpinionModel;
-use App\Data\Models\User as UserModel;
-use App\Data\Models\OpinionScope as OpinionScopeModel;
-use App\Data\Models\OpinionsSubject as OpinionsSubjectModel;
-use App\Data\Models\OpinionSubject as OpinionSubjectModel;
-use App\Data\Models\OpinionType as OpinionTypeModel;
+use App\Models\Opinion as OpinionModel;
+use App\Models\User as UserModel;
+use App\Models\OpinionScope as OpinionScopeModel;
+use App\Models\OpinionsSubject as OpinionsSubjectModel;
+use App\Models\OpinionSubject as OpinionSubjectModel;
+use App\Models\OpinionType as OpinionTypeModel;
 use App\Data\Repositories\Opinions as OpinionsRepository;
 use App\Data\Repositories\OpinionScopes as OpinionScopesRepository;
 use App\Data\Repositories\OpinionSubjects as OpinionSubjectsRepository;

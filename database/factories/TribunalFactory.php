@@ -13,7 +13,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\Data\Models\Tribunal::class, function (Faker $faker) {
+$factory->define(\App\Models\Tribunal::class, function (Faker $faker) {
     return [
         'nome' => only_letters_and_space($faker->name),
         'url_api' => only_letters_and_space($faker->name),

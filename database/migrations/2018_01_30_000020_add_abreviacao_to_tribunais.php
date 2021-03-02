@@ -21,7 +21,7 @@ class AddAbreviacaoToTribunais extends Migration
                 ->index();
         });
 
-        \App\Data\Models\Tribunal::all()->each(function ($tribunal) {
+        \App\Models\Tribunal::all()->each(function ($tribunal) {
             $tribunal->abreviacao = $tribunal->nome;
 
             $tribunal->save();

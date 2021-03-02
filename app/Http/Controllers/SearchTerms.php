@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\Models\SearchTerm;
+use App\Models\SearchTerm;
 use App\Data\Repositories\SearchTerms as SearchTermsRepository;
 use App\Http\Requests\SearchTerm as SearchTermRequest;
 use Illuminate\Http\Request;

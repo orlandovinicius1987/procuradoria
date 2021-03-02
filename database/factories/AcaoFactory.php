@@ -13,7 +13,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\Data\Models\Acao::class, function (Faker $faker) {
+$factory->define(\App\Models\Acao::class, function (Faker $faker) {
     return [
         'nome' => only_letters_and_space($faker->name),
         'abreviacao' => only_letters_and_space($faker->name)

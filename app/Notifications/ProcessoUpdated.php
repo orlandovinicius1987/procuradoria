@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Data\Models\Processo;
+use App\Models\Processo;
 use App\Data\Repositories\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

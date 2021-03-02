@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\OpinionsSubject as OpinionsSubjectModel;
+use App\Models\OpinionsSubject as OpinionsSubjectModel;
 
 class OpinionsSubjects extends Base
 {

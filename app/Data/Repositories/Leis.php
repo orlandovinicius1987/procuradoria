@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\Lei as LeiModel;
+use App\Models\Lei as LeiModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

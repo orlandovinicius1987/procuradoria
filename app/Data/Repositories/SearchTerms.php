@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\SearchTerm;
+use App\Models\SearchTerm;
 use DB;
 
 class SearchTerms extends Base

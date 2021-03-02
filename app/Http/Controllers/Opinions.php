@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\Models\ApproveOption;
-use App\Data\Models\Opinion as OpinionModel;
-use App\Data\Models\OpinionsSubject;
-use App\Data\Models\User;
+use App\Models\ApproveOption;
+use App\Models\Opinion as OpinionModel;
+use App\Models\OpinionsSubject;
+use App\Models\User;
 use App\Data\Repositories\ApproveOptions as ApproveOptionsRepository;
 use App\Data\Repositories\Opinions as OpinionsRepository;
 use App\Data\Repositories\OpinionScopes as OpinionScopesRepository;

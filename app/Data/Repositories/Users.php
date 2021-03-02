@@ -2,8 +2,8 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\TipoUsuario;
-use App\Data\Models\User;
+use App\Models\TipoUsuario;
+use App\Models\User;
 use App\Data\Repositories\TiposUsuarios as TiposUsuariosRepository;
 use App\Services\Authorization;
 use App\Services\Users as UsersService;

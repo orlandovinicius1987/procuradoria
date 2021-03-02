@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\TipoJuiz;
+use App\Models\TipoJuiz;
 
 class TiposJuizes extends Base
 {

@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\Juiz;
+use App\Models\Juiz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

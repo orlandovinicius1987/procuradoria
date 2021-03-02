@@ -11,18 +11,18 @@ class AddTiposJuizesEMeios extends Migration
      */
     public function up()
     {
-        \App\Data\Models\Meio::truncate();
-        \App\Data\Models\Meio::insert(['nome' => 'Físico']);
+        \App\Models\Meio::truncate();
+        \App\Models\Meio::insert(['nome' => 'Físico']);
 
-        \App\Data\Models\Meio::insert(['nome' => 'Eletrônico']);
-        \App\Data\Models\Meio::insert(['nome' => 'N/C']);
+        \App\Models\Meio::insert(['nome' => 'Eletrônico']);
+        \App\Models\Meio::insert(['nome' => 'N/C']);
 
-        \App\Data\Models\TipoJuiz::truncate();
-        \App\Data\Models\TipoJuiz::insert(['nome' => 'Ministro']);
+        \App\Models\TipoJuiz::truncate();
+        \App\Models\TipoJuiz::insert(['nome' => 'Ministro']);
 
-        \App\Data\Models\TipoJuiz::insert(['nome' => 'Desembargador']);
-        \App\Data\Models\TipoJuiz::insert(['nome' => 'Juiz']);
-        \App\Data\Models\TipoJuiz::insert(['nome' => 'N/C']);
+        \App\Models\TipoJuiz::insert(['nome' => 'Desembargador']);
+        \App\Models\TipoJuiz::insert(['nome' => 'Juiz']);
+        \App\Models\TipoJuiz::insert(['nome' => 'N/C']);
     }
 
     /**
@@ -32,15 +32,15 @@ class AddTiposJuizesEMeios extends Migration
      */
     public function down()
     {
-        \App\Data\Models\Meio::truncate();
-        \App\Data\Models\Meio::insert(['nome' => 'Físico']);
+        \App\Models\Meio::truncate();
+        \App\Models\Meio::insert(['nome' => 'Físico']);
 
-        \App\Data\Models\Meio::insert(['nome' => 'Eletrônico']);
+        \App\Models\Meio::insert(['nome' => 'Eletrônico']);
 
-        \App\Data\Models\TipoJuiz::truncate();
-        \App\Data\Models\TipoJuiz::insert(['nome' => 'Ministro']);
+        \App\Models\TipoJuiz::truncate();
+        \App\Models\TipoJuiz::insert(['nome' => 'Ministro']);
 
-        \App\Data\Models\TipoJuiz::insert(['nome' => 'Desembargador']);
-        \App\Data\Models\TipoJuiz::insert(['nome' => 'Juiz']);
+        \App\Models\TipoJuiz::insert(['nome' => 'Desembargador']);
+        \App\Models\TipoJuiz::insert(['nome' => 'Juiz']);
     }
 }

@@ -20,8 +20,8 @@ class CreateTipoProcesso extends Migration
             $table->timestamps();
         });
 
-        \App\Data\Models\TipoProcesso::insert(['nome' => 'Alerj']);
-        \App\Data\Models\TipoProcesso::insert(['nome' => 'Outros processos']);
+        \App\Models\TipoProcesso::insert(['nome' => 'Alerj']);
+        \App\Models\TipoProcesso::insert(['nome' => 'Outros processos']);
     }
 
     /**

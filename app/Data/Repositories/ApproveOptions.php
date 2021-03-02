@@ -2,8 +2,8 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\ApproveOption;
-use App\Data\Models\OpinionType as OpinionTypeModel;
+use App\Models\ApproveOption;
+use App\Models\OpinionType as OpinionTypeModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

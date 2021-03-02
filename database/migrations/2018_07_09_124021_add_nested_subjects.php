@@ -1,6 +1,6 @@
 <?php
 
-use App\Data\Models\OpinionSubject;
+use App\Models\OpinionSubject;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

@@ -13,7 +13,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\Data\Models\User::class, function (Faker $faker) {
+$factory->define(\App\Models\User::class, function (Faker $faker) {
     return [
         'name' => only_letters_and_space($faker->name),
         'username' => $faker->unique()->userName,
@@ -22,7 +22,7 @@ $factory->define(App\Data\Models\User::class, function (Faker $faker) {
             '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => str_random(10),
         'user_type_id' => $faker->randomElement(
-            \App\Data\Models\TipoUsuario::pluck('id')->toArray()
+            \App\Models\TipoUsuario::pluck('id')->toArray()
         )
     ];
 });

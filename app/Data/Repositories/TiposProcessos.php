@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\TipoProcesso;
+use App\Models\TipoProcesso;
 
 class TiposProcessos extends Base
 {

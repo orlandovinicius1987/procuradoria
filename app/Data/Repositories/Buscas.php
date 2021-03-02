@@ -2,9 +2,9 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\Busca;
-use App\Data\Models\Processo;
-use App\Data\Models\ReadingLog;
+use App\Models\Busca;
+use App\Models\Processo;
+use App\Models\ReadingLog;
 use Auth;
 use Illuminate\Http\Request;
 use DB;

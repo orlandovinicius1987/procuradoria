@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\Models\Andamento;
-use App\Data\Models\Processo as ModelProcesso;
-use App\Data\Models\TipoAndamento as ModelTipoAndamento;
-use App\Data\Models\TipoEntrada as ModelTipoEntrada;
-use App\Data\Models\TipoPrazo as ModelTipoPrazo;
+use App\Models\Andamento;
+use App\Models\Processo as ModelProcesso;
+use App\Models\TipoAndamento as ModelTipoAndamento;
+use App\Models\TipoEntrada as ModelTipoEntrada;
+use App\Models\TipoPrazo as ModelTipoPrazo;
 use App\Data\Repositories\Andamentos as AndamentosRepository;
 use App\Http\Requests\Andamento as AndamentoRequest;
 use Illuminate\Http\Request;

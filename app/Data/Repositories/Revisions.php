@@ -2,22 +2,22 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\Revision;
-use App\Data\Models\Revision as RevisionModel;
+use App\Models\Revision;
+use App\Models\Revision as RevisionModel;
 use Illuminate\Http\Request;
 
 class Revisions extends Base
 {
     public $classesAndRoutes = [
-        'App\Data\Models\Tribunal' => 'tribunais.show',
-        'App\Data\Models\Acao' => 'acoes.show',
-        'App\Data\Models\Juiz' => 'juizes.show',
-        'App\Data\Models\Processo' => 'processos.show',
-        'App\Data\Models\User' => 'users.show',
-        'App\Data\Models\Andamento' => 'andamentos.show',
-        'App\Data\Models\Opinion' => 'opinions.show',
-        'App\Data\Models\OpinionSubject' => 'opinionSubjects.show',
-        'App\Data\Models\Lei' => 'leis.show'
+        'App\Models\Tribunal' => 'tribunais.show',
+        'App\Models\Acao' => 'acoes.show',
+        'App\Models\Juiz' => 'juizes.show',
+        'App\Models\Processo' => 'processos.show',
+        'App\Models\User' => 'users.show',
+        'App\Models\Andamento' => 'andamentos.show',
+        'App\Models\Opinion' => 'opinions.show',
+        'App\Models\OpinionSubject' => 'opinionSubjects.show',
+        'App\Models\Lei' => 'leis.show',
     ];
 
     protected $hideFields = ['remember_token', 'password'];
@@ -52,10 +52,7 @@ class Revisions extends Base
      */
     public function searchFromRequest($search = null)
     {
-        return Revision::whereIn(
-            'revisionable_type',
-            collect($this->classesAndRoutes)->keys()
-        )
+        return Revision::whereIn('revisionable_type', collect($this->classesAndRoutes)->keys())
             ->whereNotIn('key', $this->hideFields)
             ->orderBy('created_at', 'DESC')
             ->paginate(25);

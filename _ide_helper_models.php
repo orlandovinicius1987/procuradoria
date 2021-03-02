@@ -9,7 +9,7 @@
 
 namespace App\Data\Models {
     /**
-     * App\Data\Models\Acao.
+     * App\Models\Acao.
      */
     class Acao extends \Eloquent
     {
@@ -18,7 +18,7 @@ namespace App\Data\Models {
 
 namespace App\Data\Models {
     /**
-     * App\Data\Models\Juiz.
+     * App\Models\Juiz.
      */
     class Juiz extends \Eloquent
     {
@@ -27,7 +27,7 @@ namespace App\Data\Models {
 
 namespace App\Data\Models {
     /**
-     * App\Data\Models\Processo.
+     * App\Models\Processo.
      */
     class Processo extends \Eloquent
     {
@@ -45,7 +45,7 @@ namespace App\Data\Models {
 
 namespace App\Data\Models {
     /**
-     * App\Data\Models\User.
+     * App\Models\User.
      *
      * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
      */
