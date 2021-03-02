@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Data\Repositories\Users;
 use App\Services\Authorization;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;

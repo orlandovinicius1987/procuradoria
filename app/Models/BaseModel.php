@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Data\Presenters\BasePresenter;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use McCool\LaravelAutoPresenter\Facades\AutoPresenter;
 use McCool\LaravelAutoPresenter\HasPresenter;
@@ -15,7 +16,7 @@ abstract class BaseModel extends Model implements
     AuditableContract
 {
     use RevisionableTrait, AuditableTrait;
-
+    use HasFactory;
     /**
      * @var bool
      */

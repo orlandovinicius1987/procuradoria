@@ -13,7 +13,7 @@ class LeisTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(LeiModel::class, 50)->create();
-        factory(ProcessoLeiModel::class, 300)->create();
+        LeiModel::factory(50)->create();
+        ProcessoLeiModel::factory(300)->create();
     }
 }

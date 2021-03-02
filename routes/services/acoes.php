@@ -1,11 +1,11 @@
 <?php
 
 Route::group(['prefix' => '/acoes'], function () {
-    Route::get('/create', 'Acoes@create')->name('acoes.create');
+    Route::get('/create', [\App\Http\Controllers\Acoes::class, 'create'])->name('acoes.create');
 
-    Route::post('/', 'Acoes@store')->name('acoes.store');
+    Route::post('/', [\App\Http\Controllers\Acoes::class, 'store'])->name('acoes.store');
 
-    Route::get('/{id}', 'Acoes@show')->name('acoes.show');
+    Route::get('/{id}', [\App\Http\Controllers\Acoes::class, 'show'])->name('acoes.show');
 
-    Route::get('/', 'Acoes@index')->name('acoes.index');
+    Route::get('/', [\App\Http\Controllers\Acoes::class, 'index'])->name('acoes.index');
 });

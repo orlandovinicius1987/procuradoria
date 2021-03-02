@@ -22,9 +22,9 @@ class TribunalFactory extends Factory
     public function definition()
     {
         return [
-            'nome' => only_letters_and_space($faker->name),
-            'url_api' => only_letters_and_space($faker->name),
-            'abreviacao' => only_letters_and_space($faker->name)
+            'nome' => only_letters_and_space($this->faker->name),
+            'url_api' => only_letters_and_space($this->faker->name),
+            'abreviacao' => only_letters_and_space($this->faker->name)
         ];
     }
 }

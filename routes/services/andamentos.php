@@ -1,15 +1,17 @@
 <?php
 
 Route::group(['prefix' => '/andamentos'], function () {
-    Route::get('/create/{id?}', 'Andamentos@create')->name('andamentos.create');
+    Route::get('/create/{id?}', [\App\Http\Controllers\Andamentos::class, 'create'])->name(
+        'andamentos.create'
+    );
 
-    Route::post('/create', 'Andamentos@create_post')->name(
+    Route::post('/create', [\App\Http\Controllers\Andamentos::class, 'create_post'])->name(
         'andamentos.create_post'
     );
 
-    Route::post('/', 'Andamentos@store')->name('andamentos.store');
+    Route::post('/', [\App\Http\Controllers\Andamentos::class, 'store'])->name('andamentos.store');
 
-    Route::get('/', 'Andamentos@index')->name('andamentos.index');
+    Route::get('/', [\App\Http\Controllers\Andamentos::class, 'index'])->name('andamentos.index');
 
-    Route::get('/{id}', 'Andamentos@show')->name('andamentos.show');
+    Route::get('/{id}', [\App\Http\Controllers\Andamentos::class, 'show'])->name('andamentos.show');
 });
