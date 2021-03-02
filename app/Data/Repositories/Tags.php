@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\Tag;
+use App\Models\Tag;
 
 class Tags extends Base
 {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\Models\Busca;
+use App\Models\Busca;
 use App\Data\Repositories\Buscas as BuscasRepository;
 use Illuminate\Http\Request;
 

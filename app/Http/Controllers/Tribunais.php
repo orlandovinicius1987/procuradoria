@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\Models\Tribunal;
+use App\Models\Tribunal;
 use App\Data\Repositories\Tribunais as TribunaisRepository;
 use App\Http\Requests\Tribunal as TribunalRequest;
 use Illuminate\Http\Request;

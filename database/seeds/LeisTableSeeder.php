@@ -1,7 +1,7 @@
 <?php
 
-use App\Data\Models\Lei as LeiModel;
-use App\Data\Models\ProcessoLei as ProcessoLeiModel;
+use App\Models\Lei as LeiModel;
+use App\Models\ProcessoLei as ProcessoLeiModel;
 use Illuminate\Database\Seeder;
 
 class LeisTableSeeder extends Seeder

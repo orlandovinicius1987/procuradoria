@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Data\Models\Processo;
-use App\Data\Models\TipoUsuario as ModelTipoUsuario;
-use App\Data\Models\User as ModelUser;
+use App\Models\Processo;
+use App\Models\TipoUsuario as ModelTipoUsuario;
+use App\Models\User as ModelUser;
 use App\Data\Repositories\Acoes;
 use App\Data\Repositories\Juizes;
 use App\Data\Repositories\Meios;

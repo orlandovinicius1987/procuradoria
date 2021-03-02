@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\TipoLei as TipoLei;
+use App\Models\TipoLei as TipoLei;
 
 class TiposLeis extends Base
 {

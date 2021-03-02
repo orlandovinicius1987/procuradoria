@@ -1,7 +1,7 @@
 <?php
 
-use App\Data\Models\Opinion as OpinionModel;
-use App\Data\Models\OpinionsSubject as OpinionsSubjectModel;
+use App\Models\Opinion as OpinionModel;
+use App\Models\OpinionsSubject as OpinionsSubjectModel;
 use Illuminate\Database\Seeder;
 
 class OpinionsTableSeeder extends Seeder

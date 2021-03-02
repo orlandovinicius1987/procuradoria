@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
-use App\Data\Models\OpinionSubject;
+use App\Models\OpinionSubject;
 
 class NotInSubtree implements Rule
 {

@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\Notification;
+use App\Models\Notification;
 
 class Notifications extends Base
 {

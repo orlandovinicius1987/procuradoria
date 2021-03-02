@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\TipoUsuario;
+use App\Models\TipoUsuario;
 use Illuminate\Support\Facades\Cache;
 
 class TiposUsuarios extends Base

@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\ProcessoLei as ProcessoLeiModel;
+use App\Models\ProcessoLei as ProcessoLeiModel;
 
 class ProcessosLeis extends Base
 {

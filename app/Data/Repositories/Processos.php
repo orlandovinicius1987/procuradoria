@@ -2,17 +2,17 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\Acao;
-use App\Data\Models\Andamento;
-use App\Data\Models\Apenso;
-use App\Data\Models\Juiz;
-use App\Data\Models\Meio;
-use App\Data\Models\Processo;
-use App\Data\Models\ProcessoLei;
-use App\Data\Models\Tag;
-use App\Data\Models\TipoProcesso as ModelTipoProcesso;
-use App\Data\Models\Tribunal;
-use App\Data\Models\User as UserModel;
+use App\Models\Acao;
+use App\Models\Andamento;
+use App\Models\Apenso;
+use App\Models\Juiz;
+use App\Models\Meio;
+use App\Models\Processo;
+use App\Models\ProcessoLei;
+use App\Models\Tag;
+use App\Models\TipoProcesso as ModelTipoProcesso;
+use App\Models\Tribunal;
+use App\Models\User as UserModel;
 use App\Data\Repositories\Leis as LeiRepository;
 use App\Data\Scope\Processo as ProcessoScope;
 use Illuminate\Http\Request;

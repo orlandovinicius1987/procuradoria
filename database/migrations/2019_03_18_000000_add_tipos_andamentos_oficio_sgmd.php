@@ -1,6 +1,6 @@
 <?php
 
-use App\Data\Models\TipoAndamento;
+use App\Models\TipoAndamento;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 

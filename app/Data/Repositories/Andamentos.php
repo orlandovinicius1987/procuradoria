@@ -2,11 +2,11 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\Andamento;
-use App\Data\Models\Andamento as AndamentoModel;
-use App\Data\Models\Processo;
-use App\Data\Models\TipoAndamento;
-use App\Data\Models\TipoEntrada;
+use App\Models\Andamento;
+use App\Models\Andamento as AndamentoModel;
+use App\Models\Processo;
+use App\Models\TipoAndamento;
+use App\Models\TipoEntrada;
 use App\Http\Requests\Processo as ProcessoRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -77,7 +77,7 @@ class Andamentos extends Base
 
     /**
      * @param ProcessoRequest $request
-     * @param Processo        $p
+     * @param \App\Models\Processo        $p
      */
     public function createFromProcessos(ProcessoRequest $request, Processo $p)
     {

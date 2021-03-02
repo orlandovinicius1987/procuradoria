@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Data\Models\OpinionSubject as OpinionSubjectModel;
+use App\Models\OpinionSubject as OpinionSubjectModel;
 use Illuminate\Contracts\Validation\Rule;
 
 class NotRootSubject implements Rule

@@ -13,24 +13,24 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\Data\Models\Processo::class, function (Faker $faker) {
+$factory->define(\App\Models\Processo::class, function (Faker $faker) {
     return [
         'numero_judicial' => $faker->randomNumber(4),
         'numero_alerj' => $faker->randomNumber(4),
         'tribunal_id' => function () {
-            return factory(\App\Data\Models\Tribunal::class)->create()->id;
+            return factory(\App\Models\Tribunal::class)->create()->id;
         },
         'vara' => only_letters_and_space($faker->name), //'origem_complemento' => only_letters_and_space($faker->name),
         'data_distribuicao' => $faker->date('Y-m-d h:m:i'),
         'acao_id' => function () {
-            return factory(\App\Data\Models\Acao::class)->create()->id;
+            return factory(\App\Models\Acao::class)->create()->id;
         },
         'relator_id' => function () {
-            return factory(\App\Data\Models\Juiz::class)->create()->id;
+            return factory(\App\Models\Juiz::class)->create()->id;
         },
         'apensos_obs' => only_letters_and_space($faker->name),
         'juiz_id' => function () {
-            return factory(\App\Data\Models\Juiz::class)->create()->id;
+            return factory(\App\Models\Juiz::class)->create()->id;
         },
         'autor' => only_letters_and_space($faker->name),
         'reu' => only_letters_and_space($faker->name),
@@ -40,16 +40,16 @@ $factory->define(App\Data\Models\Processo::class, function (Faker $faker) {
         'liminar' => only_letters_and_space($faker->name),
         'recurso' => only_letters_and_space($faker->name),
         'procurador_id' => function () {
-            return factory(\App\Data\Models\User::class)->create()->id;
+            return factory(\App\Models\User::class)->create()->id;
         },
         'estagiario_id' => function () {
-            return factory(\App\Data\Models\User::class)->create()->id;
+            return factory(\App\Models\User::class)->create()->id;
         },
         'assessor_id' => function () {
-            return factory(\App\Data\Models\User::class)->create()->id;
+            return factory(\App\Models\User::class)->create()->id;
         },
         'tipo_meio_id' => function () {
-            return factory(\App\Data\Models\Meio::class)->create()->id;
+            return factory(\App\Models\Meio::class)->create()->id;
         }
     ];
 });

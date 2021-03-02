@@ -2,9 +2,9 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\Opinion;
-use App\Data\Models\OpinionAuthor;
-use App\Data\Models\User;
+use App\Models\Opinion;
+use App\Models\OpinionAuthor;
+use App\Models\User;
 use App\Data\Repositories\Users as UsersRepository;
 use App\Data\Repositories\OpinionAuthors as OpinionAuthorsRepository;
 use App\Data\Scope\ActiveOpinion;

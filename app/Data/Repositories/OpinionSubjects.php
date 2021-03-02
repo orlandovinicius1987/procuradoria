@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\OpinionSubject as OpinionSubjectsModel;
+use App\Models\OpinionSubject as OpinionSubjectsModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

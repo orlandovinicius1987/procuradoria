@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\TipoPrazo;
+use App\Models\TipoPrazo;
 
 class TiposPrazos extends Base
 {

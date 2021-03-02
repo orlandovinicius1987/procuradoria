@@ -11,7 +11,7 @@ class TruncateTiposJuizesEMeios extends Migration
      */
     public function up()
     {
-        \App\Data\Models\Meio::truncate();
-        \App\Data\Models\TipoJuiz::truncate();
+        \App\Models\Meio::truncate();
+        \App\Models\TipoJuiz::truncate();
     }
 }

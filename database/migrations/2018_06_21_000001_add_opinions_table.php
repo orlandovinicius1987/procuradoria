@@ -1,7 +1,7 @@
 <?php
 
-use App\Data\Models\OpinionScope;
-use App\Data\Models\OpinionType;
+use App\Models\OpinionScope;
+use App\Models\OpinionType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

@@ -1,14 +1,14 @@
 <?php
 
-use App\Data\Models\Busca;
-use App\Data\Models\Processo;
-use App\Data\Models\Opinion;
-use App\Data\Models\User;
+use App\Models\Busca;
+use App\Models\Processo;
+use App\Models\Opinion;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\Data\Models\Revision;
+use App\Models\Revision;
 
 class AlterTableUsers extends Migration
 {

@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\Meio as Meio;
+use App\Models\Meio as Meio;
 
 class Meios extends Base
 {
