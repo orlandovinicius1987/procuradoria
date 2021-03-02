@@ -51,10 +51,7 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('*', function ($view) {
             $view->with(
-                array_merge(
-                    ['formDisabled' => false, 'isFilter' => false],
-                    $view->getData()
-                )
+                array_merge(['formDisabled' => false, 'isFilter' => false], $view->getData())
             );
         });
     }
@@ -74,9 +71,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('use-app', function ($user = null) {
             if (config('auth.authorization.enabled')) {
                 $permissions = $user
-                    ? app(Authorization::class)->getUserPermissions(
-                        $user->username
-                    )
+                    ? app(Authorization::class)->getUserPermissions($user->username)
                     : null;
 
                 $this->usersRepository->updateCurrentUser($permissions);
