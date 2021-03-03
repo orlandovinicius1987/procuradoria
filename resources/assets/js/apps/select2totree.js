@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 const appName = 'vue-subjectsToTree'
 
 if (jQuery('#' + appName).length > 0) {
@@ -18,7 +20,7 @@ if (jQuery('#' + appName).length > 0) {
         },
 
         set(payload) {
-          input = document.getElementById('value-input')
+          var input = document.getElementById('value-input')
           input.value = payload
         },
       },
@@ -27,15 +29,11 @@ if (jQuery('#' + appName).length > 0) {
         get() {
           const e = document.getElementById('label-input')
           console.info(e.value)
-          return this.fullSubjectName
-            ? this.fullSubjectName
-            : e.value
-            ? e.value
-            : 'Root'
+          return this.fullSubjectName ? this.fullSubjectName : e.value ? e.value : 'Root'
         },
 
         set(payload) {
-          input = document.getElementById('label-input')
+          var input = document.getElementById('label-input')
           input.value = payload
           this.fullSubjectName = payload
         },
@@ -48,23 +46,19 @@ if (jQuery('#' + appName).length > 0) {
           .get('/assuntos/json/array', {
             params: {},
           })
-          .then(response => {
+          .then((response) => {
             this.subjectsArray = response.data
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error)
             this.subjectsArray = []
           })
 
         axios
-          .get(
-            '/assuntos/json/tree' +
-              (this.selectedId ? '/' + this.selectedId : ''),
-            {
-              params: {},
-            },
-          )
-          .then(response => {
+          .get('/assuntos/json/tree' + (this.selectedId ? '/' + this.selectedId : ''), {
+            params: {},
+          })
+          .then((response) => {
             this.subjectsTree = response.data
 
             console.log(this.subjectsTree)
@@ -74,15 +68,15 @@ if (jQuery('#' + appName).length > 0) {
               maximumSelectionLength: 3,
             })
 
-            $('#subjectsTreeSelect').on('change', () => {
+            $('#subjectsTreeSelect').on('change', (e) => {
               e = document.getElementById('subjectsTreeSelect')
-              id = e.options[e.selectedIndex].value
+              var id = e.options[e.selectedIndex].value
               this.selectedLabel = this.subjectsArray[id].full_name
 
               this.selectedId = e.options[e.selectedIndex].value
             })
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error)
 
             this.subjectsTree = []
