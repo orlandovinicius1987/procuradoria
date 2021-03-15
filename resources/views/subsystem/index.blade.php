@@ -13,14 +13,14 @@
                     <br><br><br><br>
 
                     <a
+                            dusk="{{App\Support\Constants::SUBSYSTEM_PROCESSOS}}_login"
                         class="btn btn-lg btn-primary"
                         style="font-size: 3em;"
                         href="{{ route('subsystem.select', ['subsystem' => App\Support\Constants::SUBSYSTEM_PROCESSOS]) }}"
-                    >
-                        Processos
-                    </a>
+                    >Processos</a>
 
                     <a
+                        dusk="{{App\Support\Constants::SUBSYSTEM_OPINIOES}}_login"
                         class="btn btn-lg btn-primary"
                         style="font-size: 3em;"
                         href="{{ route('subsystem.select', ['subsystem' => App\Support\Constants::SUBSYSTEM_OPINIOES]) }}"

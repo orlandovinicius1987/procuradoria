@@ -48,6 +48,6 @@ class Agenda extends Controller
      */
     public function feed()
     {
-        return $this->andamentosRepository->feedForFullCalendar();
+//        return $this->andamentosRepository->feedForFullCalendar();
     }
 }

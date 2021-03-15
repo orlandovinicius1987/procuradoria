@@ -5,6 +5,7 @@ namespace Tests\Browser;
 use App\Data\Repositories\Opinions;
 use App\Data\Repositories\Opinions as OpinionsRepository;
 use App\Data\Repositories\OpinionSubjects as OpinionSubjectsRepository;
+use App\Support\Constants;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 use Tests\DuskTestCase;
@@ -61,7 +62,7 @@ class OpinionsTest extends DuskTestCase
             ->toArray();
     }
 
-    public function testInsert()
+    public function testInsertOpinions()
     {
         $this->init();
 
@@ -88,7 +89,8 @@ class OpinionsTest extends DuskTestCase
             $authorO,
             $approveOptionO
         ) {
-            $browser = $this->loginPareceres($browser, false, 'Pareceres');
+            $system = Constants::SUBSYSTEM_OPINIOES;
+            $browser = $this->loginPareceres($browser, false, $system);
 
             $browser
                 ->clickLink('Novo')

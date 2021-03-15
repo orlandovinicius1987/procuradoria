@@ -12,7 +12,6 @@ class UsersTest extends DuskTestCase
     private static $personalEmailUsers;
     private static $randomUserUsers;
     private static $NameUsers;
-
     public function init()
     {
         $faker = app(Faker::class);
@@ -20,9 +19,7 @@ class UsersTest extends DuskTestCase
         static::$NameUsers = only_letters_and_space($faker->name);
 
         do {
-            static::$randomUserUsers = app(
-                UsersRepository::class
-            )->randomElement();
+            static::$randomUserUsers = app(UsersRepository::class)->randomElement();
         } while (static::$randomUserUsers->userType->nome == 'Administrador');
     }
 
@@ -39,9 +36,7 @@ class UsersTest extends DuskTestCase
                 ->click('#editar')
                 ->type('#personal_email', $NameU)
                 ->press('Gravar')
-                ->assertSee(
-                    'O campo Email pessoal não contém um endereço de email válido.'
-                );
+                ->assertSee('O campo Email pessoal não contém um endereço de email válido.');
         });
     }
 
@@ -50,10 +45,7 @@ class UsersTest extends DuskTestCase
         $personalEmailU = static::$personalEmailUsers;
         $randomUserU = static::$randomUserUsers;
 
-        $this->browse(function (Browser $browser) use (
-            $personalEmailU,
-            $randomUserU
-        ) {
+        $this->browse(function (Browser $browser) use ($personalEmailU, $randomUserU) {
             $browser
                 ->visit('/users/' . $randomUserU['id'])
                 ->click('#editar')
@@ -68,10 +60,7 @@ class UsersTest extends DuskTestCase
         $personalEmailU = static::$personalEmailUsers;
         $randomUserU = static::$randomUserUsers;
 
-        $this->browse(function (Browser $browser) use (
-            $personalEmailU,
-            $randomUserU
-        ) {
+        $this->browse(function (Browser $browser) use ($personalEmailU, $randomUserU) {
             $browser
                 ->visit('/users')
                 ->waitForText($randomUserU['name'])

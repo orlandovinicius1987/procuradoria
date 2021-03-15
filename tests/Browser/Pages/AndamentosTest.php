@@ -2,7 +2,7 @@
 
 namespace Tests\Browser;
 
-use App\Data\Models\Andamento;
+use App\Models\Andamento;
 use App\Data\Repositories\Processos as ProcessosRepository;
 use App\Data\Repositories\TiposAndamentos as TiposAndamentosRepository;
 use App\Data\Repositories\TiposPrazos as TiposPrazosRepository;

@@ -38,7 +38,7 @@ class AcoesTest extends DuskTestCase
         });
     }
 
-    public function testValidation()
+    public function testValidationAcoes()
     {
         $this->browse(function (Browser $browser) {
             $browser

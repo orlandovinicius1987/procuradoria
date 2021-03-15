@@ -34,9 +34,9 @@ namespace App\Data\Models {
     }
 }
 
-namespace App\Data\Models {
+namespace App\Models {
     /**
-     * App\Data\Models\Tipo_Juiz.
+     * App\Models\Tipo_Juiz.
      */
     class Tipo_Juiz extends \Eloquent
     {

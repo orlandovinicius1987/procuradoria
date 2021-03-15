@@ -7,9 +7,9 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Laravel\Dusk\TestCase as BaseTestCase;
 use Faker\Generator as Faker;
-use App\Data\Models\TipoUsuario;
+use App\Models\TipoUsuario;
 use Laravel\Dusk\Browser;
-use App\Data\Models\User;
+use App\Models\User;
 
 abstract class DuskTestCase extends BaseTestCase
 {
@@ -34,10 +34,11 @@ abstract class DuskTestCase extends BaseTestCase
                 ->toArray()
         );
 
+
         $browser
             ->loginAs($user['id'])
-            ->visit('/subsystem')
-            ->clickLink($selectedSubsystem);
+            ->visit('/subsystem/select/'.$selectedSubsystem);
+//            ->clickLink('Processos');
 
         return $browser;
     }

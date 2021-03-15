@@ -3,7 +3,7 @@
 namespace Tests\Browser;
 
 use App\Data\Repositories\Opinions as OpinionsRepository;
-use App\Data\Models\OpinionSubject as OpinionSubjectModel;
+use App\Models\OpinionSubject as OpinionSubjectModel;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 use Tests\DuskTestCase;

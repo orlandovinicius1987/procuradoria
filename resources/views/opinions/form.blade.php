@@ -63,6 +63,8 @@
                         <div class="form-group col-md-6">
                             <polymorphic-select alljson="{{ collect($authorables) }}"
                                                 selected="{{ $selectedAuthorableKey ?? null }}"
+                                                id="authorable_id"
+                                                name="authorable_id"
                                                 idname="authorable_id" typename="authorable_type" showname="Procurador" disabled="{{$formDisabled}}"></polymorphic-select>
                         </div>
                     </div>

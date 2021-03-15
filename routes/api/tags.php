@@ -1,3 +1,3 @@
 <?php
 
-Route::get('/tags', [\App\Http\Controllers\Tags::class, 'select'])->name('tags.select');
+Route::get('/tags', [\App\Http\Controllers\Api\Tags::class, 'select'])->name('tags.select');

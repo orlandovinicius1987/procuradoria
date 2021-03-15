@@ -1,5 +1,5 @@
 <?php
 
 Route::group(['prefix' => '/acoes'], function () {
-    Route::get('/', [\App\Http\Controllers\Acoes::class, 'select'])->name('acoes.select');
+    Route::get('/', [\App\Http\Controllers\Api\Acoes::class, 'select'])->name('acoes.select');
 });
