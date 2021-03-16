@@ -91,19 +91,21 @@ class OpinionsTest extends DuskTestCase
         ) {
             $system = Constants::SUBSYSTEM_OPINIOES;
             $browser = $this->loginPareceres($browser, false, $system);
-
             $browser
                 ->clickLink('Novo')
                 ->select('#opinion_scope_id', $opinionScopeO['id'])
-//                ->select('#authorable', $authorKeyO['id'])
-                                ->script("$('#authorable-select').val({$authorKeyO});
-                                    $('#authorable-select').trigger({
-                            type: 'select2:select',
-                            params: {
-                                        data: {id: {$authorKeyO}}
-                                    }
-                        });");
-                            $browser
+                ->script(
+                    '$("[class=\"form-control select2 select2-hidden-accessible\"]")[0].value = ' .
+                        $authorKeyO .
+                        ';
+                    $("[class=\"form-control select2 select2-hidden-accessible\"]")[0].dispatchEvent(new Event(\'change\'));
+                    $("[class=\"form-control select2 select2-hidden-accessible\"]").trigger(jQuery.Event( "select2:select", {params:{data:{id:' .
+                        $authorKeyO .
+                        '}}} ));
+                    '
+                );
+            $browser
+                ->screenshot('testeJavascript')
                 ->select('#approve_option_id', $approveOptionO['id'])
                 ->select('#opinion_type_id', $opinionTypeO['id'])
                 ->type('#suit_number', $suitNumberO)
@@ -114,10 +116,7 @@ class OpinionsTest extends DuskTestCase
                 ->type('#abstract', 'teste')
                 ->type('#opinion', $opinionO)
                 ->press('#gravar')
-                ->waitForText(
-                    'Gravado com sucesso. Insira os assuntos correspondentes.',
-                    10
-                )
+                ->waitForText('Gravado com sucesso. Insira os assuntos correspondentes.', 10)
                 ->waitForText($opinionScopeO)
                 ->assertSee($opinionScopeO['name'])
                 ->assertSee($authorO['name'])
@@ -170,10 +169,7 @@ class OpinionsTest extends DuskTestCase
         $opinionScopeO = static::$opinionScope;
         $isActiveO = static::$isActive;
 
-        $this->browse(function (Browser $browser) use (
-            $opinionScopeO,
-            $isActiveO
-        ) {
+        $this->browse(function (Browser $browser) use ($opinionScopeO, $isActiveO) {
             $browser
                 ->visit('/pareceres')
                 ->maximize()
@@ -237,11 +233,11 @@ class OpinionsTest extends DuskTestCase
                 ->script(
                     "$('#authorable-select').val($novoAuthorKeyO);
                     $('#authorable-select').trigger({
-            type: 'select2:select',
-            params: {
-                        data: {id: $novoAuthorKeyO}
-                    }
-        });"
+                        type: 'select2:select',
+                        params: {
+                                    data: {id: $novoAuthorKeyO}
+                                }
+                    });"
                 );
             $browser
                 ->select('#approve_option_id', $novoApproveOption['id'])
@@ -254,10 +250,7 @@ class OpinionsTest extends DuskTestCase
                 ->type('#abstract', 'testando')
                 ->type('#opinion', 'testando123')
                 ->press('Gravar')
-                ->waitForText(
-                    'Gravado com sucesso. Insira os assuntos correspondentes.',
-                    10
-                )
+                ->waitForText('Gravado com sucesso. Insira os assuntos correspondentes.', 10)
                 ->waitForText($novoOpinionScopeO)
                 ->assertSee($novoOpinionScopeO['name'])
                 ->assertSee($novoAuthor['name'])
@@ -269,9 +262,7 @@ class OpinionsTest extends DuskTestCase
 
     public function initSubject()
     {
-        static::$opinionSubject = app(
-            OpinionSubjectsRepository::class
-        )->notRootRandomElement();
+        static::$opinionSubject = app(OpinionSubjectsRepository::class)->notRootRandomElement();
 
         static::$opinionO = app(OpinionsRepository::class)->randomElement();
 
@@ -285,10 +276,7 @@ class OpinionsTest extends DuskTestCase
         $opinionO = static::$opinionO;
         $opinionSubjectO = static::$opinionSubject;
 
-        $this->browse(function (Browser $browser) use (
-            $opinionSubjectO,
-            $opinionO
-        ) {
+        $this->browse(function (Browser $browser) use ($opinionSubjectO, $opinionO) {
             $browser = $this->loginPareceres($browser, false, 'Pareceres');
 
             $browser
@@ -300,10 +288,7 @@ class OpinionsTest extends DuskTestCase
 
                 ->click('#relacionar-assunto')
                 ->waitForText('Root', 10)
-                ->script(
-                    'document.getElementById("value-input").value = ' .
-                        $opinionSubjectO->id
-                );
+                ->script('document.getElementById("value-input").value = ' . $opinionSubjectO->id);
             $browser
 
                 ->waitForText($opinionSubjectO->name, 10)
