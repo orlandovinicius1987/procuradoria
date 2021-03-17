@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use App\Support\Constants;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use App\Data\Repositories\ApproveOptions as ApproveOptionsRepository;
@@ -31,7 +32,8 @@ class RevisionsTest extends DuskTestCase
     public function testVisit()
     {
         $this->browse(function (Browser $browser) {
-            $browser = $this->loginPareceres($browser, false, 'Pareceres');
+
+            $browser = $this->loginPareceres($browser, false, Constants::SUBSYSTEM_OPINIOES);
             $browser->waitForText('Pareceres')->assertSee('Pareceres');
         });
     }

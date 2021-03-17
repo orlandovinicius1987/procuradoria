@@ -45,6 +45,7 @@ class OpinionFactory extends Factory
             'file_doc' => $this->faker->text,
             'created_by' => app(UsersRepository::class)->randomElement()->id,
             'updated_by' => app(UsersRepository::class)->randomElement()->id,
+            'is_active'=>$this->faker->boolean,
         ];
     }
 }

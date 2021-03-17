@@ -5,6 +5,8 @@ namespace Tests\Browser;
 use App\Data\Repositories\Opinions;
 use App\Data\Repositories\Opinions as OpinionsRepository;
 use App\Data\Repositories\OpinionSubjects as OpinionSubjectsRepository;
+use App\Data\Scope\ActiveOpinion;
+use App\Models\Opinion;
 use App\Support\Constants;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
@@ -30,8 +32,9 @@ class OpinionsTest extends DuskTestCase
     private static $opinionSubject;
     private static $opinionO;
     private static $authorKey;
+    private static $opinionModel;
 
-    public function init()
+    public function init($is_active = true)
     {
         $faker = app(Faker::class);
 
@@ -60,6 +63,10 @@ class OpinionsTest extends DuskTestCase
         static::$approveOption = app(ApproveOptionsRepository::class)
             ->randomElement()
             ->toArray();
+        static::$opinionModel = Opinion::withoutGlobalScope(ActiveOpinion::class)
+            ->where('is_active', '=', $is_active)
+            ->inRandomOrder()
+            ->first();
     }
 
     public function testInsertOpinions()
@@ -164,21 +171,24 @@ class OpinionsTest extends DuskTestCase
 
     public function testSearchWithCheckBox()
     {
-        $this->init();
+        $this->init(false);
 
         $opinionScopeO = static::$opinionScope;
         $isActiveO = static::$isActive;
+        $opinion = static::$opinionModel;
 
-        $this->browse(function (Browser $browser) use ($opinionScopeO, $isActiveO) {
+        $this->browse(function (Browser $browser) use ($opinionScopeO, $isActiveO, $opinion) {
             $browser
                 ->visit('/pareceres')
                 ->maximize()
-                ->type('pesquisa', $opinionScopeO['name'])
+                ->type('pesquisa', $opinion->abstract)
                 ->check('show-inactive')
                 ->click('#searchButton')
-                ->waitForText($opinionScopeO)
-                ->assertSee($opinionScopeO['name'])
-                ->assertNotChecked($isActiveO)
+                ->waitForText($opinion->abstract)
+                ->assertSee($opinion->abstract)
+                ->assertChecked($isActiveO)
+                ->assertDontSee('Nenhum parecer encontrado')
+                ->assertSee($opinion->id)
                 ->screenshot('TestSearchWithCheckbox');
         });
     }
@@ -197,7 +207,7 @@ class OpinionsTest extends DuskTestCase
         });
     }
 
-    public function testAlter()
+    public function testAlterOpinion()
     {
         $this->init();
 
@@ -226,6 +236,7 @@ class OpinionsTest extends DuskTestCase
             $novoAuthor,
             $novoApproveOption
         ) {
+            $browser = $this->loginPareceres($browser, false, Constants::SUBSYSTEM_OPINIOES);
             $browser
                 ->visit('/pareceres/' . $opinionAdress['id'])
                 ->click('#editar')

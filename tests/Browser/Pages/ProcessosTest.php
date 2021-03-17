@@ -8,6 +8,7 @@ use App\Data\Repositories\Meios as MeiosRepository;
 use App\Data\Repositories\Processos as ProcessosRepository;
 use App\Data\Repositories\Tribunais as TribunaisRepository;
 use App\Data\Repositories\Users as UsersRepository;
+use App\Support\Constants;
 use Faker\Generator as Faker;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -158,10 +159,7 @@ class ProcessosTest extends DuskTestCase
                 ->type('#numero_alerj', $numeroAlerjP)
                 ->select('#tribunal_id', $tribunalP['id'])
                 ->type('#vara', $varaP)
-                ->keys(
-                    '#data_distribuicao',
-                    $dataDistribuicaoP->format('d/m/Y')
-                )
+                ->keys('#data_distribuicao', $dataDistribuicaoP->format('d/m/Y'))
                 ->screenshot('testeDataDist')
                 ->select('#acao_id', $acaoP['id'])
                 ->select('#juiz_id', $juizP['id'])
@@ -282,7 +280,7 @@ class ProcessosTest extends DuskTestCase
         });
     }
 
-    public function testAlter()
+    public function testAlterProcess()
     {
         $faker = app(Faker::class);
         $ProcessoP = app(ProcessosRepository::class)
@@ -325,22 +323,22 @@ class ProcessosTest extends DuskTestCase
             $novoAssessorP,
             $novoEstagiarioP
         ) {
+            $browser = $this->loginPareceres($browser, false, Constants::SUBSYSTEM_PROCESSOS);
             $browser
                 ->visit('/processos/' . $ProcessoP['id'])
                 ->click('#editar')
                 ->type('#numero_judicial', $novoNumeroJudicialP)
                 ->select('#tribunal_id', $novoTribunalP['id'])
-                ->keys(
-                    '#data_distribuicao',
-                    $novoDataDistribuicaoP->format('d/m/Y')
-                )
+                ->keys('#data_distribuicao', $novoDataDistribuicaoP->format('d/m/Y'))
                 ->type('#autor', $novoAutorP)
                 ->select('#procurador_id', $novoProcuradorP['id'])
                 ->select('#estagiario_id', $novoEstagiarioP['id'])
                 ->select('#assessor_id', $novoAssessorP['id'])
                 ->type('#ementa', $novaEmentaP)
                 ->type('#objeto', $novoObjetoP)
-                ->press('Gravar')
+                ->screenshot('tela_processo')
+                ->press('Gravar');
+            $browser
                 ->assertSee('Gravado com sucesso', 30)
                 ->waitForText($novoNumeroJudicialP)
                 ->assertSee($novoNumeroJudicialP)

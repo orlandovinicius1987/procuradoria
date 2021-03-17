@@ -36,11 +36,11 @@ class OpinionPresenter extends BasePresenter
     {
         $id = $this->wrappedObject->id;
 
-        $extension = 'pdf';
 
+        $extension = 'pdf';
         return route('opinions.download', [
             'id' => $id,
-            'fileName' => $extension,
+            'fileExtension' => $extension,
         ]);
     }
 
@@ -52,7 +52,7 @@ class OpinionPresenter extends BasePresenter
 
         return route('opinions.download', [
             'id' => $id,
-            'fileName' => $extension,
+            'fileExtension' => $extension,
         ]);
     }
 }
