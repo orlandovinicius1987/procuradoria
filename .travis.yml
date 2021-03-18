@@ -40,6 +40,7 @@ before_script:
   - phpenv config-rm xdebug.ini || true
   - composer self-update
   - export LANGUAGE=pt_BR.UTF-8
+  - export TZ=America/Sao_Paulo
   - locale
   - cp .env.travis .env
   - cp .env.travis .env.dusk.local

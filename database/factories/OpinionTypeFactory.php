@@ -21,6 +21,6 @@ class OpinionTypeFactory extends Factory
      */
     public function definition()
     {
-        return ['name' => only_letters_and_space($faker->name)];
+        return ['name' => only_letters_and_space($this->faker->name)];
     }
 }

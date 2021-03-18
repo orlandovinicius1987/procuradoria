@@ -27,9 +27,7 @@ class AndamentosTest extends DuskTestCase
             ->randomElement()
             ->toArray();
         do {
-            static::$tipoAndamentoAndamento = app(
-                TiposAndamentosRepository::class
-            )
+            static::$tipoAndamentoAndamento = app(TiposAndamentosRepository::class)
                 ->randomElement()
                 ->toArray();
         } while (static::$tipoAndamentoAndamento['nome'] == 'Recebimento');
@@ -93,10 +91,7 @@ class AndamentosTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser
                 ->visit('/andamentos')
-                ->type(
-                    'pesquisa',
-                    '45879349875348975387958973489734897345893478957984'
-                )
+                ->type('pesquisa', '45879349875348975387958973489734897345893478957984')
                 ->click('#searchButton')
                 ->waitForText('Nenhum andamento encontrado')
                 ->assertSee('Nenhum andamento encontrado');
@@ -117,8 +112,9 @@ class AndamentosTest extends DuskTestCase
         });
     }
 
-    public function testAlter()
+    public function testAlterAndamentos()
     {
+        $this->init();
         $faker = app(Faker::class);
 
         $processoA = app(ProcessosRepository::class)

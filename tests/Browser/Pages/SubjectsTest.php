@@ -3,8 +3,10 @@
 namespace Tests\Browser;
 
 use App\Data\Repositories\Opinions as OpinionsRepository;
+use App\Models\OpinionsSubject;
 use App\Models\OpinionSubject as OpinionSubjectModel;
 use Carbon\Carbon;
+use Database\Factories\OpinionSubjectFactory;
 use Faker\Generator as Faker;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
@@ -18,7 +20,7 @@ class SubjectsTest extends DuskTestCase
 
     public function init()
     {
-        static::$newOpinionSubjectInfo = factory(
+        static::$newOpinionSubjectInfo = OpinionSubjectModel::factory(
             OpinionSubjectModel::class
         )->raw();
 
@@ -27,28 +29,25 @@ class SubjectsTest extends DuskTestCase
             ->toArray();
     }
 
-    public function testInsert()
+    public function testInsertSubject()
     {
         $this->init();
 
         $newOpinionSubjectInfoO = static::$newOpinionSubjectInfo;
 
-
-        $this->browse(function (Browser $browser) use (
-            $newOpinionSubjectInfoO
-        ) {
+        $this->browse(function (Browser $browser) use ($newOpinionSubjectInfoO) {
             $browser = $this->loginPareceres($browser, false, 'Pareceres');
 
-           // dd(OpinionSubjectModel::find($newOpinionSubjectInfoO['parent_id']));
+            //            dd($newOpinionSubjectInfoO);
 
             $browser
                 ->visit('/assuntos')
                 ->clickLink('Novo')
-                ->script(
-                    'document.getElementById("value-input").value = ' .
-                        $newOpinionSubjectInfoO['parent_id']
-                );
-            $browser
+                //                ->script(
+                //                    'document.getElementById("value-input").value = ' .
+                //                        $newOpinionSubjectInfoO['parent_id']
+                //                );
+                //            $browser
                 ->type('#name', $newOpinionSubjectInfoO['name'])
                 ->press('#gravar')
                 ->waitForText($newOpinionSubjectInfoO['name'])
@@ -67,8 +66,8 @@ class SubjectsTest extends DuskTestCase
                 ->clickLink('Novo')
                 ->waitForText('Gravar')
                 ->waitFor('#select2-subjectsTreeSelect-container', 10)
-//                ->waitForText('Root')
-//                ->pause(5)
+                //                ->waitForText('Root')
+                //                ->pause(5)
                 ->press('#gravar')
                 ->waitForText('O campo Nome é obrigatório.', 5)
                 ->assertSee('O campo Nome é obrigatório.')
@@ -87,17 +86,15 @@ class SubjectsTest extends DuskTestCase
         ) {
             $browser = $this->loginPareceres($browser, false, 'Pareceres');
 
-            $subjectReplaceAble = app(
-                OpinionSubjectsRepository::class
-            )->randomElementNotDescendant($newSubjectReplace['id']);
+            $subjectReplaceAble = app(OpinionSubjectsRepository::class)->randomElementNotDescendant(
+                $newSubjectReplace['id']
+            );
 
-            $browser
-                ->visit('/assuntos/' . $subjectReplaceAble->id)
-                ->click('#editar')
-                ->script(
-                    'document.getElementById("value-input").value = ' .
-                        $newTradeOpinionSubjectInfoO['parent_id']
-                );
+            $browser->visit('/assuntos/' . $subjectReplaceAble->id)->click('#editar');
+            //                ->script(
+            //                    'document.getElementById("value-input").value = ' .
+            //                        $newTradeOpinionSubjectInfoO['parent_id']
+            //                );
             $browser
                 ->type('#name', $newTradeOpinionSubjectInfoO['name'])
                 ->click('#gravar')
