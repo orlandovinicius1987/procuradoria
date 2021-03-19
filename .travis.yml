@@ -71,6 +71,7 @@ after_script:
 
 after_failure:
   - sleep 15s
+  - chmod 777 storage/logs
   - php artisan email:failure
   - cat storage/logs/laravel.log
 
