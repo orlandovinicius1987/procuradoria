@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use App\Models\Processo;
 use App\Models\Andamento;
 use App\Data\Repositories\Processos as ProcessosRepository;
 use App\Data\Repositories\TiposAndamentos as TiposAndamentosRepository;
@@ -23,8 +24,14 @@ class AndamentosTest extends DuskTestCase
     public function init()
     {
         $faker = app(Faker::class);
-        static::$processoAndamento = app(ProcessosRepository::class)
-            ->randomElement()
+        static::$processoAndamento = Processo::join(
+            'andamentos',
+            'processos.id',
+            '=',
+            'andamentos.processo_id'
+        )
+            ->inRandomOrder()
+            ->first()
             ->toArray();
         do {
             static::$tipoAndamentoAndamento = app(TiposAndamentosRepository::class)

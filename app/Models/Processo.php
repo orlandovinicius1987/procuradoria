@@ -21,23 +21,12 @@ class Processo extends BaseModel
     /**
      * @var array
      */
-    protected $dates = [
-        'data_distribuicao',
-        'data_recebimento',
-        'data_arquivamento',
-    ];
+    protected $dates = ['data_distribuicao', 'data_recebimento', 'data_arquivamento'];
 
     /**
      * @var array
      */
-    protected $with = [
-        'acao',
-        'tribunal',
-        'procurador',
-        'assessor',
-        'estagiario',
-        'tags',
-    ];
+    protected $with = ['acao', 'tribunal', 'procurador', 'assessor', 'estagiario', 'tags'];
 
     protected $numericColumns = ['numero_judicial'];
 
@@ -139,23 +128,11 @@ class Processo extends BaseModel
     {
         $notifiables = collect();
 
-        $this->addNotifiable(
-            $notifiables,
-            $this->procurador,
-            'Responsável (procurador)'
-        );
+        $this->addNotifiable($notifiables, $this->procurador, 'Responsável (procurador)');
 
-        $this->addNotifiable(
-            $notifiables,
-            $this->assessor,
-            'Responsável (assessor)'
-        );
+        $this->addNotifiable($notifiables, $this->assessor, 'Responsável (assessor)');
 
-        $this->addNotifiable(
-            $notifiables,
-            $this->estagiario,
-            'Responsável (estagiário)'
-        );
+        $this->addNotifiable($notifiables, $this->estagiario, 'Responsável (estagiário)');
 
         return $notifiables;
     }
