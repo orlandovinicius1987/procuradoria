@@ -54,7 +54,6 @@ before_script:
   - psql -d teste -U vagrant -c "show DateStyle;"
   - php artisan migrate
   - php artisan db:seed
-  - php artisan config:cache
   - php artisan dusk:chrome-driver
   - export DISPLAY=:100.0
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
