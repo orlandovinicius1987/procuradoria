@@ -326,6 +326,7 @@ class ProcessosTest extends DuskTestCase
             $browser = $this->loginPareceres($browser, false, Constants::SUBSYSTEM_PROCESSOS);
             $browser
                 ->visit('/processos/' . $ProcessoP['id'])
+                ->maximize()
                 ->click('#editar')
                 ->type('#numero_judicial', $novoNumeroJudicialP)
                 ->select('#tribunal_id', $novoTribunalP['id'])
