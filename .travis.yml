@@ -64,7 +64,7 @@ script:
   - sudo update-locale LANGUAGE="pt_BR.UTF-8"
   - locale
   - psql -d teste -U vagrant -c "show DateStyle;"
-  - php artisan dusk --filter=testAlterProcess
+  - php artisan dusk
 
 after_script:
   - cat nohup.out
