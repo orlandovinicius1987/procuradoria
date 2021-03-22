@@ -323,7 +323,7 @@ class ProcessosTest extends DuskTestCase
             $novoAssessorP,
             $novoEstagiarioP
         ) {
-            $browser = $this->loginPareceres($browser, false, Constants::SUBSYSTEM_PROCESSOS);
+            //  $browser = $this->loginPareceres($browser, false, Constants::SUBSYSTEM_PROCESSOS);
             $browser
                 ->visit('/processos/' . $ProcessoP['id'])
                 ->maximize()
