@@ -67,7 +67,7 @@ script:
   - php artisan dusk
 
 after_script:
-  - cat nohup.outFacebook\WebDriver\Exception\UnknownErrorException: unknown error: net::ERR_CONNECTION_REFUSED
+  - cat nohup.out
 
 after_failure:
   - sleep 15s
