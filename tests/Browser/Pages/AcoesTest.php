@@ -26,7 +26,7 @@ class AcoesTest extends DuskTestCase
         $abreviacaoA = static::$abreviacaoAcao;
 
         $this->browse(function (Browser $browser) use ($nomeA, $abreviacaoA) {
-            dd($browser->visit('/acoes'));
+            $browser->visit('/acoes');
             $browser
                 ->clickLink('Novo')
                 ->type('#nome', $nomeA)
