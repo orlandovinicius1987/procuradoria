@@ -26,8 +26,8 @@ class AcoesTest extends DuskTestCase
         $abreviacaoA = static::$abreviacaoAcao;
 
         $this->browse(function (Browser $browser) use ($nomeA, $abreviacaoA) {
+            dd($browser->visit('/acoes'));
             $browser
-                ->visit('/acoes')
                 ->clickLink('Novo')
                 ->type('#nome', $nomeA)
                 ->type('#abreviacao', $abreviacaoA)
@@ -55,10 +55,7 @@ class AcoesTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser
                 ->visit('/acoes')
-                ->type(
-                    'pesquisa',
-                    '45879349875348975387958973489734897345893478957984'
-                )
+                ->type('pesquisa', '45879349875348975387958973489734897345893478957984')
                 ->click('#searchButton')
                 ->waitForText('Nenhuma ação encontrada')
                 ->assertSee('Nenhuma ação encontrada');
