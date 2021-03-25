@@ -76,6 +76,7 @@ after_failure:
   - chmod 777 storage/logs/laravel.log
   - php artisan email:failure
   - cat storage/logs/laravel.log
+  - cat .env
 
 notifications:
   email: false
