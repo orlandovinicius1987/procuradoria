@@ -41,9 +41,7 @@ class ProcessoUpdated extends Notification implements ShouldQueue
      */
     private function getMessage()
     {
-        return 'Os dados do processo ' .
-            $this->processo->numero_judicial .
-            ' sofreram alterações';
+        return 'Os dados do processo ' . $this->processo->numero_judicial . ' sofreram alterações';
     }
 
     /**
@@ -67,30 +65,23 @@ class ProcessoUpdated extends Notification implements ShouldQueue
     {
         $via = [];
 
-        if (
-            is_null(
-                $this->notificationsRepository->findByHash(
-                    $notifiable,
-                    $this->processo
-                )
-            )
-        ) {
+        if (is_null($this->notificationsRepository->findByHash($notifiable, $this->processo))) {
             $via[] = 'mail';
         }
 
-        if (
-            !is_null($this->getSlackNotifiable()) &&
-            is_null(
-                $this->notificationsRepository->findByHash(
-                    $this->getSlackNotifiable(),
-                    $this->processo
-                )
-            )
-        ) {
-            $via[] = 'slack';
-        }
-
-        return $via;
+        //        if (
+        //            !is_null($this->getSlackNotifiable()) &&
+        //            is_null(
+        //                $this->notificationsRepository->findByHash(
+        //                    $this->getSlackNotifiable(),
+        //                    $this->processo
+        //                )
+        //            )
+        //        ) {
+        //            $via[] = 'slack';
+        //        }
+        //
+        //        return $via;
     }
 
     /**
@@ -106,10 +97,7 @@ class ProcessoUpdated extends Notification implements ShouldQueue
             $message->line("{$manager->type}: {$manager->name}");
         });
 
-        $message->action(
-            'Ver processo',
-            route('processos.show', $this->processo->id)
-        );
+        $message->action('Ver processo', route('processos.show', $this->processo->id));
 
         return $message;
     }
@@ -145,17 +133,12 @@ class ProcessoUpdated extends Notification implements ShouldQueue
             ->success()
             ->content($this->getMessage())
             ->attachment(function ($attachment) {
-                $attachment->title(
-                    'Ver processo',
-                    route('processos.show', $this->processo->id)
-                );
+                $attachment->title('Ver processo', route('processos.show', $this->processo->id));
             });
 
         $this->getNotifiables()->each(function ($manager) use ($message) {
             $message->attachment(function ($attachment) use ($manager) {
-                $attachment->title(
-                    "{$manager->type}} notificado: {$manager->name}"
-                );
+                $attachment->title("{$manager->type}} notificado: {$manager->name}");
             });
         });
 
