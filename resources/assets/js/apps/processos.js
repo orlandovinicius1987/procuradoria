@@ -4,7 +4,7 @@ import Vue from 'vue'
 import Paginate from 'vuejs-paginate'
 import TextHighlight from 'vue-text-highlight'
 
-//var accents = require('remove-accents')
+var accents = require('remove-accents')
 
 Vue.component('paginate', Paginate)
 Vue.component('text-highlight', TextHighlight)
